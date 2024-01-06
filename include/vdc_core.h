@@ -74,7 +74,6 @@ void vdc_cls();
 // Global variables
 extern char vdc_memsize;
 extern char linebuffer[81];
-extern char linebuffer2[81];
 extern char vdc_text_attr;
 
 #pragma compile("vdc_core.c")

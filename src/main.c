@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <conio.h>
+#include <petscii.h>
 #include <c128/vdc.h>
 #include <c128/mmu.h>
 #include "defines.h"
@@ -14,9 +15,6 @@ int main(void)
 {
 	char x, y, screencode = 0, color = 0, reverse = 0;
 	unsigned address;
-
-	// Switch MMU to RAM in low and mid range
-	mmu.cr = 0x0e;
 
 	vdc_init();
 
@@ -66,9 +64,6 @@ int main(void)
 	}
 
 	vdc_exit();
-
-	// Switch MMU to ROM in low and mid range
-	mmu.cr = 0x00;
 
 	return 0;
 }

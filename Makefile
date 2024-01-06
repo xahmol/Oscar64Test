@@ -1,6 +1,6 @@
 
 # Target
-SYS = c128b
+SYS = c128e
 
 # Just the usual way to find out if we're
 # using cmd.exe to execute make rules.
