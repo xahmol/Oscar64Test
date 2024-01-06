@@ -16,7 +16,7 @@ int main(void)
 	char x, y, screencode = 0, color = 0, reverse = 0;
 	unsigned address;
 
-	vdc_init();
+	vdc_init(VDC_TEXT_80x50,1);
 
 	vdc_hchar(0, 0, C_SPACE, VDC_LGREEN + VDC_A_REVERSE + VDC_A_ALTCHAR, 79);
 	vdc_textcolor(VDC_LGREEN);
@@ -26,7 +26,7 @@ int main(void)
 	vdc_textcolor(VDC_LYELLOW);
 
 	// Detect VDC mem size
-	sprintf(linebuffer, "VDC Memory Detected: %u KB", vdc_memsize);
+	sprintf(linebuffer, "VDC Memory Detected: %u KB", vdc_state.memsize);
 	vdc_prints(0, 2, linebuffer);
 
 	// Draw frame
@@ -58,8 +58,8 @@ int main(void)
 	for(x=0;x<20;x++)
 	{
 		getch();
-		vdc_scroll_copy(address+VDCBASETEXT,address+VDCBASETEXT+80,19,70);
-		vdc_scroll_copy(address+VDCBASEATTR,address+VDCBASEATTR+80,19,70);
+		vdc_scroll_copy(address+vdc_state.base_text,address+vdc_state.base_text+80,19,70);
+		vdc_scroll_copy(address+vdc_state.base_attr,address+vdc_state.base_attr+80,19,70);
 		vdc_hchar(5,23,C_SPACE,VDC_LYELLOW,70);
 	}
 

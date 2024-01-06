@@ -6,9 +6,13 @@
 #include "vdc_core.h"
 #include "peekpoke.h"
 
-char vdc_memsize = 0;
 char linebuffer[81];
-char vdc_text_attr = VDC_LYELLOW + VDC_A_ALTCHAR;
+struct VDCStatus vdc_state;
+
+struct VDCModeSet vdc_modes[2] =
+    {
+        {80, 25, 0, 0x0000, 0x0800, 0x1000, 0x1800, 0x2000, 0x3000, 0x4000, {VDCR_HTOTAL, 0x7f, VDCR_VTOTAL, 0x26, VDCR_VDISPLAY, 0x19, VDCR_VSYNC, 0x20, VDCR_LACE, 0xfc, VDCR_CSIZE, 0xe7, 255}},
+        {80, 50, 1, 0x0000, 0x0100, 0x4000, 0x5000, 0x2000, 0x3000, 0x6000, {VDCR_HTOTAL, 0x7f, VDCR_VTOTAL, 0x40, VDCR_VDISPLAY, 0x32, VDCR_VSYNC, 0x3a, VDCR_LACE, 0x03, VDCR_CSIZE, 0x07, 255}}};
 
 char screen_width()
 // Return screenwidth 40 or 80
@@ -73,20 +77,79 @@ char pet2screen(char p)
     return p;
 }
 
-void vdc_init()
+void vdc_set_disp_address(unsigned text, unsigned attr)
+// Function to set the VDC display addresses for text and attributes
+{
+    // Text
+    vdc_reg_write(VDCR_DISP_ADDRH, text >> 8); // Set high byte of text address
+    vdc_reg_write(VDCR_DISP_ADDRL, text);      // Set low byte of text address
+    // Attribute
+    vdc_reg_write(VDCR_ATTR_ADDRH, attr >> 8); // Set high byte of attribute address
+    vdc_reg_write(VDCR_ATTR_ADDRL, attr);      // Set low byte of attribute address
+}
+
+void vdc_set_charset_address(unsigned address)
+// Function to set the VDC display addresses for text and attributes
+{
+    // Get old value and wipe bits 5-7
+    char value = vdc_reg_read(VDCR_CHAR_ADDRH) & 0x1f;
+    printf("%2X %2X", vdc_reg_read(VDCR_CHAR_ADDRH), value);
+
+    // Calculate most significant three bits of address and add to value
+    value += (address >> 8) & 0xe0;
+
+    // Save new value
+    vdc_reg_write(VDCR_CHAR_ADDRH, value);
+}
+
+char vdc_set_mode(char mode)
+// Function to set one of the preset VDC modes. Returns 1=succes, 0=fail.
+{
+    char index = 0;
+
+    // Check if extended memory is required and available. If not, return with code 0.
+    if (vdc_modes[mode].extmem && vdc_state.memsize == 16)
+    {
+        return 0;
+    }
+
+    // Set screen state
+    vdc_state.width = vdc_modes[mode].width;
+    vdc_state.height = vdc_modes[mode].height;
+    vdc_state.base_text = vdc_modes[mode].base_text;
+    vdc_state.base_attr = vdc_modes[mode].base_attr;
+    vdc_state.swap_text = vdc_modes[mode].swap_text;
+    vdc_state.swap_attr = vdc_modes[mode].swap_attr;
+    vdc_state.char_std = vdc_modes[mode].char_std;
+    vdc_state.char_alt = vdc_modes[mode].char_alt;
+    vdc_state.extended = vdc_modes[mode].extended;
+
+    // Set VDC addresses
+    vdc_set_disp_address(vdc_modes[mode].base_text, vdc_modes[mode].base_attr);
+    vdc_set_charset_address(vdc_modes[mode].char_std);
+
+    do
+    {
+        vdc_reg_write(vdc_modes[mode].regset[index++], vdc_modes[mode].regset[index++]);
+    } while (vdc_modes[mode].regset[index] != 255);
+
+    // Check if extended memory is required and not yet set. If so, set.
+    if (vdc_modes[mode].extmem && !vdc_state.memextended)
+    {
+        vdc_set_extended_memsize();
+    }
+}
+
+void vdc_init(char mode, char extmem)
 // Initialize VDC screen
 {
     // Init screen colors
     vdc_bgcolor(VDC_BLACK);
     vdc_fgcolor(VDC_LYELLOW);
-    vdc_text_attr = VDC_LYELLOW + VDC_A_ALTCHAR;
+    vdc_state.text_attr = VDC_LYELLOW + VDC_A_ALTCHAR;
 
     // Detect VDC memsize and set to extended if 64 KB
     vdc_detect_mem_size();
-    if (vdc_memsize == 64)
-	{
-		vdc_set_extended_memsize();
-	}
 
     // Give message if 40 column screen is active and wait on key before switching to 80
     if (screen_width() == 40)
@@ -99,24 +162,29 @@ void vdc_init()
 
     // Set 2 Mhz mode
     fastmode(1);
+
+    // Set screen mode
+    vdc_set_mode(mode);
+
+    // If 64 KB VDC and extmem is requested, enable it.
+    if (vdc_state.memsize == 64 && extmem)
+    {
+        vdc_set_extended_memsize();
+    }
 }
 
 void vdc_exit()
 // Return to normal state of VDC
 {
-    fastmode(0); // Disable fast mode
-    vdc_cls();   // Clear screen
+    fastmode(0);                  // Disable fast mode
+    vdc_set_mode(VDC_TEXT_80x25); // Set default mode
+    vdc_cls();                    // Clear screen
 }
 
 unsigned vdc_coords(char x, char y)
 // Function returns a VDC memory address for given x,y coords. To be added to base address for text or attributes.
 {
-    unsigned addr = (y * 80) + x;
-
-    if (addr < 2000)
-        return addr;
-    else
-        return -1;
+    return (y * vdc_state.width) + x;
 }
 
 void vdc_restore_charsets()
@@ -143,7 +211,7 @@ void vdc_detect_mem_size()
 
     // Reading back value of VDC $1fff and comparing value with $00 to see if 64KB address could be read
     // If value has remained 0, then 64 KB VDC mem is detected, else 16.
-    vdc_memsize = (vdc_mem_read_at(0x1fff) == 0x00) ? 64 : 16;
+    vdc_state.memsize = (vdc_mem_read_at(0x1fff) == 0x00) ? 64 : 16;
 
     // Restore bit 4 of register 28
     vdc_reg_write(VDCR_CHAR_ADDRH, ramtype);
@@ -217,8 +285,8 @@ void vdc_scroll_copy(unsigned dest, unsigned src, char lines, char length)
     for (char line = 0; line < lines; line++)
     {
         vdc_block_copy_page(dest, src, length);
-        src += 80;
-        dest += 80;
+        src += vdc_state.width;
+        dest += vdc_state.width;
     }
 }
 
@@ -238,23 +306,37 @@ void vdc_wipe_mem()
 void vdc_set_extended_memsize()
 // Function to set VDC in 64k memory configuration
 {
+    // Check if 64 KB VDC, return if 16. Also return if already set.
+    if (vdc_state.memsize == 16 || vdc_state.memextended)
+    {
+        return;
+    }
+
     vdc_disable_display();                                                // Disable display to not show artifacts
     vdc_wipe_mem();                                                       // Wipe memory to avoid artifacts
     vdc_reg_write(VDCR_CHAR_ADDRH, vdc_reg_read(VDCR_CHAR_ADDRH) | 0x10); // Setting memory mode to 64KB by setting bit 4 of register 28
     vdc_restore_charsets();                                               // Restore charsets from ROM
     vdc_cls();                                                            // CLear VDC screen with spaces in color ywllow
     vdc_enable_display();                                                 // Enable display again
+    vdc_state.memextended = 1;                                            // Set state flag
 }
 
 void vdc_set_default_memsize()
 // Function to set VDC in default memory configuration
 {
+    // Check if already in default mode
+    if (!vdc_state.memextended)
+    {
+        return;
+    }
+
     vdc_disable_display();                                                // Disable display to not show artifacts
     vdc_wipe_mem();                                                       // Wipe memory to avoid artifacts
     vdc_reg_write(VDCR_CHAR_ADDRH, vdc_reg_read(VDCR_CHAR_ADDRH) & 0xef); // Setting memory mode to 64KB by clearing bit 4 of register 28
     vdc_restore_charsets();                                               // Restore charsets from ROM
     vdc_cls();                                                            // CLear VDC screen with spaces in color ywllow
     vdc_enable_display();                                                 // Enable display again
+    vdc_state.memextended = 0;                                            // Set state flag
 }
 
 void vdc_bgcolor(char color)
@@ -273,39 +355,39 @@ void vdc_textcolor(char color)
 // Set default text attributes
 {
     // Set color while retaining bits 4-7
-    vdc_text_attr = (vdc_text_attr & 0xf0) + color;
+    vdc_state.text_attr = (vdc_state.text_attr & 0xf0) + color;
 }
 
 void vdc_altchar(char set)
 // Clear (set=0) or set (set=1) alternate charset mode
 {
-    vdc_text_attr = (set) ? (vdc_text_attr | VDC_A_ALTCHAR) : (vdc_text_attr & ~VDC_A_ALTCHAR);
+    vdc_state.text_attr = (set) ? (vdc_state.text_attr | VDC_A_ALTCHAR) : (vdc_state.text_attr & ~VDC_A_ALTCHAR);
 }
 
 void vdc_blink(char set)
 // Clear (set=0) or set (set=1) blink mode
 {
-    vdc_text_attr = (set) ? (vdc_text_attr | VDC_A_BLINK) : (vdc_text_attr & ~VDC_A_BLINK);
+    vdc_state.text_attr = (set) ? (vdc_state.text_attr | VDC_A_BLINK) : (vdc_state.text_attr & ~VDC_A_BLINK);
 }
 
 void vdc_underline(char set)
 // Clear (set=0) or set (set=1) underline mode
 {
-    vdc_text_attr = (set) ? (vdc_text_attr | VDC_A_UNDERLINE) : (vdc_text_attr & ~VDC_A_UNDERLINE);
+    vdc_state.text_attr = (set) ? (vdc_state.text_attr | VDC_A_UNDERLINE) : (vdc_state.text_attr & ~VDC_A_UNDERLINE);
 }
 
 void vdc_reverse(char set)
 // Clear (set=0) or set (set=1) reverse mode
 {
-    vdc_text_attr = (set) ? (vdc_text_attr | VDC_A_REVERSE) : (vdc_text_attr & ~VDC_A_REVERSE);
+    vdc_state.text_attr = (set) ? (vdc_state.text_attr | VDC_A_REVERSE) : (vdc_state.text_attr & ~VDC_A_REVERSE);
 }
 
 void vdc_printc(char x, char y, char val, char attr)
 // Function to plot a char at a given coordinate
 {
     unsigned address = vdc_coords(x, y);
-    vdc_mem_write_at(address + VDCBASETEXT, val);
-    vdc_mem_write_at(address + VDCBASEATTR, attr);
+    vdc_mem_write_at(address + vdc_state.base_text, val);
+    vdc_mem_write_at(address + vdc_state.base_attr, attr);
 }
 
 void vdc_prints(char x, char y, const char *string)
@@ -315,22 +397,22 @@ void vdc_prints(char x, char y, const char *string)
     char len = strlen(string);
 
     // Print text
-    vdc_mem_addr(address + VDCBASETEXT);
+    vdc_mem_addr(address + vdc_state.base_text);
     for (char i = 0; i < len; i++)
     {
         vdc_write(pet2screen(string[i]));
     }
 
     // Color
-    vdc_block_fill(address + VDCBASEATTR, vdc_text_attr, len - 1);
+    vdc_block_fill(address + vdc_state.base_attr, vdc_state.text_attr, len - 1);
 }
 
 void vdc_hchar(char x, char y, char val, char attr, char length)
 // Function to plot horizontal line using block copy
 {
     unsigned address = vdc_coords(x, y);
-    vdc_block_fill(address + VDCBASETEXT, val, length - 1); // Text
-    vdc_block_fill(address + VDCBASEATTR, attr, length - 1); // Attributes
+    vdc_block_fill(address + vdc_state.base_text, val, length - 1);  // Text
+    vdc_block_fill(address + vdc_state.base_attr, attr, length - 1); // Attributes
 }
 
 void vdc_vchar(char x, char y, char val, char attr, char length)
@@ -347,12 +429,12 @@ void vdc_clear(char x, char y, char val, char length, char lines)
 {
     for (char i = y; i < y + lines; i++)
     {
-        vdc_hchar(x, i, val, vdc_text_attr, length);
+        vdc_hchar(x, i, val, vdc_state.text_attr, length);
     }
 }
 
 void vdc_cls()
 // Function to clear VDC screen with given value and attribute
 {
-    vdc_clear(0, 0, C_SPACE, 80, 25);
+    vdc_clear(0, 0, C_SPACE, vdc_state.width, vdc_state.height);
 }

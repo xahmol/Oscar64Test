@@ -1,15 +1,6 @@
 #ifndef VDC_CORE_H
 #define VDC_CORE_H
 
-// VDC addressing
-#define VDCBASETEXT 0x0000 // Base address for text screen characters
-#define VDCBASEATTR 0x0800 // Base address for text screen attributes
-#define VDCSWAPTEXT 0x1000 // Base address for swap text screen characters
-#define VDCSWAPATTR 0x1800 // Base address for swap text screen attributes
-#define VDCCHARSTD 0x2000  // Base address for standard charset
-#define VDCCHARALT 0x3000  // Base address for alternate charset
-#define VDCEXTENDED 0x4000 // Base address of 64K VDC extended memory space
-
 // VDC color values
 #define VDC_BLACK 0
 #define VDC_DGREY 1
@@ -41,9 +32,13 @@
 char screenwidth();
 void screen_setmode(char mode);
 void fastmode(char set);
-char *AscToPet(char *ascii);
 char pet2screen(char p);
-void vdc_init();
+void vdc_reg_save();
+void vdc_reg_restore();
+void vdc_set_disp_address(unsigned text, unsigned attr);
+void vdc_set_charset_address(unsigned address);
+char vdc_set_mode(char mode);
+void vdc_init(char mode, char extmem);
 void vdc_exit();
 unsigned vdc_coords(char x, char y);
 void vdc_restore_charsets();
@@ -72,9 +67,44 @@ void vdc_clear(char x, char y, char val, char length, char lines);
 void vdc_cls();
 
 // Global variables
-extern char vdc_memsize;
+enum VDCMode
+{
+    VDC_TEXT_80x25,
+    VDC_TEXT_80x50
+};
+struct VDCModeSet
+{
+    unsigned width;
+    unsigned height;
+    char extmem;
+    unsigned base_text;
+    unsigned base_attr;
+    unsigned swap_text;
+    unsigned swap_attr;
+    unsigned char_std;
+    unsigned char_alt;
+    unsigned extended;
+    char regset[13];
+};
+extern struct VDCModeSet vdc_modes[2];
+struct VDCStatus
+{
+    char memsize;
+    char memextended;
+    char mode;
+    unsigned width;
+    unsigned height;
+    char text_attr;
+    unsigned base_text;
+    unsigned base_attr;
+    unsigned swap_text;
+    unsigned swap_attr;
+    unsigned char_std;
+    unsigned char_alt;
+    unsigned extended;
+};
+extern struct VDCStatus vdc_state;
 extern char linebuffer[81];
-extern char vdc_text_attr;
 
 #pragma compile("vdc_core.c")
 
