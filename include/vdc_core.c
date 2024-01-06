@@ -108,6 +108,18 @@ char pet2screen(char p)
 void vdc_init()
 // Initialize VDC screen
 {
+    // Init screen colors
+    vdc_bgcolor(VDC_BLACK);
+    vdc_fgcolor(VDC_LYELLOW);
+    vdc_text_attr = VDC_LYELLOW + VDC_A_ALTCHAR;
+
+    // Detect VDC memsize and set to extended if 64 KB
+    vdc_detect_mem_size();
+    if (vdc_memsize == 64)
+	{
+		vdc_set_extended_memsize();
+	}
+
     // Give message if 40 column screen is active and wait on key before switching to 80
     if (screen_width() == 40)
     {
@@ -119,12 +131,6 @@ void vdc_init()
 
     // Set 2 Mhz mode
     fastmode(1);
-
-    // Init screen colors
-    vdc_bgcolor(VDC_BLACK);
-    vdc_fgcolor(VDC_LYELLOW);
-    vdc_text_attr = VDC_LYELLOW + VDC_A_ALTCHAR;
-    vdc_cls();
 }
 
 void vdc_exit()
@@ -173,18 +179,21 @@ void vdc_detect_mem_size()
 
     // Restore bit 4 of register 28
     vdc_reg_write(VDCR_CHAR_ADDRH, ramtype);
+
+    // Do a clear screen
+    vdc_cls();
 }
 
 void vdc_disable_display()
 // Function to disable VDC display
 {
-    vdc_reg_write(VDCR_CWIDTH, 0);
+    vdc_reg_write(VDCR_HSTART, 0x80);
 }
 
-void vdc_enble_display()
+void vdc_enable_display()
 // Function to enable VDC display
 {
-    vdc_reg_write(VDCR_CWIDTH, 0x7d);
+    vdc_reg_write(VDCR_HSTART, 0x7d);
 }
 
 void vdc_block_fill(unsigned address, char value, char length)
@@ -197,6 +206,52 @@ void vdc_block_fill(unsigned address, char value, char length)
     vdc_write(value);                                               // Write value to data register
     vdc_reg_write(VDCR_VSCROLL, vdc_reg_read(VDCR_VSCROLL) & 0x7f); // Clear copy bit (bit 7) of register 24
     vdc_reg_write(VDCR_DSIZE, length);                              // Set block copy length
+}
+
+void vdc_block_copy_page(unsigned dest, unsigned src, char length)
+// Function to copy maximum a page within VDC memory using fast block copy
+// Input: Destination (dest) amd source (src) addresses, length max 255 zero based
+{
+    // Set base addresses
+    vdc_mem_addr(dest);                                             // Set VDC destination address
+    vdc_reg_write(VDCR_VSCROLL, vdc_reg_read(VDCR_VSCROLL) | 0x80); // Set copy bit (bit 7) of registerv 24
+    vdc_reg_write(VDCR_BLOCK_ADDRH, src >> 8);                      // Set high byte of source address
+    vdc_reg_write(VDCR_BLOCK_ADDRL, src);                           // Set low byte of source address
+    vdc_reg(VDCR_DATA);                                             // Write to VDC
+
+    // Set length
+    vdc_reg_write(VDCR_DSIZE, length); // Set length in register 30
+}
+
+void vdc_block_copy(unsigned dest, unsigned src, unsigned length)
+// Function to copy multiple pages within VDC memory using fast block copy
+// Input: Destination (dest) amd source (src) addresses, length zero based
+{
+    char pages = length / 256;    // Calculate number of pages
+    char lastpage = length % 256; // Calculate length left after doing all full pages
+
+    // Copy full pages
+    for (char page = 0; page < pages; page++)
+    {
+        vdc_block_copy_page(dest, src, 255);
+        dest += 256;
+        src += 256;
+    }
+
+    // Copy length left
+    vdc_block_copy_page(dest, src, lastpage);
+}
+
+void vdc_scroll_copy(unsigned dest, unsigned src, char lines, char length)
+// Function to copy a window of lines by length within VDC memory to another location
+// Source address is address of upper left corner
+{
+    for (char line = 0; line < lines; line++)
+    {
+        vdc_block_copy_page(dest, src, length);
+        src += 80;
+        dest += 80;
+    }
 }
 
 void vdc_wipe_mem()
@@ -220,7 +275,7 @@ void vdc_set_extended_memsize()
     vdc_reg_write(VDCR_CHAR_ADDRH, vdc_reg_read(VDCR_CHAR_ADDRH) | 0x10); // Setting memory mode to 64KB by setting bit 4 of register 28
     vdc_restore_charsets();                                               // Restore charsets from ROM
     vdc_cls();                                                            // CLear VDC screen with spaces in color ywllow
-    vdc_enble_display();                                                  // Enable display again
+    vdc_enable_display();                                                 // Enable display again
 }
 
 void vdc_set_default_memsize()
@@ -231,7 +286,7 @@ void vdc_set_default_memsize()
     vdc_reg_write(VDCR_CHAR_ADDRH, vdc_reg_read(VDCR_CHAR_ADDRH) & 0xef); // Setting memory mode to 64KB by clearing bit 4 of register 28
     vdc_restore_charsets();                                               // Restore charsets from ROM
     vdc_cls();                                                            // CLear VDC screen with spaces in color ywllow
-    vdc_enble_display();                                                  // Enable display again
+    vdc_enable_display();                                                 // Enable display again
 }
 
 void vdc_bgcolor(char color)
@@ -277,12 +332,12 @@ void vdc_reverse(char set)
     vdc_text_attr = (set) ? (vdc_text_attr | VDC_A_REVERSE) : (vdc_text_attr & ~VDC_A_REVERSE);
 }
 
-void vdc_printc(char x, char y, char val)
+void vdc_printc(char x, char y, char val, char attr)
 // Function to plot a char at a given coordinate
 {
     unsigned address = vdc_coords(x, y);
-    vdc_mem_write_at(address + VDCBASETEXT, pet2screen(ascToPetTable[val]));
-    vdc_mem_write_at(address + VDCBASETEXT, vdc_text_attr);
+    vdc_mem_write_at(address + VDCBASETEXT, val);
+    vdc_mem_write_at(address + VDCBASEATTR, attr);
 }
 
 void vdc_prints(char x, char y, const char *string)
@@ -307,7 +362,7 @@ void vdc_hchar(char x, char y, char val, char attr, char length)
 {
     unsigned address = vdc_coords(x, y);
     vdc_block_fill(address + VDCBASETEXT, val, length - 1); // Text
-    vdc_block_fill(address + VDCBASEATTR, val, length - 1); // Attributes
+    vdc_block_fill(address + VDCBASEATTR, attr, length - 1); // Attributes
 }
 
 void vdc_vchar(char x, char y, char val, char attr, char length)
@@ -324,12 +379,12 @@ void vdc_clear(char x, char y, char val, char length, char lines)
 {
     for (char i = y; i < y + lines; i++)
     {
-        vdc_hchar(x, i, pet2screen(val), vdc_text_attr, length);
+        vdc_hchar(x, i, val, vdc_text_attr, length);
     }
 }
 
 void vdc_cls()
 // Function to clear VDC screen with given value and attribute
 {
-    vdc_clear(0, 0, ' ', 80, 25);
+    vdc_clear(0, 0, C_SPACE, 80, 25);
 }

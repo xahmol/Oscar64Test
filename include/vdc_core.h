@@ -34,6 +34,9 @@
 #define VDC_A_REVERSE 64
 #define VDC_A_ALTCHAR 128
 
+// Character codes
+#define C_SPACE 32
+
 // Function prototypes
 char screenwidth();
 void screen_setmode(char mode);
@@ -46,8 +49,11 @@ unsigned vdc_coords(char x, char y);
 void vdc_restore_charsets();
 void vdc_detect_mem_size();
 void vdc_disable_display();
-void vdc_enble_display();
+void vdc_enable_display();
 void vdc_block_fill(unsigned address, char value, char length);
+void vdc_block_copy_page(unsigned dest, unsigned src, char length);
+void vdc_block_copy(unsigned dest, unsigned src, unsigned length);
+void vdc_scroll_copy(unsigned dest, unsigned src, char lines, char length);
 void vdc_wipe_mem();
 void vdc_set_extended_memsize();
 void vdc_set_default_memsize();
@@ -58,7 +64,7 @@ void vdc_altchar(char set);
 void vdc_blink(char set);
 void vdc_underline(char set);
 void vdc_reverse(char set);
-void vdc_printc(char x, char y, char val);
+void vdc_printc(char x, char y, char val, char attr);
 void vdc_prints(char x, char y, const char *string);
 void vdc_hchar(char x, char y, char val, char attr, char length);
 void vdc_vchar(char x, char y, char val, char attr, char length);
