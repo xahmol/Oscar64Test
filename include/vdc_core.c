@@ -12,7 +12,7 @@ struct VDCStatus vdc_state;
 struct VDCModeSet vdc_modes[2] =
     {
         {80, 25, 0, 0x0000, 0x0800, 0x1000, 0x1800, 0x2000, 0x3000, 0x4000, {VDCR_HTOTAL, 0x7f, VDCR_VTOTAL, 0x26, VDCR_VDISPLAY, 0x19, VDCR_VSYNC, 0x20, VDCR_LACE, 0xfc, VDCR_CSIZE, 0xe7, 255}},
-        {80, 50, 1, 0x0000, 0x0100, 0x4000, 0x5000, 0x2000, 0x3000, 0x6000, {VDCR_HTOTAL, 0x7f, VDCR_VTOTAL, 0x40, VDCR_VDISPLAY, 0x32, VDCR_VSYNC, 0x3a, VDCR_LACE, 0x03, VDCR_CSIZE, 0x07, 255}}};
+        {80, 50, 1, 0x0000, 0x1000, 0x4000, 0x5000, 0x2000, 0x3000, 0x6000, {VDCR_HTOTAL, 0x80, VDCR_VTOTAL, 0x40, VDCR_VDISPLAY, 0x32, VDCR_VSYNC, 0x3a, VDCR_LACE, 0x03, VDCR_CSIZE, 0x07, 255}}};
 
 char screen_width()
 // Return screenwidth 40 or 80
@@ -137,6 +137,10 @@ char vdc_set_mode(char mode)
     if (vdc_modes[mode].extmem && !vdc_state.memextended)
     {
         vdc_set_extended_memsize();
+    }
+    else
+    {
+        vdc_cls();
     }
 }
 
