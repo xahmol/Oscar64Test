@@ -3,10 +3,12 @@
 #include <stdio.h>
 #include <conio.h>
 #include <petscii.h>
+#include <c64/kernalio.h>
 #include <c128/vdc.h>
 #include <c128/mmu.h>
 #include "defines.h"
 #include "vdc_core.h"
+#include "banking.h"
 
 // Memory region for code, data etc. from 0x1c80 to 0xbfff
 #pragma region( main, 0x1c80, 0xc000, , , {code, data, bss, heap, stack} )
@@ -16,7 +18,63 @@ int main(void)
 	char x, y, mode, screencode = 0, color = 0, reverse = 0;
 	unsigned address;
 
+	char testdata[81] = "this is a test to write data to the disk.";
+	char filename[15] = "test1";
+
+	// Save and load test
+
+	// Write sample data
+	printf("write data.\n");
+	krnio_setbnk(0, 0);
+	krnio_setnam(filename);
+	printf("return value open: %d\n", krnio_open(1, 8, 1));
+	printf("status after open: %d\n", krnio_pstatus[1]);
+	printf("return value write: %d\n", krnio_write(1, testdata, 81));
+	printf("status after write: %d\n", krnio_pstatus[1]);
+	krnio_close(1);
+
+	// Wipe sample data to be able to see if it loads back correctly
+	memset(testdata, 0, 81);
+
+	// Read sample data
+	printf("read data.\n");
+	krnio_setbnk(0, 0);
+	krnio_setnam(filename);
+	printf("return value open: %d\n", krnio_open(1, 8, 0));
+	printf("status after open: %d\n", krnio_pstatus[1]);
+	printf("return value read: %d\n", krnio_read(1, testdata, 81));
+	printf("status after read: %d\n", krnio_pstatus[1]);
+	krnio_close(1);
+	printf("data read:\n%s\n", testdata);
+	getch();
+
+	// Wipe sample data again and set new sample data
+	memset(testdata, 0, 81);
+	strcpy(testdata, "now a save and load test.");
+	strcpy(filename, "test2");
+
+	// Save sample data
+	printf("write data.\n");
+	krnio_setbnk(0, 0);
+	krnio_setnam(filename);
+	printf("return value save: %d\n", krnio_save(8, testdata, testdata + strlen(testdata)));
+	printf("status after write: %d\n", krnio_pstatus[1]);
+
+	// Wipe sample data to be able to see if it loads back correctly
+	memset(testdata, 0, 81);
+
+	// Load sample data
+	printf("load data.\n");
+	krnio_setbnk(0, 0);
+	krnio_setnam(filename);
+	printf("return value load: %d\n", krnio_load(1, 8, 1));
+	printf("status after write: %d\n", krnio_pstatus[1]);
+	printf("data read:\n%s\n", testdata);
+	getch();
+
 	vdc_init(VDC_TEXT_80x25, 0);
+
+	low_test();
 
 	for (mode = 0; mode < 2; mode++)
 	{
@@ -35,7 +93,7 @@ int main(void)
 		vdc_textcolor(VDC_LYELLOW);
 
 		// Print mem and screen size
-		sprintf(linebuffer, "VDC Memory Detected: %d KB, screen size: %dx%d, ext.mem: %s", vdc_state.memsize, vdc_state.width, vdc_state.height,(vdc_state.memextended)?"On ":"Off");
+		sprintf(linebuffer, "VDC Memory Detected: %d KB, screen size: %dx%d, ext.mem: %s", vdc_state.memsize, vdc_state.width, vdc_state.height, (vdc_state.memextended) ? "On " : "Off");
 		vdc_prints(0, 2, linebuffer);
 
 		// Draw frame

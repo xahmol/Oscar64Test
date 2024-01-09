@@ -41,7 +41,7 @@ all: $(MAIN).prg
 
 # Building main program
 $(MAIN).prg: $(MAINSRC)
-	$(CC) $(CFLAGS) -o=build/$(MAIN).prg $<
+	$(CC) $(CFLAGS) -n -d64=build/$(MAIN).d64 $<
 
 # Cleaning repo of build files
 clean:
@@ -54,4 +54,4 @@ deploy: $(MAIN).prg
 
 # To run software using VICE x128
 vice: $(MAIN).prg
-	x128 build/$(MAIN).prg
+	x128 build/$(MAIN).d64

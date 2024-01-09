@@ -2,8 +2,10 @@
 #include <string.h>
 #include <conio.h>
 #include <petscii.h>
+#include <c64/kernalio.h>
 #include <c128/vdc.h>
 #include "vdc_core.h"
+#include "banking.h"
 #include "peekpoke.h"
 
 char linebuffer[81];
@@ -163,6 +165,9 @@ void vdc_init(char mode, char extmem)
         clrscr();
         screen_setmode(80);
     }
+
+    // Load low memory code
+    load_overlay("ovl1");
 
     // Set 2 Mhz mode
     fastmode(1);
