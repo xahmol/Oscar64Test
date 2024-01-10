@@ -166,8 +166,8 @@ void vdc_init(char mode, char extmem)
         screen_setmode(80);
     }
 
-    // Load low memory code
-    load_overlay("ovl1");
+    // Init low memory
+    bnk_init();
 
     // Set 2 Mhz mode
     fastmode(1);
@@ -188,6 +188,7 @@ void vdc_exit()
     fastmode(0);                  // Disable fast mode
     vdc_set_mode(VDC_TEXT_80x25); // Set default mode
     vdc_cls();                    // Clear screen
+    bnk_exit();                   // Reset shared memory to default
 }
 
 unsigned vdc_coords(char x, char y)

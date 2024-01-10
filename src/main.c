@@ -21,6 +21,9 @@ int main(void)
 	char testdata[81] = "this is a test to write data to the disk.";
 	char filename[15] = "test1";
 
+	char testb;
+	unsigned testw;
+
 	// Save and load test
 
 	// Write sample data
@@ -74,7 +77,14 @@ int main(void)
 
 	vdc_init(VDC_TEXT_80x25, 0);
 
-	low_test();
+	testb = 0x60;
+	testw = 0x6060;
+	bnk_writeb(BNK_1_FULL, (void *)0xd000, testb);
+	bnk_writew(BNK_1_FULL, (void *)0xd001, testw);
+
+	printf("\n\rwrite byte: %2X read byte: %2X\n", testb, bnk_readb(BNK_1_FULL, (void *)0xd000));
+	printf("write word: %4X read word: %4X\n", testw, bnk_readw(BNK_1_FULL, (void *)0xd001));
+	getch();
 
 	for (mode = 0; mode < 2; mode++)
 	{

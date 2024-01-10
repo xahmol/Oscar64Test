@@ -49,7 +49,7 @@ clean:
 
 # To deploy software to UII+ enter make deploy. Obviously C128 needs to powered on with UII+ and USB drive connected.
 deploy: $(MAIN).prg
-	wput -u build/$(MAIN).prg $(ULTHOST)
+	wput -u build/$(MAIN).d64 $(ULTHOST)
 #	wput -u build/$(MAIN).prg $(ULTHOST2)
 
 # To run software using VICE x128
