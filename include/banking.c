@@ -143,7 +143,7 @@ void bnk_cpyfromvdc(char dcr, volatile char * dp, unsigned vdcsrc, unsigned size
 	while (size > 0)
 	{
         mmu.cr = BNK_DEFAULT;
-		char c = vdc_mem_read_at(vdcsrc);
+		char c = vdc_mem_read_at(vdcsrc++);
 		mmu.cr = dcr;
 		*dp++ = c;		
 		size--;

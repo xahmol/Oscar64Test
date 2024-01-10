@@ -79,12 +79,24 @@ int main(void)
 
 	testb = 0x60;
 	testw = 0x6060;
+	strcpy(testdata, "copy testing.");
 	bnk_writeb(BNK_1_FULL, (void *)0xd000, testb);
 	bnk_writew(BNK_1_FULL, (void *)0xd001, testw);
-
 	printf("\n\rwrite byte: %2X read byte: %2X\n", testb, bnk_readb(BNK_1_FULL, (void *)0xd000));
 	printf("write word: %4X read word: %4X\n", testw, bnk_readw(BNK_1_FULL, (void *)0xd001));
+
+	bnk_memcpy(BNK_1_FULL, (void *)0xd000, BNK_DEFAULT, testdata, strlen(testdata));
+	bnk_memcpy(BNK_DEFAULT, linebuffer, BNK_1_FULL, (void *)0xd000, strlen(testdata));
+	printf("write string: %s\nread string: %s\n", testdata,linebuffer);
+	bnk_cpytovdc(vdc_state.base_text,BNK_1_FULL,(void *)0xd000,strlen(testdata));
+	bnk_cpyfromvdc(BNK_1_FULL,(void*)0x2000,vdc_state.base_text,2000);
+
 	getch();
+	vdc_cls();
+	bnk_cpytovdc(vdc_state.base_text,BNK_1_FULL,(void*)0x2000,2000);
+
+	getch();
+	vdc_cls();
 
 	for (mode = 0; mode < 2; mode++)
 	{

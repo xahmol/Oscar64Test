@@ -2,15 +2,15 @@
 main: /home/xahmol/git/Oscar64Test/src/main.c:16
 $10 R0(P), $0f R1(B), $12 R2(C), $13 R3(C), $14 R4(P), $00 R5(P), $16 R6(C), $02 R7(I), $04 R8(I), $06 R9(I), $08 R10(C), $09 R11(I), $0b R12(I), $0d R13(C), $0e R14(C), 
 L0: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
-0000 (  21)		COPY81:GG		<-	V(227 'testdata' A)+0 , V(6 '' A)+0 	{}
-0001 (  22)		COPY15:GG		<-	V(228 'filename' A)+0 , V(7 '' A)+0 	{}
+0000 (  21)		COPY81:GG		<-	V(252 'testdata' A)+0 , V(6 '' A)+0 	{}
+0001 (  22)		COPY15:GG		<-	V(253 'filename' A)+0 , V(7 '' A)+0 	{}
 0002 (  30)		CONST	R0(P)	<-	CG0(20:0 '')	{S}
 0003 (  30)		STOREF2		<-	V(0 '')+0 , R0(PF)	{}
 0004 (  30)		CALLN		<-	V(1 'printf')+0 	{}
 0005 (  31)		STOREZ1		<-	V(0 '')+0 , CC:0	{}
 0006 (  31)		STOREZ1		<-	V(1 '')+0 , CC:0	{}
 0007 (  31)		CALLN		<-	V(5 'krnio_setbnk')+0 	{}
-0008 (  22)		CONST	R0(P)	<-	CG15(228:0 'filename')	{S}
+0008 (  22)		CONST	R0(P)	<-	CG15(253:0 'filename')	{S}
 0009 (  32)		STOREZ2		<-	V(0 '')+0 , R0(PF)	{}
 000a (  32)		CALLN		<-	V(6 'krnio_setnam')+0 	{}
 000b (  33)		STOREZ1		<-	V(0 '')+0 , CC:1	{}
@@ -28,33 +28,33 @@ L0: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
 0017 (  34)		CONV33	R0(I)[0..128]	<-	R1(CF)[0..128]	{}
 0018 (  34)		STOREF2		<-	V(2 '')+0 , R0(IF)[0..128]	{}
 0019 (  34)		CALLN		<-	V(1 'printf')+0 	{}
-001a ( 298)		STOREZ1		<-	V(0 '')+0 , CC:1	{}
+001a ( 277)		STOREZ1		<-	V(0 '')+0 , CC:1	{}
 001b (  35)		CONST	R0(P)	<-	CG0(24:0 '')	{S}
 001c (  35)		STOREF2		<-	V(0 '')+0 , R0(PF)	{}
-001d ( 298)		CALLN	R1(B)	<-	V(8 'krnio_chkout')+0 	{}
+001d ( 277)		CALLN	R1(B)	<-	V(8 'krnio_chkout')+0 	{}
 001e (  18)		CONST	R2(C)[0..0]	<-	CI:0	{}
 001f (  18)		CONST	R3(C)[0..0]	<-	CI:0	{}
-0020 ( 298)		BRANCH		<-	R1(BF)	{}
+0020 ( 277)		BRANCH		<-	R1(BF)	{}
 		==> 3
 		==> 4
 L3: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c64/kernalio.c
-0000 ( 300)		CONST	R0(I)[0..0]	<-	CI:0	{}
-0001 ( 301)		JUMP		<-		{}
+0000 ( 279)		CONST	R0(I)[0..0]	<-	CI:0	{}
+0001 ( 280)		JUMP		<-		{}
 		==> 7
-L7: <= D-1: (2) Head P9590 /home/xahmol/oscar64/include/c64/kernalio.c
-0000 ( 301)		LEAG	R4(P)	<-	V(227 'testdata' A)+0 , R0(I)[0..80]	{}
-0001 ( 301)		LOADI1	R1(C)[-128..255]	<-	R4(PF)+0 {V(227 'testdata' A)} 	{}
-0002 ( 301)		STOREZ1		<-	V(0 '')+0 , R1(CF)[-128..255]	{}
-0003 ( 301)		CALLN		<-	V(9 'krnio_chrout')+0 	{}
-0004 ( 300)		BINOP1	R0(I)[1..81]	<-	R0(IF)[0..80], CI:1	{}
-0005 ( 300)		RELOP28	R1(B)	<-	R0(I)[1..81], CI:81	{}
-0006 ( 300)		BRANCH		<-	R1(BF)	{}
+L7: <= D-1: (2) Head P11030 /home/xahmol/oscar64/include/c64/kernalio.c
+0000 ( 280)		LEAG	R4(P)	<-	V(252 'testdata' A)+0 , R0(I)[0..80]	{}
+0001 ( 280)		LOADI1	R1(C)[-128..255]	<-	R4(PF)+0 {V(252 'testdata' A)} 	{}
+0002 ( 280)		STOREZ1		<-	V(0 '')+0 , R1(CF)[-128..255]	{}
+0003 ( 280)		CALLN		<-	V(9 'krnio_chrout')+0 	{}
+0004 ( 279)		BINOP1	R0(I)[1..81]	<-	R0(IF)[0..80], CI:1	{}
+0005 ( 279)		RELOP28	R1(B)	<-	R0(I)[1..81], CI:81	{}
+0006 ( 279)		BRANCH		<-	R1(BF)	{}
 		==> 7
 		==> 9
 L9: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c64/kernalio.c
-0000 ( 302)		CALLN		<-	V(10 'krnio_clrchn')+0 	{}
+0000 ( 281)		CALLN		<-	V(10 'krnio_clrchn')+0 	{}
 0001 (  35)		STOREF2		<-	V(2 '')+0 , CI:81	{}
-0002 ( 303)		JUMP		<-		{}
+0002 ( 282)		JUMP		<-		{}
 		==> 2
 L2: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
 0000 (  35)		CALLN		<-	V(1 'printf')+0 	{}
@@ -68,7 +68,7 @@ L2: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
 0008 (  37)		CALLN		<-	V(11 'krnio_close')+0 	{}
 0009 (  40)		STOREZ2		<-	V(2 '')+0 , CI:0	{}
 000a (  40)		STOREZ2		<-	V(4 '')+0 , CI:81	{}
-000b (  40)		CONST	R0(P)	<-	CG81(227:0 'testdata')	{S}
+000b (  40)		CONST	R0(P)	<-	CG81(252:0 'testdata')	{S}
 000c (  40)		STOREZ2		<-	V(0 '')+0 , R0(PF)	{}
 000d (  40)		CALLN		<-	V(12 'memset')+0 	{}
 000e (  43)		CONST	R0(P)	<-	CG0(26:0 '')	{S}
@@ -77,7 +77,7 @@ L2: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
 0011 (  44)		STOREZ1		<-	V(0 '')+0 , CC:0	{}
 0012 (  44)		STOREZ1		<-	V(1 '')+0 , CC:0	{}
 0013 (  44)		CALLN		<-	V(5 'krnio_setbnk')+0 	{}
-0014 (  45)		CONST	R0(P)	<-	CG15(228:0 'filename')	{S}
+0014 (  45)		CONST	R0(P)	<-	CG15(253:0 'filename')	{S}
 0015 (  45)		STOREZ2		<-	V(0 '')+0 , R0(PF)	{}
 0016 (  45)		CALLN		<-	V(6 'krnio_setnam')+0 	{}
 0017 (  46)		STOREZ1		<-	V(0 '')+0 , CC:1	{}
@@ -97,14 +97,14 @@ L2: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
 0025 (  47)		CALLN		<-	V(1 'printf')+0 	{}
 0026 (  48)		CONST	R0(P)	<-	CG0(29:0 '')	{S}
 0027 (  48)		STOREF2		<-	V(0 '')+0 , R0(PF)	{}
-0028 ( 313)		LOADG1	R1(C)[0..128]	<-	V(22 'krnio_pstatus' A)+1 	{}
-0029 ( 313)		RELOP19	R1(B)	<-	R1(CF)[0..128], CC:64	{}
-002a ( 313)		BRANCH		<-	R1(BF)	{}
+0028 ( 292)		LOADG1	R1(C)[0..128]	<-	V(22 'krnio_pstatus' A)+1 	{}
+0029 ( 292)		RELOP19	R1(B)	<-	R1(CF)[0..128], CC:64	{}
+002a ( 292)		BRANCH		<-	R1(BF)	{}
 		==> 13
 		==> 15
 L13: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c64/kernalio.c
-0000 ( 314)		CONST	R0(I)[0..0]	<-	CI:0	{}
-0001 ( 314)		JUMP		<-		{}
+0000 ( 293)		CONST	R0(I)[0..0]	<-	CI:0	{}
+0001 ( 293)		JUMP		<-		{}
 		==> 12
 L12: <= D-1: (3)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
 0000 (  48)		STOREF2		<-	V(2 '')+0 , R0(IF)[-1..81]	{}
@@ -119,7 +119,7 @@ L12: <= D-1: (3)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
 0009 (  50)		CALLN		<-	V(11 'krnio_close')+0 	{}
 000a (  51)		CONST	R0(P)	<-	CG0(31:0 '')	{S}
 000b (  51)		STOREF2		<-	V(0 '')+0 , R0(PF)	{}
-000c (  51)		CONST	R0(P)	<-	CG81(227:0 'testdata')	{S}
+000c (  51)		CONST	R0(P)	<-	CG81(252:0 'testdata')	{S}
 000d (  51)		STOREF2		<-	V(2 '')+0 , R0(P)	{}
 000e (  51)		CALLN		<-	V(1 'printf')+0 	{}
 000f (  52)		CALLN		<-	V(16 'getch')+0 	{}
@@ -128,10 +128,10 @@ L12: <= D-1: (3)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
 0012 (  55)		STOREZ2		<-	V(4 '')+0 , CI:81	{}
 0013 (  55)		CALLN		<-	V(12 'memset')+0 	{}
 0014 (  56)		CONST	R4(P)	<-	CG0(32:0 '')	{S}
-0015 (  56)		STRCPYII		<-	R0(P)+0 {V(227 'testdata' A)} , R4(PF)+0 {V(32 '')} 	{}
-0016 (  57)		CONST	R4(P)	<-	CG15(228:0 'filename')	{S}
+0015 (  56)		STRCPYII		<-	R0(P)+0 {V(252 'testdata' A)} , R4(PF)+0 {V(32 '')} 	{}
+0016 (  57)		CONST	R4(P)	<-	CG15(253:0 'filename')	{S}
 0017 (  57)		CONST	R5(P)	<-	CG0(33:0 '')	{S}
-0018 (  57)		STRCPYII		<-	R4(P)+0 {V(228 'filename' A)} , R5(PF)+0 {V(33 '')} 	{}
+0018 (  57)		STRCPYII		<-	R4(P)+0 {V(253 'filename' A)} , R5(PF)+0 {V(33 '')} 	{}
 0019 (  60)		CONST	R5(P)	<-	CG0(34:0 '')	{S}
 001a (  60)		STOREF2		<-	V(0 '')+0 , R5(PF)	{}
 001b (  60)		CALLN		<-	V(1 'printf')+0 	{}
@@ -145,19 +145,19 @@ L12: <= D-1: (3)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
 0023 (  63)		CONST	R0(P)	<-	CG0(35:0 '')	{S}
 0024 (  63)		STOREF2		<-	V(0 '')+0 , R0(PF)	{}
 0025 ( 108)		CONST	R0(I)[0..0]	<-	CI:0	{}
-0026 ( 109)		LOADG1	R1(C)[-128..255]	<-	V(227 'testdata' A)+0 	{}
+0026 ( 109)		LOADG1	R1(C)[-128..255]	<-	V(252 'testdata' A)+0 	{}
 0027 ( 109)		BRANCH		<-	R1(CF)[-128..255]	{}
 		==> 36
 		==> 37
 L36: <= D-1: (2) Head P-1 /home/xahmol/oscar64/include/string.c
-0000 ( 109)		LEAG	R4(P)[-128..255]	<-	V(227 'testdata' A)+1 , R0(I)[0..79]	{}
+0000 ( 109)		LEAG	R4(P)[-128..255]	<-	V(252 'testdata' A)+1 , R0(I)[0..79]	{}
 0001 ( 110)		BINOP1	R0(I)[1..]	<-	R0(IF)[0..], CI:1	{}
-0002 ( 109)		LOADI1	R1(C)[-128..255]	<-	R4(PF)+0 {V(227 'testdata' A)} 	{}
+0002 ( 109)		LOADI1	R1(C)[-128..255]	<-	R4(PF)+0 {V(252 'testdata' A)} 	{}
 0003 ( 109)		BRANCH		<-	R1(CF)[-128..255]	{}
 		==> 36
 		==> 37
 L37: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
-0000 (  63)		LEAG	R0(P)	<-	V(227 'testdata' A)+0 , R0(IF)[0..]	{}
+0000 (  63)		LEAG	R0(P)	<-	V(252 'testdata' A)+0 , R0(IF)[0..]	{}
 0001 (  63)		STOREZ2		<-	V(3 '')+0 , R0(PF)	{}
 0002 (  63)		CALLN	R1(B)	<-	V(17 'krnio_save')+0 	{}
 0003 (  63)		CONV33	R0(I)[0..255]	<-	R1(CF)	{}
@@ -171,7 +171,7 @@ L37: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
 000b (  64)		CALLN		<-	V(1 'printf')+0 	{}
 000c (  67)		STOREZ2		<-	V(2 '')+0 , CI:0	{}
 000d (  67)		STOREZ2		<-	V(4 '')+0 , CI:81	{}
-000e (  67)		CONST	R0(P)	<-	CG81(227:0 'testdata')	{S}
+000e (  67)		CONST	R0(P)	<-	CG81(252:0 'testdata')	{S}
 000f (  67)		STOREZ2		<-	V(0 '')+0 , R0(P)	{}
 0010 (  67)		CALLN		<-	V(12 'memset')+0 	{}
 0011 (  70)		CONST	R4(P)	<-	CG0(37:0 '')	{S}
@@ -180,7 +180,7 @@ L37: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
 0014 (  71)		STOREZ1		<-	V(0 '')+0 , CC:0	{}
 0015 (  71)		STOREZ1		<-	V(1 '')+0 , CC:0	{}
 0016 (  71)		CALLN		<-	V(5 'krnio_setbnk')+0 	{}
-0017 (  72)		CONST	R4(P)	<-	CG15(228:0 'filename')	{S}
+0017 (  72)		CONST	R4(P)	<-	CG15(253:0 'filename')	{S}
 0018 (  72)		STOREZ2		<-	V(0 '')+0 , R4(PF)	{}
 0019 (  72)		CALLN		<-	V(6 'krnio_setnam')+0 	{}
 001a (  73)		STOREZ1		<-	V(0 '')+0 , CC:1	{}
@@ -205,12 +205,12 @@ L37: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
 002d (  76)		CALLN		<-	V(16 'getch')+0 	{}
 002e (   6)		STOREA1		<-	V(-1 '')+54784 , CC:26	{V}
 002f (  17)		JUMP		<-		{}
-		==> 6413
-L6413: <= D-1: (2) Head P9587 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7391
+L7391: <= D-1: (2) Head P11027 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  17)		LOADA1	R1(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  17)		RELOP28	R1(B)	<-	R1(CF)[-128..255], CC:128	{}
 0002 (  17)		BRANCH		<-	R1(BF)	{}
-		==> 6413
+		==> 7391
 		==> 46
 L46: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  18)		LOADA1	R1(C)[-128..255]	<-	V(-1 '')+54785 	{V}
@@ -218,23 +218,23 @@ L46: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0002 ( 355)		CONV33	R0(I)[0..255]	<-	R1(CF)[-128..255]	{}
 0003 ( 355)		BINOP9	R0(I)[0..255]	<-	R0(IF)[0..255], CI:240	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6415
-L6415: <= D-1: (2) Head P9586 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7393
+L7393: <= D-1: (2) Head P11026 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R1(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R1(B)	<-	R1(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R1(BF)	{}
-		==> 6415
+		==> 7393
 		==> 52
 L52: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R0(CF)[0..255]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:26	{V}
 0002 (  17)		JUMP		<-		{}
-		==> 6417
-L6417: <= D-1: (2) Head P9585 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7395
+L7395: <= D-1: (2) Head P11025 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  17)		LOADA1	R1(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  17)		RELOP28	R1(B)	<-	R1(CF)[-128..255], CC:128	{}
 0002 (  17)		BRANCH		<-	R1(BF)	{}
-		==> 6417
+		==> 7395
 		==> 59
 L59: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  18)		LOADA1	R1(C)[-128..255]	<-	V(-1 '')+54785 	{V}
@@ -243,24 +243,24 @@ L59: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0003 ( 361)		BINOP9	R0(I)[0..15]	<-	R0(IF)[0..255], CI:15	{}
 0004 ( 361)		BINOP1	R0(I)[208..223]	<-	R0(IF)[0..15], CI:208	{}
 0005 (  11)		JUMP		<-		{}
-		==> 6419
-L6419: <= D-1: (2) Head P9584 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7397
+L7397: <= D-1: (2) Head P11024 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R1(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R1(B)	<-	R1(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R1(BF)	{}
-		==> 6419
+		==> 7397
 		==> 65
 L65: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R0(CF)[208..223]	{V}
 0001 ( 155)		STOREG1		<-	V(41 'vdc_state')+7 , CC:141	{}
 0002 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:28	{V}
 0003 (  17)		JUMP		<-		{}
-		==> 6421
-L6421: <= D-1: (2) Head P9583 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7399
+L7399: <= D-1: (2) Head P11023 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  17)		LOADA1	R1(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  17)		RELOP28	R1(B)	<-	R1(CF)[-128..255], CC:128	{}
 0002 (  17)		BRANCH		<-	R1(BF)	{}
-		==> 6421
+		==> 7399
 		==> 71
 L71: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  18)		LOADA1	R1(C)[-128..255]	<-	V(-1 '')+54785 	{V}
@@ -268,131 +268,131 @@ L71: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0002 ( 214)		CONV33	R0(I)[0..255]	<-	R1(C)[-128..255]	{}
 0003 ( 214)		BINOP8	R0(I)[0..255]	<-	R0(IF)[0..255], CI:16	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6423
-L6423: <= D-1: (2) Head P9582 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7401
+L7401: <= D-1: (2) Head P11022 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6423
+		==> 7401
 		==> 78
 L78: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R0(CF)[0..255]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6425
-L6425: <= D-1: (2) Head P9581 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7403
+L7403: <= D-1: (2) Head P11021 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6425
+		==> 7403
 		==> 85
 L85: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:31	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6427
-L6427: <= D-1: (2) Head P9580 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7405
+L7405: <= D-1: (2) Head P11020 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6427
+		==> 7405
 		==> 90
 L90: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:8191	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6429
-L6429: <= D-1: (2) Head P9579 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7407
+L7407: <= D-1: (2) Head P11019 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6429
+		==> 7407
 		==> 94
 L94: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:0	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6431
-L6431: <= D-1: (2) Head P9578 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7409
+L7409: <= D-1: (2) Head P11018 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6431
+		==> 7409
 		==> 101
 L101: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:159	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6433
-L6433: <= D-1: (2) Head P9577 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7411
+L7411: <= D-1: (2) Head P11017 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6433
+		==> 7411
 		==> 106
 L106: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:40959	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6435
-L6435: <= D-1: (2) Head P9576 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7413
+L7413: <= D-1: (2) Head P11016 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6435
+		==> 7413
 		==> 110
 L110: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:255	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6437
-L6437: <= D-1: (2) Head P9575 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7415
+L7415: <= D-1: (2) Head P11015 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6437
+		==> 7415
 		==> 117
 L117: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:31	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6439
-L6439: <= D-1: (2) Head P9574 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7417
+L7417: <= D-1: (2) Head P11014 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6439
+		==> 7417
 		==> 122
 L122: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:8191	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  17)		JUMP		<-		{}
-		==> 6441
-L6441: <= D-1: (2) Head P9573 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7419
+L7419: <= D-1: (2) Head P11013 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  17)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  17)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  17)		BRANCH		<-	R6(BF)	{}
-		==> 6441
+		==> 7419
 		==> 126
 L126: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  18)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54785 	{V}
 0001 ( 224)		RELOP19	R6(B)	<-	R6(CF)[-128..255], CC:0	{}
 0002 ( 224)		BRANCH		<-	R6(BF)	{}
-		==> 3066
-		==> 3067
-L3066: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 3511
+		==> 3512
+L3511: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 224)		STOREG1		<-	V(41 'vdc_state')+0 , CC:64	{}
 0001 ( 224)		JUMP		<-		{}
-		==> 3068
-L3068: <= D-1: (2)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 3513
+L3513: <= D-1: (2)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:28	{V}
 0001 (  11)		JUMP		<-		{}
-		==> 6444
-L6444: <= D-1: (2) Head P9572 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7422
+L7422: <= D-1: (2) Head P11012 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6444
+		==> 7422
 		==> 133
 L133: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R1(CF)[-128..255]	{V}
@@ -401,7 +401,7 @@ L133: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0003 ( 449)		LOADG2	R4(I)[-32768..65535]	<-	V(41 'vdc_state')+5 	{}
 0004 ( 440)		JUMP		<-		{}
 		==> 136
-L136: <= D-1: (2) Head P9571 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+L136: <= D-1: (2) Head P11011 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 440)		RELOP28	R6(B)	<-	R1(C)[0..255], R4(C)[-32768..65535]	{}
 0001 ( 440)		BRANCH		<-	R6(BF)	{}
 		==> 137
@@ -418,45 +418,45 @@ L137: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0008 ( 424)		BINOP1	R7(I)	<-	R5(I), R7(IF)[-32768..65535]	{}
 0009 (  37)		BINOP17	R9(I)	<-	R7(I), CI:8	{}
 000a (  11)		JUMP		<-		{}
-		==> 6446
-L6446: <= D-1: (2) Head P9423 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7424
+L7424: <= D-1: (2) Head P10834 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6446
+		==> 7424
 		==> 149
 L149: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R9(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6448
-L6448: <= D-1: (2) Head P9422 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7426
+L7426: <= D-1: (2) Head P10833 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6448
+		==> 7426
 		==> 154
 L154: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6450
-L6450: <= D-1: (2) Head P9421 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7428
+L7428: <= D-1: (2) Head P10832 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6450
+		==> 7428
 		==> 158
 L158: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:32	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 (  17)		JUMP		<-		{}
-		==> 6452
-L6452: <= D-1: (2) Head P9420 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7430
+L7430: <= D-1: (2) Head P10831 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  17)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  17)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  17)		BRANCH		<-	R10(BF)	{}
-		==> 6452
+		==> 7430
 		==> 164
 L164: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  18)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54785 	{V}
@@ -464,23 +464,23 @@ L164: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0002 ( 253)		CONV33	R7(I)[0..255]	<-	R10(CF)[-128..255]	{}
 0003 ( 253)		BINOP9	R7(I)[0..127]	<-	R7(IF)[0..255], CI:127	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6454
-L6454: <= D-1: (2) Head P9419 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7432
+L7432: <= D-1: (2) Head P10830 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6454
+		==> 7432
 		==> 170
 L170: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)[0..127]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:30	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6456
-L6456: <= D-1: (2) Head P9418 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7434
+L7434: <= D-1: (2) Head P10829 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6456
+		==> 7434
 		==> 175
 L175: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(C)[-1..254]	{V}
@@ -489,45 +489,45 @@ L175: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0003 ( 425)		BINOP1	R5(I)	<-	R7(IF)[-32768..65535], R5(IF)	{}
 0004 (  37)		BINOP17	R7(I)	<-	R5(I), CI:8	{}
 0005 (  11)		JUMP		<-		{}
-		==> 6458
-L6458: <= D-1: (2) Head P9417 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7436
+L7436: <= D-1: (2) Head P10828 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6458
+		==> 7436
 		==> 182
 L182: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6460
-L6460: <= D-1: (2) Head P9416 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7438
+L7438: <= D-1: (2) Head P10827 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6460
+		==> 7438
 		==> 187
 L187: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6462
-L6462: <= D-1: (2) Head P9415 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7440
+L7440: <= D-1: (2) Head P10826 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6462
+		==> 7440
 		==> 191
 L191: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R6(CF)[-128..255]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 (  17)		JUMP		<-		{}
-		==> 6464
-L6464: <= D-1: (2) Head P9414 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7442
+L7442: <= D-1: (2) Head P10825 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  17)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  17)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  17)		BRANCH		<-	R6(BF)	{}
-		==> 6464
+		==> 7442
 		==> 197
 L197: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  18)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54785 	{V}
@@ -535,23 +535,23 @@ L197: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0002 ( 253)		CONV33	R5(I)[0..255]	<-	R6(CF)[-128..255]	{}
 0003 ( 253)		BINOP9	R5(I)[0..127]	<-	R5(IF)[0..255], CI:127	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6466
-L6466: <= D-1: (2) Head P9413 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7444
+L7444: <= D-1: (2) Head P10824 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6466
+		==> 7444
 		==> 203
 L203: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(CF)[0..127]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:30	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6468
-L6468: <= D-1: (2) Head P9412 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7446
+L7446: <= D-1: (2) Head P10823 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6468
+		==> 7446
 		==> 208
 L208: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(CF)[-1..254]	{V}
@@ -587,173 +587,577 @@ L224: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0004 (  49)		BINOP9	R0(I)[0..255]	<-	R0(IF)[0..255], CI:-145	{}
 0005 (  50)		STOREA1		<-	V(-1 '')+53265 , R0(CF)[0..255]	{}
 0006 ( 176)		CALLN		<-	V(22 'vdc_set_mode')+0 	{}
-0007 (  82)		STOREZ1		<-	V(0 '')+0 , CC:96	{}
-0008 (  82)		CALLN		<-	V(24 'bnk_writeb')+0 	{}
-0009 (  83)		STOREZ2		<-	V(0 '')+0 , CI:24672	{}
-000a (  83)		CALLN		<-	V(25 'bnk_writew')+0 	{}
-000b (  85)		STOREF2		<-	V(2 '')+0 , CI:96	{}
-000c (  85)		CONST	R0(P)	<-	CG0(205:0 '')	{S}
-000d (  85)		STOREF2		<-	V(0 '')+0 , R0(PF)	{}
-000e (  85)		CALLN	R1(C)	<-	V(26 'bnk_readb')+0 	{}
-000f (  85)		CONV33	R0(I)[0..255]	<-	R1(CF)	{}
-0010 (  85)		STOREF2		<-	V(4 '')+0 , R0(IF)[0..255]	{}
-0011 (  85)		CALLN		<-	V(1 'printf')+0 	{}
-0012 (  86)		STOREF2		<-	V(2 '')+0 , CI:24672	{}
-0013 (  86)		CONST	R0(P)	<-	CG0(210:0 '')	{S}
-0014 (  86)		STOREF2		<-	V(0 '')+0 , R0(PF)	{}
-0015 (  86)		CALLN	R0(I)	<-	V(27 'bnk_readw')+0 	{}
-0016 (  86)		STOREF2		<-	V(4 '')+0 , R0(IF)	{}
-0017 (  86)		CALLN		<-	V(1 'printf')+0 	{}
-0018 (  87)		CALLN		<-	V(16 'getch')+0 	{}
-0019 (  89)		CONST	R1(C)[0..0]	<-	CI:0	{}
-001a (  92)		BRANCH		<-	R1(C)[0..1]	{}
-		==> 411
-		==> 413
-L411: <= D-1: (2) Head P-1 /home/xahmol/git/Oscar64Test/src/main.c
-0000 (  94)		STOREZ1		<-	V(9 '')+0 , R1(C)[0..1]	{}
-0001 (  94)		CALLN		<-	V(22 'vdc_set_mode')+0 	{}
-0002 (  92)		JUMP		<-		{}
-		==> 413
-L413: <= D-1: (3) Head P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
-0000 ( 424)		LOADG2	R0(I)[-32768..65535]	<-	V(41 'vdc_state')+8 	{}
-0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
-0002 (  37)		BINOP17	R4(I)[0..255]	<-	R0(I)[-32768..65535], CI:8	{}
-0003 (  11)		JUMP		<-		{}
-		==> 6472
-L6472: <= D-1: (2) Head P9569 /home/xahmol/oscar64/include/c128/vdc.c
-0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
-0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
-0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6472
-		==> 423
-L423: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
-0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R4(C)[0..255]	{V}
+0007 (  83)		STOREZ1		<-	V(0 '')+0 , CC:96	{}
+0008 (  82)		CONST	R0(P)	<-	CG81(252:0 'testdata')	{S}
+0009 (  82)		CONST	R4(P)	<-	CG0(199:0 '')	{S}
+000a (  82)		STRCPYII		<-	R0(P)+0 {V(252 'testdata' A)} , R4(PF)+0 {V(199 '')} 	{}
+000b (  83)		CALLN		<-	V(24 'bnk_writeb')+0 	{}
+000c (  84)		STOREZ2		<-	V(0 '')+0 , CI:24672	{}
+000d (  84)		CALLN		<-	V(25 'bnk_writew')+0 	{}
+000e (  85)		STOREF2		<-	V(2 '')+0 , CI:96	{}
+000f (  85)		CONST	R4(P)	<-	CG0(206:0 '')	{S}
+0010 (  85)		STOREF2		<-	V(0 '')+0 , R4(PF)	{}
+0011 (  85)		CALLN	R1(C)	<-	V(26 'bnk_readb')+0 	{}
+0012 (  85)		CONV33	R4(I)[0..255]	<-	R1(CF)	{}
+0013 (  85)		STOREF2		<-	V(4 '')+0 , R4(IF)[0..255]	{}
+0014 (  85)		CALLN		<-	V(1 'printf')+0 	{}
+0015 (  86)		STOREF2		<-	V(2 '')+0 , CI:24672	{}
+0016 (  86)		CONST	R4(P)	<-	CG0(211:0 '')	{S}
+0017 (  86)		STOREF2		<-	V(0 '')+0 , R4(PF)	{}
+0018 (  86)		CALLN	R4(I)	<-	V(27 'bnk_readw')+0 	{}
+0019 (  86)		STOREF2		<-	V(4 '')+0 , R4(IF)	{}
+001a (  86)		CALLN		<-	V(1 'printf')+0 	{}
+001b (  88)		STOREZ1		<-	V(0 '')+0 , CC:127	{}
+001c (  88)		STOREZ1		<-	V(3 '')+0 , CC:14	{}
+001d (  88)		STOREZ2		<-	V(4 '')+0 , R0(PF)	{}
+001e (  85)		CONST	R0(P)	<-	CA0(-1:53248 '')	{S}
+001f (  88)		STOREZ2		<-	V(1 '')+0 , R0(PF)	{}
+0020 ( 108)		CONST	R0(I)[0..0]	<-	CI:0	{}
+0021 ( 109)		LOADG1	R1(C)[-128..255]	<-	V(252 'testdata' A)+0 	{}
+0022 ( 109)		BRANCH		<-	R1(CF)[-128..255]	{}
+		==> 409
+		==> 410
+L409: <= D-1: (2) Head P-1 /home/xahmol/oscar64/include/string.c
+0000 ( 109)		LEAG	R4(P)[-128..255]	<-	V(252 'testdata' A)+1 , R0(I)[0..79]	{}
+0001 ( 110)		BINOP1	R0(I)[1..]	<-	R0(IF)[0..], CI:1	{}
+0002 ( 109)		LOADI1	R1(C)[-128..255]	<-	R4(PF)+0 {V(252 'testdata' A)} 	{}
+0003 ( 109)		BRANCH		<-	R1(CF)[-128..255]	{}
+		==> 409
+		==> 410
+L410: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
+0000 (  88)		STOREZ2		<-	V(6 '')+0 , R0(IF)[0..]	{}
+0001 (  88)		CALLN		<-	V(28 'bnk_memcpy')+0 	{}
+0002 (  89)		STOREZ1		<-	V(0 '')+0 , CC:14	{}
+0003 (  89)		STOREZ1		<-	V(3 '')+0 , CC:127	{}
+0004 (  89)		CONST	R0(P)	<-	CG81(217:0 'linebuffer')	{S}
+0005 (  89)		STOREZ2		<-	V(1 '')+0 , R0(PF)	{}
+0006 (  89)		CONST	R0(P)	<-	CA0(-1:53248 '')	{S}
+0007 (  89)		STOREZ2		<-	V(4 '')+0 , R0(PF)	{}
+0008 ( 108)		CONST	R0(I)[0..0]	<-	CI:0	{}
+0009 ( 109)		LOADG1	R1(C)[-128..255]	<-	V(252 'testdata' A)+0 	{}
+000a ( 109)		BRANCH		<-	R1(CF)[-128..255]	{}
+		==> 414
+		==> 415
+L414: <= D-1: (2) Head P-1 /home/xahmol/oscar64/include/string.c
+0000 ( 109)		LEAG	R4(P)[-128..255]	<-	V(252 'testdata' A)+1 , R0(I)[0..79]	{}
+0001 ( 110)		BINOP1	R0(I)[1..]	<-	R0(IF)[0..], CI:1	{}
+0002 ( 109)		LOADI1	R1(C)[-128..255]	<-	R4(PF)+0 {V(252 'testdata' A)} 	{}
+0003 ( 109)		BRANCH		<-	R1(CF)[-128..255]	{}
+		==> 414
+		==> 415
+L415: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
+0000 (  89)		STOREZ2		<-	V(6 '')+0 , R0(IF)[0..]	{}
+0001 (  89)		CALLN		<-	V(28 'bnk_memcpy')+0 	{}
+0002 (  90)		CONST	R0(P)	<-	CG0(218:0 '')	{S}
+0003 (  90)		STOREF2		<-	V(0 '')+0 , R0(PF)	{}
+0004 (  90)		CONST	R0(P)	<-	CG81(252:0 'testdata')	{S}
+0005 (  90)		STOREF2		<-	V(2 '')+0 , R0(PF)	{}
+0006 (  90)		CONST	R0(P)	<-	CG81(217:0 'linebuffer')	{S}
+0007 (  90)		STOREF2		<-	V(4 '')+0 , R0(PF)	{}
+0008 (  90)		CALLN		<-	V(1 'printf')+0 	{}
+0009 (  91)		LOADG2	R0(I)[-32768..65535]	<-	V(41 'vdc_state')+8 	{}
+000a (  91)		STOREZ2		<-	V(0 '')+0 , R0(I)[-32768..65535]	{}
+000b (  91)		CONST	R4(P)	<-	CA0(-1:53248 '')	{S}
+000c (  91)		STOREZ2		<-	V(2 '')+0 , R4(PF)	{}
+000d ( 108)		CONST	R4(I)[0..0]	<-	CI:0	{}
+000e ( 109)		LOADG1	R1(C)[-128..255]	<-	V(252 'testdata' A)+0 	{}
+000f ( 109)		BRANCH		<-	R1(CF)[-128..255]	{}
+		==> 419
+		==> 420
+L419: <= D-1: (2) Head P-1 /home/xahmol/oscar64/include/string.c
+0000 ( 109)		LEAG	R5(P)[-128..255]	<-	V(252 'testdata' A)+1 , R4(I)[0..79]	{}
+0001 ( 110)		BINOP1	R4(I)[1..]	<-	R4(IF)[0..], CI:1	{}
+0002 ( 109)		LOADI1	R1(C)[-128..255]	<-	R5(PF)+0 {V(252 'testdata' A)} 	{}
+0003 ( 109)		BRANCH		<-	R1(CF)[-128..255]	{}
+		==> 419
+		==> 420
+L420: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
+0000 (  91)		STOREZ2		<-	V(4 '')+0 , R4(IF)[0..]	{}
+0001 (  91)		CALLN		<-	V(29 'bnk_cpytovdc')+0 	{}
+0002 (  92)		STOREZ2		<-	V(2 '')+0 , R0(IF)[-32768..65535]	{}
+0003 (  92)		CALLN		<-	V(30 'bnk_cpyfromvdc')+0 	{}
+0004 (  94)		CALLN		<-	V(16 'getch')+0 	{}
+0005 ( 440)		CONST	R1(C)[0..0]	<-	CI:0	{}
+0006 ( 449)		LOADG2	R0(I)[-32768..65535]	<-	V(41 'vdc_state')+3 	{}
+0007 ( 449)		LOADG2	R4(I)[-32768..65535]	<-	V(41 'vdc_state')+5 	{}
+0008 ( 424)		JUMP		<-		{}
+		==> 424
+L424: <= D-1: (2) Head P11007 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+0000 ( 440)		RELOP28	R6(B)	<-	R1(C)[0..255], R4(C)[-32768..65535]	{}
+0001 ( 424)		LOADG2	R5(I)[-32768..65535]	<-	V(41 'vdc_state')+8 	{}
+0002 ( 440)		BRANCH		<-	R6(BF)	{}
+		==> 425
+		==> 422
+L425: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+0000 ( 197)		LOADG2	R7(I)[-32768..65535]	<-	V(41 'vdc_state')+3 	{}
+0001 ( 442)		LOADG1	R6(C)[-128..255]	<-	V(41 'vdc_state')+7 	{}
+0002 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
+0003 ( 424)		CONV33	R8(I)[0..255]	<-	R0(C)[-32768..65535]	{}
+0004 ( 424)		BINOP2	R8(I)[-1..254]	<-	R8(IF)[0..255], CI:1	{}
+0005 ( 440)		CONV33	R9(I)[0..255]	<-	R1(C)[0..255]	{}
+0006 ( 197)		BINOP3	R7(I)	<-	R9(IF)[0..255], R7(IF)[-32768..65535]	{}
+0007 ( 424)		BINOP1	R5(I)	<-	R7(I), R5(IF)[-32768..65535]	{}
+0008 (  37)		BINOP17	R9(I)	<-	R5(I), CI:8	{}
+0009 (  11)		JUMP		<-		{}
+		==> 7457
+L7457: <= D-1: (2) Head P10846 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R10(BF)	{}
+		==> 7457
+		==> 437
+L437: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R9(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6474
-L6474: <= D-1: (2) Head P9568 /home/xahmol/oscar64/include/c128/vdc.c
-0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
-0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
-0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6474
-		==> 428
-L428: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
-0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R0(C)[-32768..65535]	{V}
+		==> 7459
+L7459: <= D-1: (2) Head P10845 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R10(BF)	{}
+		==> 7459
+		==> 442
+L442: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6476
-L6476: <= D-1: (2) Head P9567 /home/xahmol/oscar64/include/c128/vdc.c
-0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
-0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
-0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6476
-		==> 432
-L432: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7461
+L7461: <= D-1: (2) Head P10844 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R10(BF)	{}
+		==> 7461
+		==> 446
+L446: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:32	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 (  17)		JUMP		<-		{}
-		==> 6478
-L6478: <= D-1: (2) Head P9566 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7463
+L7463: <= D-1: (2) Head P10843 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  17)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  17)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
+0002 (  17)		BRANCH		<-	R10(BF)	{}
+		==> 7463
+		==> 452
+L452: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  18)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54785 	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
+0002 ( 253)		CONV33	R5(I)[0..255]	<-	R10(CF)[-128..255]	{}
+0003 ( 253)		BINOP9	R5(I)[0..127]	<-	R5(IF)[0..255], CI:127	{}
+0004 (  11)		JUMP		<-		{}
+		==> 7465
+L7465: <= D-1: (2) Head P10842 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R10(BF)	{}
+		==> 7465
+		==> 458
+L458: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(CF)[0..127]	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:30	{V}
+0002 (  11)		JUMP		<-		{}
+		==> 7467
+L7467: <= D-1: (2) Head P10841 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R10(BF)	{}
+		==> 7467
+		==> 463
+L463: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(C)[-1..254]	{V}
+0001 ( 425)		LOADG2	R5(I)[-32768..65535]	<-	V(41 'vdc_state')+10 	{}
+0002 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
+0003 ( 425)		BINOP1	R5(I)	<-	R5(IF)[-32768..65535], R7(IF)	{}
+0004 (  37)		BINOP17	R7(I)	<-	R5(I), CI:8	{}
+0005 (  11)		JUMP		<-		{}
+		==> 7469
+L7469: <= D-1: (2) Head P10840 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R10(BF)	{}
+		==> 7469
+		==> 470
+L470: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
+0002 (  11)		JUMP		<-		{}
+		==> 7471
+L7471: <= D-1: (2) Head P10839 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R10(BF)	{}
+		==> 7471
+		==> 475
+L475: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(CF)	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
+0002 (  11)		JUMP		<-		{}
+		==> 7473
+L7473: <= D-1: (2) Head P10838 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R10(BF)	{}
+		==> 7473
+		==> 479
+L479: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R6(CF)[-128..255]	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
+0002 (  17)		JUMP		<-		{}
+		==> 7475
+L7475: <= D-1: (2) Head P10837 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  17)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  17)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  17)		BRANCH		<-	R6(BF)	{}
-		==> 6478
-		==> 438
-L438: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7475
+		==> 485
+L485: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  18)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54785 	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 ( 253)		CONV33	R5(I)[0..255]	<-	R6(CF)[-128..255]	{}
 0003 ( 253)		BINOP9	R5(I)[0..127]	<-	R5(IF)[0..255], CI:127	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6480
-L6480: <= D-1: (2) Head P9565 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7477
+L7477: <= D-1: (2) Head P10836 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6480
-		==> 444
-L444: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7477
+		==> 491
+L491: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(CF)[0..127]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:30	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6482
-L6482: <= D-1: (2) Head P9564 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7479
+L7479: <= D-1: (2) Head P10835 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6482
-		==> 449
-L449: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7479
+		==> 496
+L496: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(CF)[-1..254]	{V}
+0001 ( 440)		BINOP1	R1(C)[1..255]	<-	R1(CF)[0..254], CI:1	{}
+0002 ( 440)		JUMP		<-		{}
+		==> 424
+L422: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
+0000 (  96)		STOREZ2		<-	V(0 '')+0 , R5(IF)[-32768..65535]	{}
+0001 (  96)		STOREZ2		<-	V(4 '')+0 , CI:2000	{}
+0002 (  96)		CONST	R0(P)	<-	CA0(-1:8192 '')	{S}
+0003 (  96)		STOREZ2		<-	V(2 '')+0 , R0(PF)	{}
+0004 (  96)		CALLN		<-	V(29 'bnk_cpytovdc')+0 	{}
+0005 (  98)		CALLN		<-	V(16 'getch')+0 	{}
+0006 ( 440)		CONST	R1(C)[0..0]	<-	CI:0	{}
+0007 ( 449)		LOADG2	R0(I)[-32768..65535]	<-	V(41 'vdc_state')+3 	{}
+0008 ( 449)		LOADG2	R4(I)[-32768..65535]	<-	V(41 'vdc_state')+5 	{}
+0009 ( 440)		JUMP		<-		{}
+		==> 499
+L499: <= D-1: (2) Head P11006 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+0000 ( 440)		RELOP28	R6(B)	<-	R1(C)[0..255], R4(C)[-32768..65535]	{}
+0001 ( 440)		BRANCH		<-	R6(BF)	{}
+		==> 500
+		==> 497
+L500: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+0000 ( 197)		LOADG2	R5(I)[-32768..65535]	<-	V(41 'vdc_state')+3 	{}
+0001 ( 442)		LOADG1	R6(C)[-128..255]	<-	V(41 'vdc_state')+7 	{}
+0002 ( 424)		LOADG2	R7(I)[-32768..65535]	<-	V(41 'vdc_state')+8 	{}
+0003 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
+0004 ( 424)		CONV33	R8(I)[0..255]	<-	R0(C)[-32768..65535]	{}
+0005 ( 424)		BINOP2	R8(I)[-1..254]	<-	R8(IF)[0..255], CI:1	{}
+0006 ( 440)		CONV33	R9(I)[0..255]	<-	R1(C)[0..255]	{}
+0007 ( 197)		BINOP3	R5(I)	<-	R9(IF)[0..255], R5(IF)[-32768..65535]	{}
+0008 ( 424)		BINOP1	R7(I)	<-	R5(I), R7(IF)[-32768..65535]	{}
+0009 (  37)		BINOP17	R9(I)	<-	R7(I), CI:8	{}
+000a (  11)		JUMP		<-		{}
+		==> 7481
+L7481: <= D-1: (2) Head P10858 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R10(BF)	{}
+		==> 7481
+		==> 512
+L512: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R9(CF)	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
+0002 (  11)		JUMP		<-		{}
+		==> 7483
+L7483: <= D-1: (2) Head P10857 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R10(BF)	{}
+		==> 7483
+		==> 517
+L517: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
+0002 (  11)		JUMP		<-		{}
+		==> 7485
+L7485: <= D-1: (2) Head P10856 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R10(BF)	{}
+		==> 7485
+		==> 521
+L521: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:32	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
+0002 (  17)		JUMP		<-		{}
+		==> 7487
+L7487: <= D-1: (2) Head P10855 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  17)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  17)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
+0002 (  17)		BRANCH		<-	R10(BF)	{}
+		==> 7487
+		==> 527
+L527: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  18)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54785 	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
+0002 ( 253)		CONV33	R7(I)[0..255]	<-	R10(CF)[-128..255]	{}
+0003 ( 253)		BINOP9	R7(I)[0..127]	<-	R7(IF)[0..255], CI:127	{}
+0004 (  11)		JUMP		<-		{}
+		==> 7489
+L7489: <= D-1: (2) Head P10854 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R10(BF)	{}
+		==> 7489
+		==> 533
+L533: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)[0..127]	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:30	{V}
+0002 (  11)		JUMP		<-		{}
+		==> 7491
+L7491: <= D-1: (2) Head P10853 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R10(BF)	{}
+		==> 7491
+		==> 538
+L538: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(C)[-1..254]	{V}
+0001 ( 425)		LOADG2	R7(I)[-32768..65535]	<-	V(41 'vdc_state')+10 	{}
+0002 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
+0003 ( 425)		BINOP1	R5(I)	<-	R7(IF)[-32768..65535], R5(IF)	{}
+0004 (  37)		BINOP17	R7(I)	<-	R5(I), CI:8	{}
+0005 (  11)		JUMP		<-		{}
+		==> 7493
+L7493: <= D-1: (2) Head P10852 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R10(BF)	{}
+		==> 7493
+		==> 545
+L545: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
+0002 (  11)		JUMP		<-		{}
+		==> 7495
+L7495: <= D-1: (2) Head P10851 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R10(BF)	{}
+		==> 7495
+		==> 550
+L550: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(CF)	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
+0002 (  11)		JUMP		<-		{}
+		==> 7497
+L7497: <= D-1: (2) Head P10850 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R10(BF)	{}
+		==> 7497
+		==> 554
+L554: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R6(CF)[-128..255]	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
+0002 (  17)		JUMP		<-		{}
+		==> 7499
+L7499: <= D-1: (2) Head P10849 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  17)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  17)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
+0002 (  17)		BRANCH		<-	R6(BF)	{}
+		==> 7499
+		==> 560
+L560: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  18)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54785 	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
+0002 ( 253)		CONV33	R5(I)[0..255]	<-	R6(CF)[-128..255]	{}
+0003 ( 253)		BINOP9	R5(I)[0..127]	<-	R5(IF)[0..255], CI:127	{}
+0004 (  11)		JUMP		<-		{}
+		==> 7501
+L7501: <= D-1: (2) Head P10848 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R6(BF)	{}
+		==> 7501
+		==> 566
+L566: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(CF)[0..127]	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:30	{V}
+0002 (  11)		JUMP		<-		{}
+		==> 7503
+L7503: <= D-1: (2) Head P10847 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R6(BF)	{}
+		==> 7503
+		==> 571
+L571: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(CF)[-1..254]	{V}
+0001 ( 440)		BINOP1	R1(C)[1..255]	<-	R1(CF)[0..254], CI:1	{}
+0002 ( 440)		JUMP		<-		{}
+		==> 499
+L497: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
+0000 ( 101)		CONST	R1(C)[0..0]	<-	CI:0	{}
+0001 ( 104)		BRANCH		<-	R1(C)[0..1]	{}
+		==> 576
+		==> 578
+L576: <= D-1: (2) Head P-1 /home/xahmol/git/Oscar64Test/src/main.c
+0000 ( 106)		STOREZ1		<-	V(9 '')+0 , R1(C)[0..1]	{}
+0001 ( 106)		CALLN		<-	V(22 'vdc_set_mode')+0 	{}
+0002 ( 104)		JUMP		<-		{}
+		==> 578
+L578: <= D-1: (3) Head P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+0000 ( 424)		LOADG2	R0(I)[-32768..65535]	<-	V(41 'vdc_state')+8 	{}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
+0002 (  37)		BINOP17	R4(I)[0..255]	<-	R0(I)[-32768..65535], CI:8	{}
+0003 (  11)		JUMP		<-		{}
+		==> 7505
+L7505: <= D-1: (2) Head P11004 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R6(BF)	{}
+		==> 7505
+		==> 588
+L588: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R4(C)[0..255]	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
+0002 (  11)		JUMP		<-		{}
+		==> 7507
+L7507: <= D-1: (2) Head P11003 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R6(BF)	{}
+		==> 7507
+		==> 593
+L593: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R0(C)[-32768..65535]	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
+0002 (  11)		JUMP		<-		{}
+		==> 7509
+L7509: <= D-1: (2) Head P11002 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R6(BF)	{}
+		==> 7509
+		==> 597
+L597: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:32	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
+0002 (  17)		JUMP		<-		{}
+		==> 7511
+L7511: <= D-1: (2) Head P11001 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  17)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  17)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
+0002 (  17)		BRANCH		<-	R6(BF)	{}
+		==> 7511
+		==> 603
+L603: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  18)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54785 	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
+0002 ( 253)		CONV33	R5(I)[0..255]	<-	R6(CF)[-128..255]	{}
+0003 ( 253)		BINOP9	R5(I)[0..127]	<-	R5(IF)[0..255], CI:127	{}
+0004 (  11)		JUMP		<-		{}
+		==> 7513
+L7513: <= D-1: (2) Head P11000 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R6(BF)	{}
+		==> 7513
+		==> 609
+L609: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(CF)[0..127]	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:30	{V}
+0002 (  11)		JUMP		<-		{}
+		==> 7515
+L7515: <= D-1: (2) Head P10999 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R6(BF)	{}
+		==> 7515
+		==> 614
+L614: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:78	{V}
 0001 ( 425)		LOADG2	R5(I)[-32768..65535]	<-	V(41 'vdc_state')+10 	{}
 0002 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0003 (  37)		BINOP17	R7(I)[0..255]	<-	R5(I)[-32768..65535], CI:8	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6484
-L6484: <= D-1: (2) Head P9563 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7517
+L7517: <= D-1: (2) Head P10998 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6484
-		==> 456
-L456: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7517
+		==> 621
+L621: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)[0..255]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6486
-L6486: <= D-1: (2) Head P9562 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7519
+L7519: <= D-1: (2) Head P10997 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6486
-		==> 461
-L461: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7519
+		==> 626
+L626: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(CF)[-32768..65535]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6488
-L6488: <= D-1: (2) Head P9561 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7521
+L7521: <= D-1: (2) Head P10996 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6488
-		==> 465
-L465: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7521
+		==> 630
+L630: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:197	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 (  17)		JUMP		<-		{}
-		==> 6490
-L6490: <= D-1: (2) Head P9560 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7523
+L7523: <= D-1: (2) Head P10995 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  17)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  17)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  17)		BRANCH		<-	R6(BF)	{}
-		==> 6490
-		==> 471
-L471: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7523
+		==> 636
+L636: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  18)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54785 	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 ( 253)		CONV33	R5(I)[0..255]	<-	R6(CF)[-128..255]	{}
 0003 ( 253)		BINOP9	R5(I)[0..127]	<-	R5(IF)[0..255], CI:127	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6492
-L6492: <= D-1: (2) Head P9559 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7525
+L7525: <= D-1: (2) Head P10994 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6492
-		==> 477
-L477: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7525
+		==> 642
+L642: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(CF)[0..127]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:30	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6494
-L6494: <= D-1: (2) Head P9558 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7527
+L7527: <= D-1: (2) Head P10993 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6494
-		==> 482
-L482: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7527
+		==> 647
+L647: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:78	{V}
 0001 ( 368)		LOADG1	R6(C)[-128..255]	<-	V(41 'vdc_state')+7 	{}
 0002 ( 368)		CONV33	R5(I)[0..255]	<-	R6(CF)[-128..255]	{}
@@ -763,73 +1167,73 @@ L482: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0006 ( 392)		STOREG1		<-	V(41 'vdc_state')+7 , R5(CF)[0..255]	{}
 0007 ( 108)		CONST	R5(I)[0..0]	<-	CI:0	{}
 0008 ( 109)		JUMP		<-		{}
-		==> 490
-L490: <= D-1: (2) Head P9557 /home/xahmol/oscar64/include/string.c
-0000 ( 109)		LEAG	R7(P)[0..118]	<-	V(215 '')+1 , R5(I)[0..15]	{}
+		==> 655
+L655: <= D-1: (2) Head P10992 /home/xahmol/oscar64/include/string.c
+0000 ( 109)		LEAG	R7(P)[0..118]	<-	V(241 '')+1 , R5(I)[0..15]	{}
 0001 ( 110)		BINOP1	R5(I)[1..]	<-	R5(IF)[0..], CI:1	{}
-0002 ( 109)		LOADI1	R6(C)[0..118]	<-	R7(PF)+0 {V(215 '')} 	{}
+0002 ( 109)		LOADI1	R6(C)[0..118]	<-	R7(PF)+0 {V(241 '')} 	{}
 0003 ( 109)		BRANCH		<-	R6(CF)[0..118]	{}
-		==> 490
-		==> 491
-L491: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 655
+		==> 656
+L656: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0001 (  11)		JUMP		<-		{}
-		==> 6497
-L6497: <= D-1: (2) Head P9556 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7530
+L7530: <= D-1: (2) Head P10991 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6497
-		==> 498
-L498: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7530
+		==> 663
+L663: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R4(CF)[0..255]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6499
-L6499: <= D-1: (2) Head P9555 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7532
+L7532: <= D-1: (2) Head P10990 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6499
-		==> 503
-L503: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7532
+		==> 668
+L668: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R0(CF)[-32768..65535]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 ( 411)		RELOP28	R6(B)	<-	CC:0, R5(C)[1..]	{}
 0003 ( 411)		BRANCH		<-	R6(BF)	{}
-		==> 1458
-		==> 508
-L1458: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 1647
+		==> 673
+L1647: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 411)		CONST	R6(C)[0..0]	<-	CI:0	{}
 0001 ( 413)		JUMP		<-		{}
-		==> 506
-L506: <= D-1: (2) Head P9554 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 671
+L671: <= D-1: (2) Head P10989 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 413)		CONV33	R0(I)[0..16]	<-	R6(C)[0..16]	{}
-0001 ( 413)		LEAG	R0(P)	<-	V(215 '')+0 , R0(IF)[0..16]	{}
-0002 ( 413)		LOADI1	R0(C)[0..118]	<-	R0(PF)+0 {V(215 '')} 	{}
+0001 ( 413)		LEAG	R0(P)	<-	V(241 '')+0 , R0(IF)[0..16]	{}
+0002 ( 413)		LOADI1	R0(C)[0..118]	<-	R0(PF)+0 {V(241 '')} 	{}
 0003 (  64)		CONV33	R4(I)[0..118]	<-	R0(C)[0..118]	{}
 0004 (  64)		RELOP28	R10(B)	<-	R0(C)[0..118], CC:32	{}
 0005 (  64)		BRANCH		<-	R10(BF)	{}
-		==> 511
-		==> 512
-L511: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 676
+		==> 677
+L676: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  65)		BINOP1	R0(I)[128..246]	<-	R4(IF)[0..118], CI:128	{}
 0001 (  11)		JUMP		<-		{}
-		==> 6503
-L6503: <= D-1: (7) Head P9553 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7536
+L7536: <= D-1: (7) Head P10988 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6503
-		==> 539
-L539: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7536
+		==> 704
+L704: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R0(CF)[-128..246]	{V}
 0001 ( 411)		BINOP1	R6(C)[1..]	<-	R6(CF)[0..], CI:1	{}
 0002 ( 411)		RELOP28	R10(B)	<-	R6(C)[1..], R5(C)[1..]	{}
 0003 ( 411)		BRANCH		<-	R10(BF)	{}
-		==> 506
-		==> 508
-L508: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 671
+		==> 673
+L673: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 417)		LOADG1	R6(C)[-128..255]	<-	V(41 'vdc_state')+7 	{}
 0001 ( 417)		LOADG2	R0(I)[-32768..65535]	<-	V(41 'vdc_state')+10 	{}
 0002 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
@@ -837,173 +1241,173 @@ L508: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0004 ( 417)		BINOP2	R4(I)[0..254]	<-	R4(IF)[1..255], CI:1	{}
 0005 (  37)		BINOP17	R5(I)[0..255]	<-	R0(I)[-32768..65535], CI:8	{}
 0006 (  11)		JUMP		<-		{}
-		==> 6506
-L6506: <= D-1: (2) Head P9552 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7539
+L7539: <= D-1: (2) Head P10987 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6506
-		==> 546
-L546: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7539
+		==> 711
+L711: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(CF)[0..255]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6508
-L6508: <= D-1: (2) Head P9551 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7541
+L7541: <= D-1: (2) Head P10986 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6508
-		==> 551
-L551: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7541
+		==> 716
+L716: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R0(CF)[-32768..65535]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6510
-L6510: <= D-1: (2) Head P9550 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7543
+L7543: <= D-1: (2) Head P10985 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6510
-		==> 555
-L555: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7543
+		==> 720
+L720: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R6(C)[-128..255]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 (  17)		JUMP		<-		{}
-		==> 6512
-L6512: <= D-1: (2) Head P9549 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7545
+L7545: <= D-1: (2) Head P10984 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  17)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  17)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  17)		BRANCH		<-	R10(BF)	{}
-		==> 6512
-		==> 561
-L561: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7545
+		==> 726
+L726: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  18)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54785 	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 ( 253)		CONV33	R0(I)[0..255]	<-	R10(CF)[-128..255]	{}
 0003 ( 253)		BINOP9	R0(I)[0..127]	<-	R0(IF)[0..255], CI:127	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6514
-L6514: <= D-1: (2) Head P9548 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7547
+L7547: <= D-1: (2) Head P10983 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6514
-		==> 567
-L567: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7547
+		==> 732
+L732: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R0(CF)[0..127]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:30	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6516
-L6516: <= D-1: (2) Head P9547 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7549
+L7549: <= D-1: (2) Head P10982 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6516
-		==> 572
-L572: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7549
+		==> 737
+L737: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R4(CF)[0..254]	{V}
 0001 ( 392)		CONV33	R0(I)[0..255]	<-	R6(CF)[-128..255]	{}
 0002 ( 392)		BINOP9	R0(I)[0..255]	<-	R0(IF)[0..255], CI:176	{}
 0003 ( 368)		BINOP1	R0(I)[13..268]	<-	R0(IF)[0..255], CI:13	{}
 0004 ( 368)		STOREG1		<-	V(41 'vdc_state')+7 , R0(CF)[13..268]	{}
-0005 ( 106)		CONST	R0(P)	<-	CG81(223:0 'linebuffer')	{S}
-0006 ( 106)		STOREF2		<-	V(0 '')+0 , R0(PF)	{}
-0007 ( 106)		CONST	R0(P)	<-	CG0(224:0 '')	{S}
-0008 ( 106)		STOREF2		<-	V(2 '')+0 , R0(PF)	{}
-0009 ( 106)		LOADG1	R6(C)[-128..255]	<-	V(41 'vdc_state')+0 	{}
-000a ( 106)		CONV33	R0(I)[0..255]	<-	R6(CF)[-128..255]	{}
-000b ( 106)		STOREF2		<-	V(4 '')+0 , R0(IF)[0..255]	{}
-000c ( 106)		LOADG2	R0(I)[-32768..65535]	<-	V(41 'vdc_state')+3 	{}
-000d ( 106)		STOREF2		<-	V(6 '')+0 , R0(I)[-32768..65535]	{}
-000e ( 106)		LOADG2	R4(I)[-32768..65535]	<-	V(41 'vdc_state')+5 	{}
-000f ( 106)		STOREF2		<-	V(8 '')+0 , R4(IF)[-32768..65535]	{}
-0010 ( 106)		LOADG1	R6(C)[-128..255]	<-	V(41 'vdc_state')+1 	{}
-0011 ( 106)		BRANCH		<-	R6(BF)[-128..255]	{}
-		==> 3075
-		==> 3076
-L3075: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
-0000 ( 106)		CONST	R4(P)	<-	CG0(225:0 '')	{}
-0001 ( 106)		JUMP		<-		{}
-		==> 3077
-L3077: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
-0000 ( 106)		STOREF2		<-	V(10 '')+0 , R4(PF)	{}
-0001 ( 106)		CALLN		<-	V(28 'sprintf')+0 	{}
+0005 ( 118)		CONST	R0(P)	<-	CG81(217:0 'linebuffer')	{S}
+0006 ( 118)		STOREF2		<-	V(0 '')+0 , R0(PF)	{}
+0007 ( 118)		CONST	R0(P)	<-	CG0(249:0 '')	{S}
+0008 ( 118)		STOREF2		<-	V(2 '')+0 , R0(PF)	{}
+0009 ( 118)		LOADG1	R6(C)[-128..255]	<-	V(41 'vdc_state')+0 	{}
+000a ( 118)		CONV33	R0(I)[0..255]	<-	R6(CF)[-128..255]	{}
+000b ( 118)		STOREF2		<-	V(4 '')+0 , R0(IF)[0..255]	{}
+000c ( 118)		LOADG2	R0(I)[-32768..65535]	<-	V(41 'vdc_state')+3 	{}
+000d ( 118)		STOREF2		<-	V(6 '')+0 , R0(I)[-32768..65535]	{}
+000e ( 118)		LOADG2	R4(I)[-32768..65535]	<-	V(41 'vdc_state')+5 	{}
+000f ( 118)		STOREF2		<-	V(8 '')+0 , R4(IF)[-32768..65535]	{}
+0010 ( 118)		LOADG1	R6(C)[-128..255]	<-	V(41 'vdc_state')+1 	{}
+0011 ( 118)		BRANCH		<-	R6(BF)[-128..255]	{}
+		==> 3520
+		==> 3521
+L3520: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
+0000 ( 118)		CONST	R4(P)	<-	CG0(250:0 '')	{}
+0001 ( 118)		JUMP		<-		{}
+		==> 3522
+L3522: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
+0000 ( 118)		STOREF2		<-	V(10 '')+0 , R4(PF)	{}
+0001 ( 118)		CALLN		<-	V(31 'sprintf')+0 	{}
 0002 ( 197)		BINOP16	R0(I)[-32768..65535]	<-	R0(IF)[-32768..65535], CI:1	{}
 0003 ( 108)		CONST	R4(I)[0..0]	<-	CI:0	{}
-0004 ( 109)		LOADG1	R6(C)[-128..255]	<-	V(223 'linebuffer' A)+0 	{}
+0004 ( 109)		LOADG1	R6(C)[-128..255]	<-	V(217 'linebuffer' A)+0 	{}
 0005 ( 109)		BRANCH		<-	R6(CF)[-128..255]	{}
-		==> 580
-		==> 581
-L580: <= D-1: (2) Head P-1 /home/xahmol/oscar64/include/string.c
-0000 ( 109)		LEAG	R5(P)[-128..255]	<-	V(223 'linebuffer' A)+1 , R4(I)[0..79]	{}
+		==> 745
+		==> 746
+L745: <= D-1: (2) Head P-1 /home/xahmol/oscar64/include/string.c
+0000 ( 109)		LEAG	R5(P)[-128..255]	<-	V(217 'linebuffer' A)+1 , R4(I)[0..79]	{}
 0001 ( 110)		BINOP1	R4(I)[1..]	<-	R4(IF)[0..], CI:1	{}
-0002 ( 109)		LOADI1	R6(C)[-128..255]	<-	R5(PF)+0 {V(223 'linebuffer' A)} 	{}
+0002 ( 109)		LOADI1	R6(C)[-128..255]	<-	R5(PF)+0 {V(217 'linebuffer' A)} 	{}
 0003 ( 109)		BRANCH		<-	R6(CF)[-128..255]	{}
-		==> 580
-		==> 581
-L581: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 745
+		==> 746
+L746: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 410)		LOADG2	R5(I)[-32768..65535]	<-	V(41 'vdc_state')+8 	{}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0002 ( 410)		BINOP1	R5(I)[-32768..65535]	<-	R5(IF)[-32768..65535], R0(I)[-32768..65535]	{}
 0003 (  37)		BINOP17	R7(I)[0..255]	<-	R5(I)[-32768..65535], CI:8	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6521
-L6521: <= D-1: (2) Head P9545 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7554
+L7554: <= D-1: (2) Head P10980 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6521
-		==> 588
-L588: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7554
+		==> 753
+L753: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)[0..255]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6523
-L6523: <= D-1: (2) Head P9544 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7556
+L7556: <= D-1: (2) Head P10979 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6523
-		==> 593
-L593: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7556
+		==> 758
+L758: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(CF)[-32768..65535]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 ( 411)		RELOP28	R6(B)	<-	CC:0, R4(C)[0..]	{}
 0003 ( 411)		BRANCH		<-	R6(BF)	{}
-		==> 1447
-		==> 598
-L1447: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 1636
+		==> 763
+L1636: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 411)		CONST	R6(C)[0..0]	<-	CI:0	{}
 0001 ( 413)		JUMP		<-		{}
-		==> 596
-L596: <= D-1: (2) Head P9543 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 761
+L761: <= D-1: (2) Head P10978 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 413)		CONV33	R5(I)[0..80]	<-	R6(C)[0..80]	{}
-0001 ( 413)		LEAG	R5(P)	<-	V(223 'linebuffer' A)+0 , R5(IF)[0..80]	{}
-0002 ( 413)		LOADI1	R5(C)[-128..255]	<-	R5(PF)+0 {V(223 'linebuffer' A)} 	{}
+0001 ( 413)		LEAG	R5(P)	<-	V(217 'linebuffer' A)+0 , R5(IF)[0..80]	{}
+0002 ( 413)		LOADI1	R5(C)[-128..255]	<-	R5(PF)+0 {V(217 'linebuffer' A)} 	{}
 0003 (  64)		CONV33	R7(I)[0..255]	<-	R5(C)[-128..255]	{}
 0004 (  64)		RELOP28	R10(B)	<-	R5(C)[-128..255], CC:32	{}
 0005 (  64)		BRANCH		<-	R10(BF)	{}
-		==> 601
-		==> 602
-L601: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 766
+		==> 767
+L766: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  65)		BINOP1	R5(I)[128..383]	<-	R7(IF)[0..255], CI:128	{}
 0001 (  11)		JUMP		<-		{}
-		==> 6527
-L6527: <= D-1: (8) Head P9542 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7560
+L7560: <= D-1: (8) Head P10977 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6527
-		==> 629
-L629: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7560
+		==> 794
+L794: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(CF)[-128..383]	{V}
 0001 ( 411)		BINOP1	R6(C)[1..]	<-	R6(CF)[0..], CI:1	{}
 0002 ( 411)		RELOP28	R10(B)	<-	R6(C)[1..], R4(C)[1..]	{}
 0003 ( 411)		BRANCH		<-	R10(BF)	{}
-		==> 596
-		==> 598
-L598: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 761
+		==> 763
+L763: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 417)		LOADG1	R6(C)[-128..255]	<-	V(41 'vdc_state')+7 	{}
 0001 ( 417)		LOADG2	R5(I)[-32768..65535]	<-	V(41 'vdc_state')+10 	{}
 0002 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
@@ -1012,71 +1416,71 @@ L598: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0005 ( 417)		BINOP1	R0(I)[-32768..65535]	<-	R0(IF)[-32768..65535], R5(I)[-32768..65535]	{}
 0006 (  37)		BINOP17	R7(I)[0..255]	<-	R0(I)[-32768..65535], CI:8	{}
 0007 (  11)		JUMP		<-		{}
-		==> 6530
-L6530: <= D-1: (2) Head P9541 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7563
+L7563: <= D-1: (2) Head P10976 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6530
-		==> 636
-L636: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7563
+		==> 801
+L801: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)[0..255]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6532
-L6532: <= D-1: (2) Head P9540 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7565
+L7565: <= D-1: (2) Head P10975 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6532
-		==> 641
-L641: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7565
+		==> 806
+L806: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R0(CF)[-32768..65535]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6534
-L6534: <= D-1: (2) Head P9539 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7567
+L7567: <= D-1: (2) Head P10974 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6534
-		==> 645
-L645: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7567
+		==> 810
+L810: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R6(CF)[-128..255]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 (  17)		JUMP		<-		{}
-		==> 6536
-L6536: <= D-1: (2) Head P9538 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7569
+L7569: <= D-1: (2) Head P10973 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  17)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  17)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  17)		BRANCH		<-	R6(BF)	{}
-		==> 6536
-		==> 651
-L651: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7569
+		==> 816
+L816: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  18)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54785 	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 ( 253)		CONV33	R0(I)[0..255]	<-	R6(CF)[-128..255]	{}
 0003 ( 253)		BINOP9	R0(I)[0..127]	<-	R0(IF)[0..255], CI:127	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6538
-L6538: <= D-1: (2) Head P9537 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7571
+L7571: <= D-1: (2) Head P10972 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6538
-		==> 657
-L657: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7571
+		==> 822
+L822: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R0(CF)[0..127]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:30	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6540
-L6540: <= D-1: (2) Head P9536 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7573
+L7573: <= D-1: (2) Head P10971 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6540
-		==> 662
-L662: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7573
+		==> 827
+L827: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R4(CF)[-1..254]	{V}
 0001 ( 197)		LOADG2	R0(I)[-10922..21843]	<-	V(41 'vdc_state')+3 	{}
 0002 ( 399)		LOADG2	R4(I)[-32768..65535]	<-	V(41 'vdc_state')+8 	{}
@@ -1086,298 +1490,298 @@ L662: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0006 ( 399)		BINOP1	R8(I)[-32768..65535]	<-	R7(I)[-32762..65533], R4(I)[-32768..65535]	{}
 0007 (  37)		BINOP17	R9(I)[0..255]	<-	R8(I)[-32768..65535], CI:8	{}
 0008 (  11)		JUMP		<-		{}
-		==> 6542
-L6542: <= D-1: (2) Head P9535 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7575
+L7575: <= D-1: (2) Head P10970 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6542
-		==> 672
-L672: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7575
+		==> 837
+L837: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R9(CF)[0..255]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6544
-L6544: <= D-1: (2) Head P9534 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7577
+L7577: <= D-1: (2) Head P10969 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6544
-		==> 677
-L677: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7577
+		==> 842
+L842: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(CF)[-32768..65535]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6546
-L6546: <= D-1: (2) Head P9533 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7579
+L7579: <= D-1: (2) Head P10968 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6546
-		==> 681
-L681: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7579
+		==> 846
+L846: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:108	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0002 ( 400)		BINOP1	R7(I)[-32768..65535]	<-	R7(IF)[-32762..65533], R5(I)[-32768..65535]	{}
 0003 (  37)		BINOP17	R8(I)[0..255]	<-	R7(I)[-32768..65535], CI:8	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6548
-L6548: <= D-1: (2) Head P9532 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7581
+L7581: <= D-1: (2) Head P10967 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6548
-		==> 688
-L688: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7581
+		==> 853
+L853: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(CF)[0..255]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6550
-L6550: <= D-1: (2) Head P9531 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7583
+L7583: <= D-1: (2) Head P10966 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6550
-		==> 693
-L693: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7583
+		==> 858
+L858: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)[-32768..65535]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6552
-L6552: <= D-1: (2) Head P9530 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7585
+L7585: <= D-1: (2) Head P10965 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6552
-		==> 697
-L697: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7585
+		==> 862
+L862: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:9	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0002 ( 197)		BINOP1	R7(I)[-32761..65534]	<-	R0(I)[-32766..65529], CI:5	{}
 0003 ( 424)		BINOP1	R8(I)[-32768..65535]	<-	R7(I)[-32761..65534], R4(I)[-32768..65535]	{}
 0004 (  37)		BINOP17	R9(I)[0..255]	<-	R8(I)[-32768..65535], CI:8	{}
 0005 (  11)		JUMP		<-		{}
-		==> 6554
-L6554: <= D-1: (2) Head P9529 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7587
+L7587: <= D-1: (2) Head P10964 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6554
-		==> 707
-L707: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7587
+		==> 872
+L872: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R9(CF)[0..255]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6556
-L6556: <= D-1: (2) Head P9528 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7589
+L7589: <= D-1: (2) Head P10963 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6556
-		==> 712
-L712: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7589
+		==> 877
+L877: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(CF)[-32768..65535]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6558
-L6558: <= D-1: (2) Head P9527 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7591
+L7591: <= D-1: (2) Head P10962 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6558
-		==> 716
-L716: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7591
+		==> 881
+L881: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:98	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 (  17)		JUMP		<-		{}
-		==> 6560
-L6560: <= D-1: (2) Head P9526 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7593
+L7593: <= D-1: (2) Head P10961 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  17)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  17)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  17)		BRANCH		<-	R6(BF)	{}
-		==> 6560
-		==> 722
-L722: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7593
+		==> 887
+L887: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  18)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54785 	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 ( 253)		CONV33	R8(I)[0..255]	<-	R6(CF)[-128..255]	{}
 0003 ( 253)		BINOP9	R8(I)[0..127]	<-	R8(IF)[0..255], CI:127	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6562
-L6562: <= D-1: (2) Head P9525 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7595
+L7595: <= D-1: (2) Head P10960 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6562
-		==> 728
-L728: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7595
+		==> 893
+L893: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(CF)[0..127]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:30	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6564
-L6564: <= D-1: (2) Head P9524 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7597
+L7597: <= D-1: (2) Head P10959 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6564
-		==> 733
-L733: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7597
+		==> 898
+L898: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:69	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0002 ( 425)		BINOP1	R7(I)[-32768..65535]	<-	R7(IF)[-32761..65534], R5(I)[-32768..65535]	{}
 0003 (  37)		BINOP17	R8(I)[0..255]	<-	R7(I)[-32768..65535], CI:8	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6566
-L6566: <= D-1: (2) Head P9523 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7599
+L7599: <= D-1: (2) Head P10958 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6566
-		==> 740
-L740: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7599
+		==> 905
+L905: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(CF)[0..255]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6568
-L6568: <= D-1: (2) Head P9522 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7601
+L7601: <= D-1: (2) Head P10957 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6568
-		==> 745
-L745: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7601
+		==> 910
+L910: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)[-32768..65535]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6570
-L6570: <= D-1: (2) Head P9521 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7603
+L7603: <= D-1: (2) Head P10956 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6570
-		==> 749
-L749: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7603
+		==> 914
+L914: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:9	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 (  17)		JUMP		<-		{}
-		==> 6572
-L6572: <= D-1: (2) Head P9520 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7605
+L7605: <= D-1: (2) Head P10955 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  17)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  17)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  17)		BRANCH		<-	R6(BF)	{}
-		==> 6572
-		==> 755
-L755: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7605
+		==> 920
+L920: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  18)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54785 	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 ( 253)		CONV33	R7(I)[0..255]	<-	R6(CF)[-128..255]	{}
 0003 ( 253)		BINOP9	R7(I)[0..127]	<-	R7(IF)[0..255], CI:127	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6574
-L6574: <= D-1: (2) Head P9519 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7607
+L7607: <= D-1: (2) Head P10954 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6574
-		==> 761
-L761: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7607
+		==> 926
+L926: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)[0..127]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:30	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6576
-L6576: <= D-1: (2) Head P9518 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7609
+L7609: <= D-1: (2) Head P10953 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6576
-		==> 766
-L766: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7609
+		==> 931
+L931: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:69	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0002 ( 197)		BINOP1	R0(I)[-32691..65535]	<-	R0(IF)[-32766..65460], CI:75	{}
 0003 ( 399)		BINOP1	R4(I)[-32768..65535]	<-	R0(I)[-32691..65535], R4(IF)[-32768..65535]	{}
 0004 (  37)		BINOP17	R7(I)[0..255]	<-	R4(I)[-32768..65535], CI:8	{}
 0005 (  11)		JUMP		<-		{}
-		==> 6578
-L6578: <= D-1: (2) Head P9517 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7611
+L7611: <= D-1: (2) Head P10952 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6578
-		==> 776
-L776: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7611
+		==> 941
+L941: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)[0..255]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6580
-L6580: <= D-1: (2) Head P9516 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7613
+L7613: <= D-1: (2) Head P10951 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6580
-		==> 781
-L781: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7613
+		==> 946
+L946: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R4(CF)[-32768..65535]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6582
-L6582: <= D-1: (2) Head P9515 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7615
+L7615: <= D-1: (2) Head P10950 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6582
-		==> 785
-L785: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7615
+		==> 950
+L950: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:123	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0002 ( 400)		BINOP1	R0(I)[-32768..65535]	<-	R0(IF)[-32691..65535], R5(IF)[-32768..65535]	{}
 0003 (  37)		BINOP17	R4(I)[0..255]	<-	R0(I)[-32768..65535], CI:8	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6584
-L6584: <= D-1: (2) Head P9514 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7617
+L7617: <= D-1: (2) Head P10949 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6584
-		==> 792
-L792: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7617
+		==> 957
+L957: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R4(CF)[0..255]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6586
-L6586: <= D-1: (2) Head P9513 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7619
+L7619: <= D-1: (2) Head P10948 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6586
-		==> 797
-L797: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7619
+		==> 962
+L962: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R0(CF)[-32768..65535]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6588
-L6588: <= D-1: (2) Head P9512 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7621
+L7621: <= D-1: (2) Head P10947 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6588
-		==> 801
-L801: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7621
+		==> 966
+L966: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:9	{V}
-0001 ( 113)		LOADG2	R0(I)[-32763..65535]	<-	V(41 'vdc_state')+5 	{}
-0002 ( 113)		BINOP2	R0(I)[-32768..65530]	<-	R0(IF)[-32763..65535], CI:5	{}
+0001 ( 125)		LOADG2	R0(I)[-32763..65535]	<-	V(41 'vdc_state')+5 	{}
+0002 ( 125)		BINOP2	R0(I)[-32768..65530]	<-	R0(IF)[-32763..65535], CI:5	{}
 0003 ( 431)		CONST	R6(C)[4..4]	<-	CI:4	{}
 0004 ( 431)		JUMP		<-		{}
-		==> 803
-L803: <= D-1: (2) Head P9511 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 968
+L968: <= D-1: (2) Head P10946 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 431)		CONV33	R4(I)[0..255]	<-	R0(C)[-32768..65530]	{}
 0001 ( 431)		BINOP1	R4(I)[4..259]	<-	R4(IF)[0..255], CI:4	{}
 0002 ( 431)		CONV33	R5(I)[4..255]	<-	R6(C)[4..255]	{}
 0003 ( 431)		RELOP28	R10(B)	<-	R5(I)[4..255], R4(IF)[4..259]	{}
 0004 ( 431)		BRANCH		<-	R10(BF)	{}
-		==> 804
-		==> 802
-L804: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 969
+		==> 967
+L969: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 197)		LOADG2	R4(I)[-32768..65535]	<-	V(41 'vdc_state')+3 	{}
 0001 ( 399)		LOADG2	R7(I)[-32768..65535]	<-	V(41 'vdc_state')+8 	{}
 0002 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
@@ -1386,83 +1790,83 @@ L804: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0005 ( 399)		BINOP1	R5(I)	<-	R4(I), R7(IF)[-32768..65535]	{}
 0006 (  37)		BINOP17	R7(I)	<-	R5(I), CI:8	{}
 0007 (  11)		JUMP		<-		{}
-		==> 6591
-L6591: <= D-1: (2) Head P9429 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7624
+L7624: <= D-1: (2) Head P10864 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6591
-		==> 816
-L816: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7624
+		==> 981
+L981: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6593
-L6593: <= D-1: (2) Head P9428 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7626
+L7626: <= D-1: (2) Head P10863 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6593
-		==> 821
-L821: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7626
+		==> 986
+L986: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6595
-L6595: <= D-1: (2) Head P9427 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7628
+L7628: <= D-1: (2) Head P10862 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6595
-		==> 825
-L825: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7628
+		==> 990
+L990: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:225	{V}
 0001 ( 400)		LOADG2	R5(I)[-32768..65535]	<-	V(41 'vdc_state')+10 	{}
 0002 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0003 ( 400)		BINOP1	R4(I)	<-	R5(IF)[-32768..65535], R4(IF)	{}
 0004 (  37)		BINOP17	R5(I)	<-	R4(I), CI:8	{}
 0005 (  11)		JUMP		<-		{}
-		==> 6597
-L6597: <= D-1: (2) Head P9426 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7630
+L7630: <= D-1: (2) Head P10861 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6597
-		==> 832
-L832: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7630
+		==> 997
+L997: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6599
-L6599: <= D-1: (2) Head P9425 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7632
+L7632: <= D-1: (2) Head P10860 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6599
-		==> 837
-L837: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7632
+		==> 1002
+L1002: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R4(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6601
-L6601: <= D-1: (2) Head P9424 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7634
+L7634: <= D-1: (2) Head P10859 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6601
-		==> 841
-L841: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7634
+		==> 1006
+L1006: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:9	{V}
 0001 ( 431)		BINOP1	R6(C)[5..]	<-	R6(CF)[4..], CI:1	{}
 0002 ( 431)		JUMP		<-		{}
-		==> 803
-L802: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
-0000 ( 114)		LOADG2	R0(I)[-32763..65535]	<-	V(41 'vdc_state')+5 	{}
-0001 ( 114)		BINOP2	R0(I)[-32768..65530]	<-	R0(IF)[-32763..65535], CI:5	{}
+		==> 968
+L967: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
+0000 ( 126)		LOADG2	R0(I)[-32763..65535]	<-	V(41 'vdc_state')+5 	{}
+0001 ( 126)		BINOP2	R0(I)[-32768..65530]	<-	R0(IF)[-32763..65535], CI:5	{}
 0002 ( 431)		CONST	R6(C)[4..4]	<-	CI:4	{}
 0003 ( 197)		JUMP		<-		{}
-		==> 843
-L843: <= D-1: (2) Head P9510 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 1008
+L1008: <= D-1: (2) Head P10945 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 431)		CONV33	R4(I)[0..255]	<-	R0(C)[-32768..65530]	{}
 0001 ( 431)		BINOP1	R7(I)[4..259]	<-	R4(IF)[0..255], CI:4	{}
 0002 ( 431)		CONV33	R8(I)[4..255]	<-	R6(C)[4..255]	{}
@@ -1470,603 +1874,603 @@ L843: <= D-1: (2) Head P9510 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0004 ( 399)		LOADG2	R5(I)[-32768..65535]	<-	V(41 'vdc_state')+8 	{}
 0005 ( 431)		RELOP28	R10(B)	<-	R8(I)[4..255], R7(IF)[4..259]	{}
 0006 ( 431)		BRANCH		<-	R10(BF)	{}
-		==> 844
-		==> 842
-L844: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 1009
+		==> 1007
+L1009: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0001 ( 197)		BINOP3	R4(I)	<-	R4(IF)[-32768..65535], R8(IF)[4..255]	{}
 0002 ( 197)		BINOP1	R4(I)	<-	R4(IF), CI:75	{}
 0003 ( 399)		BINOP1	R5(I)	<-	R4(I), R5(IF)[-32768..65535]	{}
 0004 (  37)		BINOP17	R7(I)	<-	R5(I), CI:8	{}
 0005 (  11)		JUMP		<-		{}
-		==> 6604
-L6604: <= D-1: (2) Head P9435 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7637
+L7637: <= D-1: (2) Head P10870 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6604
-		==> 856
-L856: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7637
+		==> 1021
+L1021: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6606
-L6606: <= D-1: (2) Head P9434 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7639
+L7639: <= D-1: (2) Head P10869 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6606
-		==> 861
-L861: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7639
+		==> 1026
+L1026: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6608
-L6608: <= D-1: (2) Head P9433 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7641
+L7641: <= D-1: (2) Head P10868 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6608
-		==> 865
-L865: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7641
+		==> 1030
+L1030: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:97	{V}
 0001 ( 400)		LOADG2	R5(I)[-32768..65535]	<-	V(41 'vdc_state')+10 	{}
 0002 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0003 ( 400)		BINOP1	R4(I)	<-	R5(IF)[-32768..65535], R4(IF)	{}
 0004 (  37)		BINOP17	R5(I)	<-	R4(I), CI:8	{}
 0005 (  11)		JUMP		<-		{}
-		==> 6610
-L6610: <= D-1: (2) Head P9432 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7643
+L7643: <= D-1: (2) Head P10867 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6610
-		==> 872
-L872: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7643
+		==> 1037
+L1037: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6612
-L6612: <= D-1: (2) Head P9431 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7645
+L7645: <= D-1: (2) Head P10866 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6612
-		==> 877
-L877: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7645
+		==> 1042
+L1042: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R4(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6614
-L6614: <= D-1: (2) Head P9430 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7647
+L7647: <= D-1: (2) Head P10865 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6614
-		==> 881
-L881: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7647
+		==> 1046
+L1046: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:9	{V}
 0001 ( 431)		BINOP1	R6(C)[5..]	<-	R6(CF)[4..], CI:1	{}
 0002 ( 431)		JUMP		<-		{}
-		==> 843
-L842: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
-0000 ( 115)		LOADG2	R0(I)[-32767..65535]	<-	V(41 'vdc_state')+5 	{}
+		==> 1008
+L1007: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
+0000 ( 127)		LOADG2	R0(I)[-32767..65535]	<-	V(41 'vdc_state')+5 	{}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
-0002 ( 115)		BINOP2	R0(I)[-32768..65534]	<-	R0(IF)[-32767..65535], CI:1	{}
+0002 ( 127)		BINOP2	R0(I)[-32768..65534]	<-	R0(IF)[-32767..65535], CI:1	{}
 0003 ( 197)		CONV33	R7(I)[0..255]	<-	R0(C)[-32768..65534]	{}
 0004 ( 197)		BINOP3	R7(I)	<-	R7(IF)[0..255], R4(I)[-32768..65535]	{}
 0005 ( 197)		BINOP1	R8(I)	<-	R7(I), CI:4	{}
 0006 ( 399)		BINOP1	R9(I)	<-	R8(I), R5(I)[-32768..65535]	{}
 0007 (  37)		BINOP17	R11(I)	<-	R9(I), CI:8	{}
 0008 (  11)		JUMP		<-		{}
-		==> 6616
-L6616: <= D-1: (2) Head P9509 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7649
+L7649: <= D-1: (2) Head P10944 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6616
-		==> 891
-L891: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7649
+		==> 1056
+L1056: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R11(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6618
-L6618: <= D-1: (2) Head P9508 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7651
+L7651: <= D-1: (2) Head P10943 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6618
-		==> 896
-L896: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7651
+		==> 1061
+L1061: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R9(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6620
-L6620: <= D-1: (2) Head P9507 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7653
+L7653: <= D-1: (2) Head P10942 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6620
-		==> 900
-L900: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7653
+		==> 1065
+L1065: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:124	{V}
 0001 ( 400)		LOADG2	R9(I)[-32768..65535]	<-	V(41 'vdc_state')+10 	{}
 0002 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0003 ( 400)		BINOP1	R8(I)	<-	R8(IF), R9(I)[-32768..65535]	{}
 0004 (  37)		BINOP17	R11(I)	<-	R8(I), CI:8	{}
 0005 (  11)		JUMP		<-		{}
-		==> 6622
-L6622: <= D-1: (2) Head P9506 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7655
+L7655: <= D-1: (2) Head P10941 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6622
-		==> 907
-L907: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7655
+		==> 1072
+L1072: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R11(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6624
-L6624: <= D-1: (2) Head P9505 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7657
+L7657: <= D-1: (2) Head P10940 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6624
-		==> 912
-L912: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7657
+		==> 1077
+L1077: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6626
-L6626: <= D-1: (2) Head P9504 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7659
+L7659: <= D-1: (2) Head P10939 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6626
-		==> 916
-L916: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7659
+		==> 1081
+L1081: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:9	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0002 ( 197)		BINOP1	R8(I)	<-	R7(I), CI:5	{}
 0003 ( 424)		BINOP1	R11(I)	<-	R8(I), R5(I)[-32768..65535]	{}
 0004 (  37)		BINOP17	R12(I)	<-	R11(I), CI:8	{}
 0005 (  11)		JUMP		<-		{}
-		==> 6628
-L6628: <= D-1: (2) Head P9503 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7661
+L7661: <= D-1: (2) Head P10938 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6628
-		==> 926
-L926: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7661
+		==> 1091
+L1091: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R12(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6630
-L6630: <= D-1: (2) Head P9502 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7663
+L7663: <= D-1: (2) Head P10937 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6630
-		==> 931
-L931: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7663
+		==> 1096
+L1096: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R11(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6632
-L6632: <= D-1: (2) Head P9501 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7665
+L7665: <= D-1: (2) Head P10936 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6632
-		==> 935
-L935: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7665
+		==> 1100
+L1100: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:226	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 (  17)		JUMP		<-		{}
-		==> 6634
-L6634: <= D-1: (2) Head P9500 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7667
+L7667: <= D-1: (2) Head P10935 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  17)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  17)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  17)		BRANCH		<-	R6(BF)	{}
-		==> 6634
-		==> 941
-L941: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7667
+		==> 1106
+L1106: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  18)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54785 	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 ( 253)		CONV33	R11(I)[0..255]	<-	R6(CF)[-128..255]	{}
 0003 ( 253)		BINOP9	R11(I)[0..127]	<-	R11(IF)[0..255], CI:127	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6636
-L6636: <= D-1: (2) Head P9499 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7669
+L7669: <= D-1: (2) Head P10934 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6636
-		==> 947
-L947: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7669
+		==> 1112
+L1112: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R11(CF)[0..127]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:30	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6638
-L6638: <= D-1: (2) Head P9498 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7671
+L7671: <= D-1: (2) Head P10933 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6638
-		==> 952
-L952: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7671
+		==> 1117
+L1117: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:69	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0002 ( 425)		BINOP1	R8(I)	<-	R8(IF), R9(I)[-32768..65535]	{}
 0003 (  37)		BINOP17	R11(I)	<-	R8(I), CI:8	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6640
-L6640: <= D-1: (2) Head P9497 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7673
+L7673: <= D-1: (2) Head P10932 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6640
-		==> 959
-L959: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7673
+		==> 1124
+L1124: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R11(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6642
-L6642: <= D-1: (2) Head P9496 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7675
+L7675: <= D-1: (2) Head P10931 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6642
-		==> 964
-L964: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7675
+		==> 1129
+L1129: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6644
-L6644: <= D-1: (2) Head P9495 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7677
+L7677: <= D-1: (2) Head P10930 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6644
-		==> 968
-L968: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7677
+		==> 1133
+L1133: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:9	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 (  17)		JUMP		<-		{}
-		==> 6646
-L6646: <= D-1: (2) Head P9494 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7679
+L7679: <= D-1: (2) Head P10929 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  17)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  17)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  17)		BRANCH		<-	R6(BF)	{}
-		==> 6646
-		==> 974
-L974: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7679
+		==> 1139
+L1139: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  18)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54785 	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 ( 253)		CONV33	R8(I)[0..255]	<-	R6(CF)[-128..255]	{}
 0003 ( 253)		BINOP9	R8(I)[0..127]	<-	R8(IF)[0..255], CI:127	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6648
-L6648: <= D-1: (2) Head P9493 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7681
+L7681: <= D-1: (2) Head P10928 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6648
-		==> 980
-L980: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7681
+		==> 1145
+L1145: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(CF)[0..127]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:30	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6650
-L6650: <= D-1: (2) Head P9492 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7683
+L7683: <= D-1: (2) Head P10927 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6650
-		==> 985
-L985: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7683
+		==> 1150
+L1150: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:69	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0002 ( 197)		BINOP1	R7(I)	<-	R7(IF), CI:75	{}
 0003 ( 399)		BINOP1	R8(I)	<-	R7(I), R5(I)[-32768..65535]	{}
 0004 (  37)		BINOP17	R11(I)	<-	R8(I), CI:8	{}
 0005 (  11)		JUMP		<-		{}
-		==> 6652
-L6652: <= D-1: (2) Head P9491 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7685
+L7685: <= D-1: (2) Head P10926 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6652
-		==> 995
-L995: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7685
+		==> 1160
+L1160: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R11(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6654
-L6654: <= D-1: (2) Head P9490 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7687
+L7687: <= D-1: (2) Head P10925 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6654
-		==> 1000
-L1000: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7687
+		==> 1165
+L1165: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6656
-L6656: <= D-1: (2) Head P9489 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7689
+L7689: <= D-1: (2) Head P10924 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6656
-		==> 1004
-L1004: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7689
+		==> 1169
+L1169: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:126	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0002 ( 400)		BINOP1	R7(I)	<-	R7(IF), R9(IF)[-32768..65535]	{}
 0003 (  37)		BINOP17	R8(I)	<-	R7(I), CI:8	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6658
-L6658: <= D-1: (2) Head P9488 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7691
+L7691: <= D-1: (2) Head P10923 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6658
-		==> 1011
-L1011: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7691
+		==> 1176
+L1176: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6660
-L6660: <= D-1: (2) Head P9487 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7693
+L7693: <= D-1: (2) Head P10922 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6660
-		==> 1016
-L1016: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7693
+		==> 1181
+L1181: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6662
-L6662: <= D-1: (2) Head P9486 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7695
+L7695: <= D-1: (2) Head P10921 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R6(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R6(B)	<-	R6(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R6(BF)	{}
-		==> 6662
-		==> 1020
-L1020: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7695
+		==> 1185
+L1185: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:9	{V}
-0001 ( 120)		RELOP28	R6(B)	<-	CI:4, R0(IF)[-32768..65534]	{}
-0002 ( 120)		BRANCH		<-	R6(BF)	{}
-		==> 1389
-		==> 1024
-L1389: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+0001 ( 132)		RELOP28	R6(B)	<-	CI:4, R0(IF)[-32768..65534]	{}
+0002 ( 132)		BRANCH		<-	R6(BF)	{}
+		==> 1578
+		==> 1189
+L1578: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 197)		MOVE	R0(I)[-32768..65535]	<-	R4(IF)[-32768..65535]	{}
-0001 ( 120)		CONST	R6(C)[4..4]	<-	CI:4	{}
+0001 ( 132)		CONST	R6(C)[4..4]	<-	CI:4	{}
 0002 ( 197)		JUMP		<-		{}
-		==> 1022
-L1022: <= D-1: (2) Head P9485 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 1187
+L1187: <= D-1: (2) Head P10920 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 197)		CONV33	R4(I)[4..255]	<-	R6(C)[4..255]	{}
 0001 ( 197)		BINOP3	R4(I)	<-	R4(IF)[4..255], R0(I)[-32768..65535]	{}
-0002 ( 122)		CONST	R10(C)[5..5]	<-	CI:5	{}
+0002 ( 134)		CONST	R10(C)[5..5]	<-	CI:5	{}
 0003 (   6)		JUMP		<-		{}
-		==> 1026
-L1026: <= D-1: (2) Head P9484 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 1191
+L1191: <= D-1: (2) Head P10919 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
-0001 ( 124)		MOVE	R13(C)[0..]	<-	R2(C)[0..]	{}
+0001 ( 136)		MOVE	R13(C)[0..]	<-	R2(C)[0..]	{}
 0002 ( 197)		CONV33	R7(I)[5..255]	<-	R10(C)[5..74]	{}
 0003 ( 197)		BINOP1	R7(I)	<-	R7(IF)[5..255], R4(I)	{}
 0004 ( 399)		BINOP1	R8(I)	<-	R7(I), R5(I)[-32768..65535]	{}
 0005 (  37)		BINOP17	R9(I)	<-	R8(I), CI:8	{}
-0006 ( 124)		CONV33	R11(I)[0..15]	<-	R3(C)[0..15]	{}
-0007 ( 124)		BINOP1	R3(C)[1..16]	<-	R3(CF)[0..15], CI:1	{}
-0008 ( 124)		BINOP1	R2(C)[1..]	<-	R2(CF)[0..], CI:1	{}
+0006 ( 136)		CONV33	R11(I)[0..15]	<-	R3(C)[0..15]	{}
+0007 ( 136)		BINOP1	R3(C)[1..16]	<-	R3(CF)[0..15], CI:1	{}
+0008 ( 136)		BINOP1	R2(C)[1..]	<-	R2(CF)[0..], CI:1	{}
 0009 (  11)		JUMP		<-		{}
-		==> 6665
-L6665: <= D-1: (2) Head P9483 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7698
+L7698: <= D-1: (2) Head P10918 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R14(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R14(B)	<-	R14(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R14(BF)	{}
-		==> 6665
-		==> 1038
-L1038: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7698
+		==> 1203
+L1203: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R9(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6667
-L6667: <= D-1: (2) Head P9482 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7700
+L7700: <= D-1: (2) Head P10917 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R14(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R14(B)	<-	R14(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R14(BF)	{}
-		==> 6667
-		==> 1043
-L1043: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7700
+		==> 1208
+L1208: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6669
-L6669: <= D-1: (2) Head P9481 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7702
+L7702: <= D-1: (2) Head P10916 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R14(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R14(B)	<-	R14(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R14(BF)	{}
-		==> 6669
-		==> 1047
-L1047: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7702
+		==> 1212
+L1212: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R13(CF)[0..]	{V}
 0001 ( 400)		LOADG2	R8(I)[-32768..65535]	<-	V(41 'vdc_state')+10 	{}
 0002 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0003 ( 400)		BINOP1	R7(I)	<-	R8(IF)[-32768..65535], R7(IF)	{}
 0004 (  37)		BINOP17	R8(I)	<-	R7(I), CI:8	{}
 0005 (  11)		JUMP		<-		{}
-		==> 6671
-L6671: <= D-1: (2) Head P9480 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7704
+L7704: <= D-1: (2) Head P10915 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R13(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R13(B)	<-	R13(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R13(BF)	{}
-		==> 6671
-		==> 1054
-L1054: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7704
+		==> 1219
+L1219: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6673
-L6673: <= D-1: (2) Head P9479 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7706
+L7706: <= D-1: (2) Head P10914 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R13(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R13(B)	<-	R13(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R13(BF)	{}
-		==> 6673
-		==> 1059
-L1059: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7706
+		==> 1224
+L1224: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6675
-L6675: <= D-1: (2) Head P9478 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7708
+L7708: <= D-1: (2) Head P10913 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R13(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R13(B)	<-	R13(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R13(BF)	{}
-		==> 6675
-		==> 1063
-L1063: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7708
+		==> 1228
+L1228: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R11(CF)[0..15]	{V}
-0001 ( 125)		RELOP27	R13(B)	<-	R3(C)[1..16], CC:15	{}
-0002 ( 125)		BRANCH		<-	R13(BF)	{}
-		==> 1064
-		==> 4478
-L1064: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
-0000 ( 127)		CONST	R3(C)[0..0]	<-	CI:0	{}
-0001 ( 122)		JUMP		<-		{}
-		==> 4478
-L4478: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
-0000 ( 122)		BINOP1	R10(C)[6..75]	<-	R10(CF)[5..74], CI:1	{}
-0001 ( 122)		RELOP28	R13(B)	<-	R10(C)[6..75], CC:75	{}
-0002 ( 122)		BRANCH		<-	R13(BF)	{}
-		==> 1026
-		==> 1023
-L1023: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
-0000 ( 120)		LOADG2	R4(I)[-32767..65535]	<-	V(41 'vdc_state')+5 	{}
-0001 ( 120)		BINOP2	R4(I)[-32768..65534]	<-	R4(IF)[-32767..65535], CI:1	{}
-0002 ( 120)		BINOP1	R6(C)[5..255]	<-	R6(CF)[4..254], CI:1	{}
-0003 ( 120)		CONV33	R7(I)[5..255]	<-	R6(C)[5..255]	{}
-0004 ( 120)		RELOP28	R10(B)	<-	R7(IF)[5..255], R4(IF)[-32768..65534]	{}
-0005 ( 120)		BRANCH		<-	R10(BF)	{}
-		==> 1022
-		==> 1024
-L1024: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
-0000 ( 135)		LOADG2	R0(I)[-32763..65535]	<-	V(41 'vdc_state')+5 	{}
-0001 ( 135)		BINOP2	R0(I)[-32768..65530]	<-	R0(IF)[-32763..65535], CI:5	{}
-0002 ( 135)		RELOP28	R6(B)	<-	CI:0, R0(IF)[-32768..65530]	{}
-0003 ( 135)		BRANCH		<-	R6(BF)	{}
-		==> 1381
-		==> 409
-L1381: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+0001 ( 137)		RELOP27	R13(B)	<-	R3(C)[1..16], CC:15	{}
+0002 ( 137)		BRANCH		<-	R13(BF)	{}
+		==> 1229
+		==> 5147
+L1229: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
+0000 ( 139)		CONST	R3(C)[0..0]	<-	CI:0	{}
+0001 ( 134)		JUMP		<-		{}
+		==> 5147
+L5147: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
+0000 ( 134)		BINOP1	R10(C)[6..75]	<-	R10(CF)[5..74], CI:1	{}
+0001 ( 134)		RELOP28	R13(B)	<-	R10(C)[6..75], CC:75	{}
+0002 ( 134)		BRANCH		<-	R13(BF)	{}
+		==> 1191
+		==> 1188
+L1188: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
+0000 ( 132)		LOADG2	R4(I)[-32767..65535]	<-	V(41 'vdc_state')+5 	{}
+0001 ( 132)		BINOP2	R4(I)[-32768..65534]	<-	R4(IF)[-32767..65535], CI:1	{}
+0002 ( 132)		BINOP1	R6(C)[5..255]	<-	R6(CF)[4..254], CI:1	{}
+0003 ( 132)		CONV33	R7(I)[5..255]	<-	R6(C)[5..255]	{}
+0004 ( 132)		RELOP28	R10(B)	<-	R7(IF)[5..255], R4(IF)[-32768..65534]	{}
+0005 ( 132)		BRANCH		<-	R10(BF)	{}
+		==> 1187
+		==> 1189
+L1189: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
+0000 ( 147)		LOADG2	R0(I)[-32763..65535]	<-	V(41 'vdc_state')+5 	{}
+0001 ( 147)		BINOP2	R0(I)[-32768..65530]	<-	R0(IF)[-32763..65535], CI:5	{}
+0002 ( 147)		RELOP28	R6(B)	<-	CI:0, R0(IF)[-32768..65530]	{}
+0003 ( 147)		BRANCH		<-	R6(BF)	{}
+		==> 1570
+		==> 574
+L1570: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 197)		LOADG2	R0(I)[-32768..65535]	<-	V(41 'vdc_state')+3 	{}
 0001 ( 197)		BINOP16	R0(I)[-32768..65530]	<-	R0(IF)[-32768..65535], CI:2	{}
 0002 ( 197)		BINOP1	R0(I)[-32763..65535]	<-	R0(IF)[-32768..65530], CI:5	{}
-0003 ( 135)		CONST	R6(C)[0..0]	<-	CI:0	{}
-0004 ( 137)		JUMP		<-		{}
-		==> 1070
-L1070: <= D-1: (2) Head P9477 /home/xahmol/git/Oscar64Test/src/main.c
-0000 ( 137)		CALLN		<-	V(16 'getch')+0 	{}
-0001 ( 138)		LOADG2	R4(I)[-32762..65535]	<-	V(41 'vdc_state')+5 	{}
-0002 ( 138)		BINOP2	R4(I)[-32768..65529]	<-	R4(IF)[-32762..65535], CI:6	{}
+0003 ( 147)		CONST	R6(C)[0..0]	<-	CI:0	{}
+0004 ( 149)		JUMP		<-		{}
+		==> 1235
+L1235: <= D-1: (2) Head P10912 /home/xahmol/git/Oscar64Test/src/main.c
+0000 ( 149)		CALLN		<-	V(16 'getch')+0 	{}
+0001 ( 150)		LOADG2	R4(I)[-32762..65535]	<-	V(41 'vdc_state')+5 	{}
+0002 ( 150)		BINOP2	R4(I)[-32768..65529]	<-	R4(IF)[-32762..65535], CI:6	{}
 0003 ( 295)		RELOP28	R10(B)	<-	CC:0, R4(C)[-32768..65529]	{}
 0004 ( 295)		BRANCH		<-	R10(BF)	{}
-		==> 1380
-		==> 1073
-L1380: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 1569
+		==> 1238
+L1569: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 295)		MOVE	R10(C)[1..255]	<-	R4(CF)[1..65529]	{}
-0001 ( 138)		LOADG2	R4(I)[-32768..65535]	<-	V(41 'vdc_state')+8 	{}
-0002 ( 138)		BINOP1	R4(I)[-32768..65535]	<-	R4(IF)[-32768..65535], R0(I)[-32763..65535]	{}
-0003 ( 138)		LOADG2	R5(I)[-32768..65535]	<-	V(41 'vdc_state')+3 	{}
-0004 ( 138)		BINOP1	R5(I)[-32768..65535]	<-	R5(IF)[-32768..65535], R4(I)[-32768..65535]	{}
+0001 ( 150)		LOADG2	R4(I)[-32768..65535]	<-	V(41 'vdc_state')+8 	{}
+0002 ( 150)		BINOP1	R4(I)[-32768..65535]	<-	R4(IF)[-32768..65535], R0(I)[-32763..65535]	{}
+0003 ( 150)		LOADG2	R5(I)[-32768..65535]	<-	V(41 'vdc_state')+3 	{}
+0004 ( 150)		BINOP1	R5(I)[-32768..65535]	<-	R5(IF)[-32768..65535], R4(I)[-32768..65535]	{}
 0005 (   6)		JUMP		<-		{}
-		==> 1075
-L1075: <= D-1: (2) Head P9476 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 1240
+L1240: <= D-1: (2) Head P10911 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0001 (  37)		BINOP17	R7(I)	<-	R4(I), CI:8	{}
 0002 (  11)		JUMP		<-		{}
-		==> 6682
-L6682: <= D-1: (2) Head P9475 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7715
+L7715: <= D-1: (2) Head P10910 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R13(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R13(B)	<-	R13(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R13(BF)	{}
-		==> 6682
-		==> 1084
-L1084: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7715
+		==> 1249
+L1249: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6684
-L6684: <= D-1: (2) Head P9474 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7717
+L7717: <= D-1: (2) Head P10909 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R13(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R13(B)	<-	R13(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R13(BF)	{}
-		==> 6684
-		==> 1089
-L1089: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7717
+		==> 1254
+L1254: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R4(C)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0003 (  17)		JUMP		<-		{}
-		==> 6686
-L6686: <= D-1: (2) Head P9473 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7719
+L7719: <= D-1: (2) Head P10908 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  17)		LOADA1	R13(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  17)		RELOP28	R13(B)	<-	R13(CF)[-128..255], CC:128	{}
 0002 (  17)		BRANCH		<-	R13(BF)	{}
-		==> 6686
-		==> 1096
-L1096: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7719
+		==> 1261
+L1261: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  18)		LOADA1	R13(C)[-128..255]	<-	V(-1 '')+54785 	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 ( 263)		CONV33	R7(I)[0..255]	<-	R13(CF)[-128..255]	{}
 0003 ( 263)		BINOP8	R7(I)[0..255]	<-	R7(IF)[0..255], CI:128	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6688
-L6688: <= D-1: (2) Head P9472 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7721
+L7721: <= D-1: (2) Head P10907 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R13(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R13(B)	<-	R13(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R13(BF)	{}
-		==> 6688
-		==> 1102
-L1102: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7721
+		==> 1267
+L1267: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)[0..255]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:32	{V}
 0002 ( 264)		BINOP17	R7(I)	<-	R5(I), CI:8	{}
 0003 (  11)		JUMP		<-		{}
-		==> 6690
-L6690: <= D-1: (2) Head P9471 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7723
+L7723: <= D-1: (2) Head P10906 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R13(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R13(B)	<-	R13(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R13(BF)	{}
-		==> 6690
-		==> 1107
-L1107: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7723
+		==> 1272
+L1272: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:33	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6692
-L6692: <= D-1: (2) Head P9470 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7725
+L7725: <= D-1: (2) Head P10905 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R13(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R13(B)	<-	R13(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R13(BF)	{}
-		==> 6692
-		==> 1112
-L1112: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7725
+		==> 1277
+L1277: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(C)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:30	{V}
 0003 (  11)		JUMP		<-		{}
-		==> 6694
-L6694: <= D-1: (2) Head P9469 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7727
+L7727: <= D-1: (2) Head P10904 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R13(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R13(B)	<-	R13(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R13(BF)	{}
-		==> 6694
-		==> 1118
-L1118: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7727
+		==> 1283
+L1283: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:70	{V}
 0001 ( 298)		LOADG2	R7(I)[-32768..65535]	<-	V(41 'vdc_state')+3 	{}
 0002 ( 298)		BINOP1	R5(I)	<-	R7(I)[-32768..65535], R5(IF)	{}
@@ -2074,106 +2478,106 @@ L1118: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0004 ( 295)		BINOP2	R10(C)[0..254]	<-	R10(CF)[1..255], CI:1	{}
 0005 ( 295)		RELOP27	R13(B)	<-	R10(C)[0..254], CC:0	{}
 0006 ( 295)		BRANCH		<-	R13(BF)	{}
-		==> 1075
-		==> 1073
-L1073: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
-0000 ( 139)		LOADG2	R4(I)[-32762..65535]	<-	V(41 'vdc_state')+5 	{}
-0001 ( 139)		BINOP2	R4(I)[-32768..65529]	<-	R4(IF)[-32762..65535], CI:6	{}
+		==> 1240
+		==> 1238
+L1238: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
+0000 ( 151)		LOADG2	R4(I)[-32762..65535]	<-	V(41 'vdc_state')+5 	{}
+0001 ( 151)		BINOP2	R4(I)[-32768..65529]	<-	R4(IF)[-32762..65535], CI:6	{}
 0002 ( 295)		RELOP28	R10(B)	<-	CC:0, R4(C)[-32768..65529]	{}
 0003 ( 295)		BRANCH		<-	R10(BF)	{}
-		==> 1372
-		==> 1119
-L1372: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 1561
+		==> 1284
+L1561: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 295)		MOVE	R10(C)[1..255]	<-	R4(CF)[1..65529]	{}
-0001 ( 139)		LOADG2	R4(I)[-32768..65535]	<-	V(41 'vdc_state')+10 	{}
-0002 ( 139)		BINOP1	R4(I)[-32768..65535]	<-	R4(IF)[-32768..65535], R0(I)[-32763..65535]	{}
-0003 ( 139)		LOADG2	R5(I)[-32768..65535]	<-	V(41 'vdc_state')+3 	{}
-0004 ( 139)		BINOP1	R5(I)[-32768..65535]	<-	R5(IF)[-32768..65535], R4(I)[-32768..65535]	{}
+0001 ( 151)		LOADG2	R4(I)[-32768..65535]	<-	V(41 'vdc_state')+10 	{}
+0002 ( 151)		BINOP1	R4(I)[-32768..65535]	<-	R4(IF)[-32768..65535], R0(I)[-32763..65535]	{}
+0003 ( 151)		LOADG2	R5(I)[-32768..65535]	<-	V(41 'vdc_state')+3 	{}
+0004 ( 151)		BINOP1	R5(I)[-32768..65535]	<-	R5(IF)[-32768..65535], R4(I)[-32768..65535]	{}
 0005 (   6)		JUMP		<-		{}
-		==> 1121
-L1121: <= D-1: (2) Head P9468 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 1286
+L1286: <= D-1: (2) Head P10903 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0001 (  37)		BINOP17	R7(I)	<-	R4(I), CI:8	{}
 0002 (  11)		JUMP		<-		{}
-		==> 6698
-L6698: <= D-1: (2) Head P9467 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7731
+L7731: <= D-1: (2) Head P10902 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R13(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R13(B)	<-	R13(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R13(BF)	{}
-		==> 6698
-		==> 1130
-L1130: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7731
+		==> 1295
+L1295: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6700
-L6700: <= D-1: (2) Head P9466 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7733
+L7733: <= D-1: (2) Head P10901 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R13(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R13(B)	<-	R13(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R13(BF)	{}
-		==> 6700
-		==> 1135
-L1135: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7733
+		==> 1300
+L1300: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R4(C)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0003 (  17)		JUMP		<-		{}
-		==> 6702
-L6702: <= D-1: (2) Head P9465 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7735
+L7735: <= D-1: (2) Head P10900 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  17)		LOADA1	R13(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  17)		RELOP28	R13(B)	<-	R13(CF)[-128..255], CC:128	{}
 0002 (  17)		BRANCH		<-	R13(BF)	{}
-		==> 6702
-		==> 1142
-L1142: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7735
+		==> 1307
+L1307: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  18)		LOADA1	R13(C)[-128..255]	<-	V(-1 '')+54785 	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 ( 263)		CONV33	R7(I)[0..255]	<-	R13(CF)[-128..255]	{}
 0003 ( 263)		BINOP8	R7(I)[0..255]	<-	R7(IF)[0..255], CI:128	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6704
-L6704: <= D-1: (2) Head P9464 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7737
+L7737: <= D-1: (2) Head P10899 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R13(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R13(B)	<-	R13(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R13(BF)	{}
-		==> 6704
-		==> 1148
-L1148: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7737
+		==> 1313
+L1313: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)[0..255]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:32	{V}
 0002 ( 264)		BINOP17	R7(I)	<-	R5(I), CI:8	{}
 0003 (  11)		JUMP		<-		{}
-		==> 6706
-L6706: <= D-1: (2) Head P9463 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7739
+L7739: <= D-1: (2) Head P10898 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R13(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R13(B)	<-	R13(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R13(BF)	{}
-		==> 6706
-		==> 1153
-L1153: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7739
+		==> 1318
+L1318: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:33	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6708
-L6708: <= D-1: (2) Head P9462 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7741
+L7741: <= D-1: (2) Head P10897 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R13(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R13(B)	<-	R13(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R13(BF)	{}
-		==> 6708
-		==> 1158
-L1158: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7741
+		==> 1323
+L1323: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(C)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:30	{V}
 0003 (  11)		JUMP		<-		{}
-		==> 6710
-L6710: <= D-1: (2) Head P9461 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7743
+L7743: <= D-1: (2) Head P10896 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R13(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R13(B)	<-	R13(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R13(BF)	{}
-		==> 6710
-		==> 1164
-L1164: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7743
+		==> 1329
+L1329: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:70	{V}
 0001 ( 298)		LOADG2	R7(I)[-32768..65535]	<-	V(41 'vdc_state')+3 	{}
 0002 ( 298)		BINOP1	R5(I)	<-	R7(I)[-32768..65535], R5(IF)	{}
@@ -2181,175 +2585,175 @@ L1164: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0004 ( 295)		BINOP2	R10(C)[0..254]	<-	R10(CF)[1..255], CI:1	{}
 0005 ( 295)		RELOP27	R13(B)	<-	R10(C)[0..254], CC:0	{}
 0006 ( 295)		BRANCH		<-	R13(BF)	{}
-		==> 1121
-		==> 1119
-L1119: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 1286
+		==> 1284
+L1284: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 197)		LOADG2	R4(I)[-32768..65535]	<-	V(41 'vdc_state')+3 	{}
-0001 ( 140)		LOADG2	R5(I)[-32766..65535]	<-	V(41 'vdc_state')+5 	{}
+0001 ( 152)		LOADG2	R5(I)[-32766..65535]	<-	V(41 'vdc_state')+5 	{}
 0002 ( 424)		LOADG2	R7(I)[-32768..65535]	<-	V(41 'vdc_state')+8 	{}
 0003 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
-0004 ( 140)		BINOP2	R8(I)[-32768..65533]	<-	R5(I)[-32766..65535], CI:2	{}
+0004 ( 152)		BINOP2	R8(I)[-32768..65533]	<-	R5(I)[-32766..65535], CI:2	{}
 0005 ( 197)		CONV33	R8(I)[0..255]	<-	R8(CF)[-32768..65533]	{}
 0006 ( 197)		BINOP3	R4(I)	<-	R8(IF)[0..255], R4(IF)[-32768..65535]	{}
 0007 ( 197)		BINOP1	R4(I)	<-	R4(IF), CI:5	{}
 0008 ( 424)		BINOP1	R7(I)	<-	R4(I), R7(IF)[-32768..65535]	{}
 0009 (  37)		BINOP17	R8(I)	<-	R7(I), CI:8	{}
 000a (  11)		JUMP		<-		{}
-		==> 6713
-L6713: <= D-1: (2) Head P9460 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7746
+L7746: <= D-1: (2) Head P10895 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6713
-		==> 1174
-L1174: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7746
+		==> 1339
+L1339: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6715
-L6715: <= D-1: (2) Head P9459 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7748
+L7748: <= D-1: (2) Head P10894 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6715
-		==> 1179
-L1179: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7748
+		==> 1344
+L1344: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6717
-L6717: <= D-1: (2) Head P9458 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7750
+L7750: <= D-1: (2) Head P10893 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6717
-		==> 1183
-L1183: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7750
+		==> 1348
+L1348: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:32	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 (  17)		JUMP		<-		{}
-		==> 6719
-L6719: <= D-1: (2) Head P9457 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7752
+L7752: <= D-1: (2) Head P10892 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  17)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  17)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  17)		BRANCH		<-	R10(BF)	{}
-		==> 6719
-		==> 1189
-L1189: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7752
+		==> 1354
+L1354: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  18)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54785 	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 ( 253)		CONV33	R7(I)[0..255]	<-	R10(CF)[-128..255]	{}
 0003 ( 253)		BINOP9	R7(I)[0..127]	<-	R7(IF)[0..255], CI:127	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6721
-L6721: <= D-1: (2) Head P9456 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7754
+L7754: <= D-1: (2) Head P10891 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6721
-		==> 1195
-L1195: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7754
+		==> 1360
+L1360: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)[0..127]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:30	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6723
-L6723: <= D-1: (2) Head P9455 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7756
+L7756: <= D-1: (2) Head P10890 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6723
-		==> 1200
-L1200: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7756
+		==> 1365
+L1365: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:69	{V}
 0001 ( 425)		LOADG2	R7(I)[-32768..65535]	<-	V(41 'vdc_state')+10 	{}
 0002 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0003 ( 425)		BINOP1	R4(I)	<-	R7(IF)[-32768..65535], R4(IF)	{}
 0004 (  37)		BINOP17	R7(I)	<-	R4(I), CI:8	{}
 0005 (  11)		JUMP		<-		{}
-		==> 6725
-L6725: <= D-1: (2) Head P9454 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7758
+L7758: <= D-1: (2) Head P10889 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6725
-		==> 1207
-L1207: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7758
+		==> 1372
+L1372: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6727
-L6727: <= D-1: (2) Head P9453 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7760
+L7760: <= D-1: (2) Head P10888 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6727
-		==> 1212
-L1212: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7760
+		==> 1377
+L1377: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R4(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6729
-L6729: <= D-1: (2) Head P9452 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7762
+L7762: <= D-1: (2) Head P10887 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6729
-		==> 1216
-L1216: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7762
+		==> 1381
+L1381: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:13	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 (  17)		JUMP		<-		{}
-		==> 6731
-L6731: <= D-1: (2) Head P9451 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7764
+L7764: <= D-1: (2) Head P10886 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  17)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  17)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  17)		BRANCH		<-	R10(BF)	{}
-		==> 6731
-		==> 1222
-L1222: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7764
+		==> 1387
+L1387: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  18)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54785 	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 ( 253)		CONV33	R4(I)[0..255]	<-	R10(CF)[-128..255]	{}
 0003 ( 253)		BINOP9	R4(I)[0..127]	<-	R4(IF)[0..255], CI:127	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6733
-L6733: <= D-1: (2) Head P9450 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7766
+L7766: <= D-1: (2) Head P10885 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6733
-		==> 1228
-L1228: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7766
+		==> 1393
+L1393: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R4(CF)[0..127]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:30	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6735
-L6735: <= D-1: (2) Head P9449 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7768
+L7768: <= D-1: (2) Head P10884 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R10(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R10(B)	<-	R10(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R10(BF)	{}
-		==> 6735
-		==> 1233
-L1233: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7768
+		==> 1398
+L1398: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:69	{V}
-0001 ( 135)		BINOP2	R4(I)[-32768..65530]	<-	R5(IF)[-32763..65535], CI:5	{}
-0002 ( 135)		BINOP1	R6(C)[1..255]	<-	R6(CF)[0..254], CI:1	{}
-0003 ( 135)		CONV33	R5(I)[1..255]	<-	R6(C)[1..255]	{}
-0004 ( 135)		RELOP28	R10(B)	<-	R5(IF)[1..255], R4(IF)[-32768..65530]	{}
-0005 ( 135)		BRANCH		<-	R10(BF)	{}
-		==> 1070
-		==> 409
-L409: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
-0000 (  89)		BINOP1	R1(C)[1..2]	<-	R1(CF)[0..1], CI:1	{}
-0001 (  89)		RELOP28	R6(B)	<-	R1(C)[1..2], CC:2	{}
-0002 (  89)		BRANCH		<-	R6(BF)	{}
-		==> 408
-		==> 410
-L408: <= D-1: (1)  P9570 /home/xahmol/git/Oscar64Test/src/main.c
-0000 (  92)		BRANCH		<-	R1(C)[0..1]	{}
-		==> 411
-		==> 413
-L410: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+0001 ( 147)		BINOP2	R4(I)[-32768..65530]	<-	R5(IF)[-32763..65535], CI:5	{}
+0002 ( 147)		BINOP1	R6(C)[1..255]	<-	R6(CF)[0..254], CI:1	{}
+0003 ( 147)		CONV33	R5(I)[1..255]	<-	R6(C)[1..255]	{}
+0004 ( 147)		RELOP28	R10(B)	<-	R5(IF)[1..255], R4(IF)[-32768..65530]	{}
+0005 ( 147)		BRANCH		<-	R10(BF)	{}
+		==> 1235
+		==> 574
+L574: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
+0000 ( 101)		BINOP1	R1(C)[1..2]	<-	R1(CF)[0..1], CI:1	{}
+0001 ( 101)		RELOP28	R6(B)	<-	R1(C)[1..2], CC:2	{}
+0002 ( 101)		BRANCH		<-	R6(BF)	{}
+		==> 573
+		==> 575
+L573: <= D-1: (1)  P11005 /home/xahmol/git/Oscar64Test/src/main.c
+0000 ( 104)		BRANCH		<-	R1(C)[0..1]	{}
+		==> 576
+		==> 578
+L575: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  55)		STOREA1		<-	V(-1 '')+53296 , CC:0	{}
 0001 ( 189)		STOREZ1		<-	V(9 '')+0 , CC:0	{}
 0002 (  56)		LOADA1	R1(C)[-128..255]	<-	V(-1 '')+53265 	{}
@@ -2362,13 +2766,13 @@ L410: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0009 ( 449)		LOADG2	R0(I)[-32768..65535]	<-	V(41 'vdc_state')+3 	{}
 000a ( 449)		LOADG2	R4(I)[-32768..65535]	<-	V(41 'vdc_state')+5 	{}
 000b ( 440)		JUMP		<-		{}
-		==> 1241
-L1241: <= D-1: (2) Head P9448 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 1406
+L1406: <= D-1: (2) Head P10883 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 440)		RELOP28	R2(B)	<-	R1(C)[0..255], R4(C)[-32768..65535]	{}
 0001 ( 440)		BRANCH		<-	R2(BF)	{}
-		==> 1242
-		==> 1239
-L1242: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 1407
+		==> 1404
+L1407: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 197)		LOADG2	R5(I)[-32768..65535]	<-	V(41 'vdc_state')+3 	{}
 0001 ( 442)		LOADG1	R2(C)[-128..255]	<-	V(41 'vdc_state')+7 	{}
 0002 ( 424)		LOADG2	R7(I)[-32768..65535]	<-	V(41 'vdc_state')+8 	{}
@@ -2380,280 +2784,280 @@ L1242: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0008 ( 424)		BINOP1	R7(I)	<-	R5(I), R7(IF)[-32768..65535]	{}
 0009 (  37)		BINOP17	R9(I)	<-	R7(I), CI:8	{}
 000a (  11)		JUMP		<-		{}
-		==> 6739
-L6739: <= D-1: (2) Head P9447 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7772
+L7772: <= D-1: (2) Head P10882 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R3(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R3(B)	<-	R3(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R3(BF)	{}
-		==> 6739
-		==> 1254
-L1254: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7772
+		==> 1419
+L1419: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R9(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6741
-L6741: <= D-1: (2) Head P9446 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7774
+L7774: <= D-1: (2) Head P10881 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R3(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R3(B)	<-	R3(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R3(BF)	{}
-		==> 6741
-		==> 1259
-L1259: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7774
+		==> 1424
+L1424: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6743
-L6743: <= D-1: (2) Head P9445 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7776
+L7776: <= D-1: (2) Head P10880 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R3(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R3(B)	<-	R3(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R3(BF)	{}
-		==> 6743
-		==> 1263
-L1263: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7776
+		==> 1428
+L1428: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , CC:32	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 (  17)		JUMP		<-		{}
-		==> 6745
-L6745: <= D-1: (2) Head P9444 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7778
+L7778: <= D-1: (2) Head P10879 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  17)		LOADA1	R3(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  17)		RELOP28	R3(B)	<-	R3(CF)[-128..255], CC:128	{}
 0002 (  17)		BRANCH		<-	R3(BF)	{}
-		==> 6745
-		==> 1269
-L1269: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7778
+		==> 1434
+L1434: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  18)		LOADA1	R3(C)[-128..255]	<-	V(-1 '')+54785 	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 ( 253)		CONV33	R7(I)[0..255]	<-	R3(CF)[-128..255]	{}
 0003 ( 253)		BINOP9	R7(I)[0..127]	<-	R7(IF)[0..255], CI:127	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6747
-L6747: <= D-1: (2) Head P9443 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7780
+L7780: <= D-1: (2) Head P10878 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R3(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R3(B)	<-	R3(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R3(BF)	{}
-		==> 6747
-		==> 1275
-L1275: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7780
+		==> 1440
+L1440: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)[0..127]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:30	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6749
-L6749: <= D-1: (2) Head P9442 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7782
+L7782: <= D-1: (2) Head P10877 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R3(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R3(B)	<-	R3(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R3(BF)	{}
-		==> 6749
-		==> 1280
-L1280: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7782
+		==> 1445
+L1445: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(C)[-1..254]	{V}
 0001 ( 425)		LOADG2	R7(I)[-32768..65535]	<-	V(41 'vdc_state')+10 	{}
 0002 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
 0003 ( 425)		BINOP1	R5(I)	<-	R7(IF)[-32768..65535], R5(IF)	{}
 0004 (  37)		BINOP17	R7(I)	<-	R5(I), CI:8	{}
 0005 (  11)		JUMP		<-		{}
-		==> 6751
-L6751: <= D-1: (2) Head P9441 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7784
+L7784: <= D-1: (2) Head P10876 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R3(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R3(B)	<-	R3(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R3(BF)	{}
-		==> 6751
-		==> 1287
-L1287: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7784
+		==> 1452
+L1452: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R7(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6753
-L6753: <= D-1: (2) Head P9440 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7786
+L7786: <= D-1: (2) Head P10875 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R3(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R3(B)	<-	R3(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R3(BF)	{}
-		==> 6753
-		==> 1292
-L1292: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7786
+		==> 1457
+L1457: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(CF)	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6755
-L6755: <= D-1: (2) Head P9439 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7788
+L7788: <= D-1: (2) Head P10874 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R3(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R3(B)	<-	R3(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R3(BF)	{}
-		==> 6755
-		==> 1296
-L1296: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7788
+		==> 1461
+L1461: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R2(CF)[-128..255]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 (  17)		JUMP		<-		{}
-		==> 6757
-L6757: <= D-1: (2) Head P9438 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7790
+L7790: <= D-1: (2) Head P10873 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  17)		LOADA1	R2(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  17)		RELOP28	R2(B)	<-	R2(CF)[-128..255], CC:128	{}
 0002 (  17)		BRANCH		<-	R2(BF)	{}
-		==> 6757
-		==> 1302
-L1302: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7790
+		==> 1467
+L1467: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  18)		LOADA1	R2(C)[-128..255]	<-	V(-1 '')+54785 	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:24	{V}
 0002 ( 253)		CONV33	R5(I)[0..255]	<-	R2(CF)[-128..255]	{}
 0003 ( 253)		BINOP9	R5(I)[0..127]	<-	R5(IF)[0..255], CI:127	{}
 0004 (  11)		JUMP		<-		{}
-		==> 6759
-L6759: <= D-1: (2) Head P9437 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7792
+L7792: <= D-1: (2) Head P10872 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R2(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R2(B)	<-	R2(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R2(BF)	{}
-		==> 6759
-		==> 1308
-L1308: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7792
+		==> 1473
+L1473: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R5(CF)[0..127]	{V}
 0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:30	{V}
 0002 (  11)		JUMP		<-		{}
-		==> 6761
-L6761: <= D-1: (2) Head P9436 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7794
+L7794: <= D-1: (2) Head P10871 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  11)		LOADA1	R2(C)[-128..255]	<-	V(-1 '')+54784 	{V}
 0001 (  11)		RELOP28	R2(B)	<-	R2(CF)[-128..255], CC:128	{}
 0002 (  11)		BRANCH		<-	R2(BF)	{}
-		==> 6761
-		==> 1313
-L1313: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+		==> 7794
+		==> 1478
+L1478: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
 0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R8(CF)[-1..254]	{V}
 0001 ( 440)		BINOP1	R1(C)[1..255]	<-	R1(CF)[0..254], CI:1	{}
 0002 ( 440)		JUMP		<-		{}
-		==> 1241
-L1239: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/banking.c
+		==> 1406
+L1404: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/banking.c
 0000 (  56)		STOREA1		<-	V(-1 '')+54534 , CC:4	{V}
-0001 ( 146)		RETV		<-	CI:0	{}
-L602: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+0001 ( 158)		RETV		<-	CI:0	{}
+L767: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  66)		RELOP27	R10(B)	<-	R5(C)[-128..255], CC:63	{}
 0001 (  66)		BRANCH		<-	R10(BF)	{}
-		==> 607
-		==> 605
-L607: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 772
+		==> 770
+L772: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  66)		RELOP28	R10(B)	<-	R5(C)[64..255], CC:96	{}
 0001 (  66)		BRANCH		<-	R10(BF)	{}
-		==> 604
-		==> 605
-L604: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 769
+		==> 770
+L769: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  67)		BINOP2	R5(I)[-64..191]	<-	R7(IF)[0..255], CI:64	{}
 0001 (  11)		JUMP		<-		{}
-		==> 6527
-L605: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 7560
+L770: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  68)		RELOP27	R10(B)	<-	R5(C)[0..255], CC:95	{}
 0001 (  68)		BRANCH		<-	R10(BF)	{}
-		==> 611
-		==> 609
-L611: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 776
+		==> 774
+L776: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  68)		RELOP28	R10(B)	<-	R5(C)[96..255], CC:128	{}
 0001 (  68)		BRANCH		<-	R10(BF)	{}
-		==> 608
-		==> 609
-L608: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 773
+		==> 774
+L773: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  69)		BINOP2	R5(I)[-32..223]	<-	R7(IF)[0..255], CI:32	{}
 0001 (  11)		JUMP		<-		{}
-		==> 6527
-L609: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 7560
+L774: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  70)		RELOP27	R10(B)	<-	R5(C)[0..255], CC:127	{}
 0001 (  70)		BRANCH		<-	R10(BF)	{}
-		==> 615
-		==> 613
-L615: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 780
+		==> 778
+L780: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  70)		RELOP28	R10(B)	<-	R5(C)[128..255], CC:160	{}
 0001 (  70)		BRANCH		<-	R10(BF)	{}
-		==> 612
-		==> 613
-L612: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 777
+		==> 778
+L777: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  71)		BINOP1	R5(I)[64..319]	<-	R7(IF)[0..255], CI:64	{}
 0001 (  11)		JUMP		<-		{}
-		==> 6527
-L613: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 7560
+L778: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  72)		RELOP27	R10(B)	<-	R5(C)[0..255], CC:159	{}
 0001 (  72)		BRANCH		<-	R10(BF)	{}
-		==> 619
-		==> 617
-L619: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 784
+		==> 782
+L784: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  72)		RELOP28	R10(B)	<-	R5(C)[160..255], CC:192	{}
 0001 (  72)		BRANCH		<-	R10(BF)	{}
-		==> 604
-		==> 617
-L617: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 769
+		==> 782
+L782: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  74)		RELOP27	R10(B)	<-	R5(C)[0..255], CC:191	{}
 0001 (  74)		BRANCH		<-	R10(BF)	{}
-		==> 623
-		==> 621
-L623: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 788
+		==> 786
+L788: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  74)		RELOP28	R10(B)	<-	R5(C)[192..255], CC:255	{}
 0001 (  74)		BRANCH		<-	R10(BF)	{}
-		==> 620
-		==> 621
-L620: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 785
+		==> 786
+L785: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  75)		BINOP2	R5(I)[-128..127]	<-	R7(IF)[0..255], CI:128	{}
 0001 (  11)		JUMP		<-		{}
-		==> 6527
-L621: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 7560
+L786: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  76)		RELOP19	R10(B)	<-	R5(C)[0..255], CC:255	{}
 0001 (  76)		BRANCH		<-	R10(BF)	{}
-		==> 624
-		==> 6527
-L624: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 789
+		==> 7560
+L789: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 413)		CONST	R5(C)[94..94]	<-	CI:94	{}
 0001 (  11)		JUMP		<-		{}
-		==> 6527
-L3076: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
-0000 ( 106)		CONST	R4(P)	<-	CG0(226:0 '')	{}
-0001 ( 106)		JUMP		<-		{}
-		==> 3077
-L512: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 7560
+L3521: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
+0000 ( 118)		CONST	R4(P)	<-	CG0(251:0 '')	{}
+0001 ( 118)		JUMP		<-		{}
+		==> 3522
+L677: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  66)		RELOP27	R10(B)	<-	R0(C)[32..118], CC:63	{}
 0001 (  66)		BRANCH		<-	R10(BF)	{}
-		==> 517
-		==> 515
-L517: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 682
+		==> 680
+L682: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  66)		RELOP28	R10(B)	<-	R0(C)[64..118], CC:96	{}
 0001 (  66)		BRANCH		<-	R10(BF)	{}
-		==> 514
-		==> 515
-L514: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 679
+		==> 680
+L679: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  67)		BINOP2	R0(I)[-64..54]	<-	R4(IF)[0..118], CI:64	{}
 0001 (  11)		JUMP		<-		{}
-		==> 6503
-L515: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 7536
+L680: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  68)		RELOP27	R10(B)	<-	R0(C)[32..118], CC:95	{}
 0001 (  68)		BRANCH		<-	R10(BF)	{}
-		==> 521
-		==> 519
-L521: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 686
+		==> 684
+L686: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  68)		RELOP28	R10(B)	<-	R0(C)[96..118], CC:128	{}
 0001 (  68)		BRANCH		<-	R10(BF)	{}
-		==> 518
-		==> 519
-L518: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 683
+		==> 684
+L683: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  69)		BINOP2	R0(I)[-32..86]	<-	R4(IF)[0..118], CI:32	{}
 0001 (  11)		JUMP		<-		{}
-		==> 6503
-L519: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 7536
+L684: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  72)		RELOP27	R10(B)	<-	R0(C)[32..118], CC:159	{}
 0001 (  72)		BRANCH		<-	R10(BF)	{}
-		==> 529
-		==> 527
-L529: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 694
+		==> 692
+L694: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  72)		RELOP28	R10(B)	<-	R0(C)[160..118], CC:192	{}
 0001 (  72)		BRANCH		<-	R10(BF)	{}
-		==> 514
-		==> 527
-L527: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 679
+		==> 692
+L692: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  74)		RELOP27	R10(B)	<-	R0(C)[32..118], CC:191	{}
 0001 (  74)		BRANCH		<-	R10(BF)	{}
-		==> 533
-		==> 6503
-L533: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 698
+		==> 7536
+L698: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  74)		RELOP28	R10(B)	<-	R0(C)[192..118], CC:255	{}
 0001 (  74)		BRANCH		<-	R10(BF)	{}
-		==> 530
-		==> 6503
-L530: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+		==> 695
+		==> 7536
+L695: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 (  75)		BINOP2	R0(I)[-128..-10]	<-	R4(IF)[0..118], CI:128	{}
 0001 (  11)		JUMP		<-		{}
-		==> 6503
+		==> 7536
 L220: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/banking.c
 0000 (  29)		CONST	R0(P)	<-	CG0(45:0 '')	{S}
 0001 (  29)		STOREF2		<-	V(0 '')+0 , R0(PF)	{}
@@ -2671,55 +3075,55 @@ L214: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0005 ( 166)		CALLN		<-	V(20 'screen_setmode')+0 	{}
 0006 ( 161)		JUMP		<-		{}
 		==> 211
-L3067: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
+L3512: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/vdc_core.c
 0000 ( 224)		STOREG1		<-	V(41 'vdc_state')+0 , CC:16	{}
 0001 ( 224)		JUMP		<-		{}
-		==> 3068
+		==> 3513
 L15: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c64/kernalio.c
-0000 ( 316)		STOREZ1		<-	V(0 '')+0 , CC:1	{}
-0001 ( 316)		CALLN	R1(B)	<-	V(13 'krnio_chkin')+0 	{}
-0002 ( 316)		BRANCH		<-	R1(BF)	{}
+0000 ( 295)		STOREZ1		<-	V(0 '')+0 , CC:1	{}
+0001 ( 295)		CALLN	R1(B)	<-	V(13 'krnio_chkin')+0 	{}
+0002 ( 295)		BRANCH		<-	R1(BF)	{}
 		==> 17
 		==> 18
 L17: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c64/kernalio.c
-0000 ( 318)		CONST	R0(I)[0..0]	<-	CI:0	{}
-0001 ( 322)		JUMP		<-		{}
+0000 ( 297)		CONST	R0(I)[0..0]	<-	CI:0	{}
+0001 ( 301)		JUMP		<-		{}
 		==> 21
-L21: <= D-1: (2) Head P9589 /home/xahmol/oscar64/include/c64/kernalio.c
-0000 ( 322)		CALLN	R4(I)	<-	V(14 'krnio_chrin')+0 	{}
-0001 ( 323)		CALLN	R1(C)	<-	V(15 'krnio_status')+0 	{}
-0002 ( 324)		STOREG1		<-	V(22 'krnio_pstatus' A)+1 , R1(C)	{}
-0003 ( 325)		BRANCH		<-	R1(C)	{}
+L21: <= D-1: (2) Head P11029 /home/xahmol/oscar64/include/c64/kernalio.c
+0000 ( 301)		CALLN	R4(I)	<-	V(14 'krnio_chrin')+0 	{}
+0001 ( 302)		CALLN	R1(C)	<-	V(15 'krnio_status')+0 	{}
+0002 ( 303)		STOREG1		<-	V(22 'krnio_pstatus' A)+1 , R1(C)	{}
+0003 ( 304)		BRANCH		<-	R1(C)	{}
 		==> 26
 		==> 25
 L26: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c64/kernalio.c
-0000 ( 325)		RELOP20	R6(B)	<-	R1(C), CC:64	{}
-0001 ( 325)		BRANCH		<-	R6(BF)	{}
+0000 ( 304)		RELOP20	R6(B)	<-	R1(C), CC:64	{}
+0001 ( 304)		BRANCH		<-	R6(BF)	{}
 		==> 22
 		==> 25
 L22: <= D-1: (3)  P-1 /home/xahmol/oscar64/include/c64/kernalio.c
-0000 ( 331)		CALLN		<-	V(10 'krnio_clrchn')+0 	{}
-0001 ( 332)		JUMP		<-		{}
+0000 ( 310)		CALLN		<-	V(10 'krnio_clrchn')+0 	{}
+0001 ( 311)		JUMP		<-		{}
 		==> 12
 L25: <= D-1: (2)  P-1 /home/xahmol/oscar64/include/c64/kernalio.c
-0000 ( 327)		LEAG	R5(P)	<-	V(227 'testdata' A)+0 , R0(I)[0..80]	{}
-0001 ( 327)		STOREI1		<-	R5(PF)+0 {V(227 'testdata' A)} , R4(CF)	{}
-0002 ( 327)		BINOP1	R0(I)[1..81]	<-	R0(IF)[0..80], CI:1	{}
-0003 ( 328)		BRANCH		<-	R1(CF)	{}
+0000 ( 306)		LEAG	R5(P)	<-	V(252 'testdata' A)+0 , R0(I)[0..80]	{}
+0001 ( 306)		STOREI1		<-	R5(PF)+0 {V(252 'testdata' A)} , R4(CF)	{}
+0002 ( 306)		BINOP1	R0(I)[1..81]	<-	R0(IF)[0..80], CI:1	{}
+0003 ( 307)		BRANCH		<-	R1(CF)	{}
 		==> 22
 		==> 20
 L20: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c64/kernalio.c
-0000 ( 320)		RELOP28	R1(B)	<-	R0(I)[1..81], CI:81	{}
-0001 ( 320)		BRANCH		<-	R1(BF)	{}
+0000 ( 299)		RELOP28	R1(B)	<-	R0(I)[1..81], CI:81	{}
+0001 ( 299)		BRANCH		<-	R1(BF)	{}
 		==> 21
 		==> 22
 L18: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c64/kernalio.c
-0000 ( 335)		CONST	R0(I)[-1..-1]	<-	CI:-1	{}
-0001 ( 335)		JUMP		<-		{}
+0000 ( 314)		CONST	R0(I)[-1..-1]	<-	CI:-1	{}
+0001 ( 314)		JUMP		<-		{}
 		==> 12
 L4: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/src/main.c
 0000 (  35)		STOREF2		<-	V(2 '')+0 , CI:-1	{}
-0001 ( 306)		JUMP		<-		{}
+0001 ( 285)		JUMP		<-		{}
 		==> 2
 --------------------------------------------------------------------
 printf: /home/xahmol/oscar64/include/stdio.h:15
@@ -3596,20 +4000,20 @@ L0: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c64/kernalio.c
 krnio_chkout: /home/xahmol/oscar64/include/c64/kernalio.h:51
 
 L0: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c64/kernalio.c
-0000 ( 179)		JSR		<-	V(0 '')+0 , V(-1 '')+0 	{}
-0001 ( 187)		RET		<-		{}
+0000 ( 159)		JSR		<-	V(0 '')+0 , V(-1 '')+0 	{}
+0001 ( 166)		RET		<-		{}
 --------------------------------------------------------------------
 krnio_chrout: /home/xahmol/oscar64/include/c64/kernalio.h:63
 
 L0: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c64/kernalio.c
-0000 ( 221)		JSR		<-	V(0 '')+0 , V(-1 '')+0 	{}
-0001 ( 227)		RET		<-		{}
+0000 ( 200)		JSR		<-	V(0 '')+0 , V(-1 '')+0 	{}
+0001 ( 206)		RET		<-		{}
 --------------------------------------------------------------------
 krnio_clrchn: /home/xahmol/oscar64/include/c64/kernalio.h:59
 
 L0: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c64/kernalio.c
-0000 ( 211)		JSR		<-	V(-1 '')+0 	{}
-0001 ( 213)		RET		<-		{}
+0000 ( 190)		JSR		<-	V(-1 '')+0 	{}
+0001 ( 192)		RET		<-		{}
 --------------------------------------------------------------------
 krnio_close: /home/xahmol/oscar64/include/c64/kernalio.h:39
 
@@ -3626,14 +4030,14 @@ L0: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/string.c
 krnio_chkin: /home/xahmol/oscar64/include/c64/kernalio.h:55
 
 L0: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c64/kernalio.c
-0000 ( 195)		JSR		<-	V(0 '')+0 , V(-1 '')+0 	{}
-0001 ( 203)		RET		<-		{}
+0000 ( 174)		JSR		<-	V(0 '')+0 , V(-1 '')+0 	{}
+0001 ( 182)		RET		<-		{}
 --------------------------------------------------------------------
 krnio_chrin: /home/xahmol/oscar64/include/c64/kernalio.h:67
 
 L0: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c64/kernalio.c
-0000 ( 235)		JSR		<-	V(-1 '')+0 	{}
-0001 ( 240)		RET		<-		{}
+0000 ( 214)		JSR		<-	V(-1 '')+0 	{}
+0001 ( 219)		RET		<-		{}
 --------------------------------------------------------------------
 krnio_status: /home/xahmol/oscar64/include/c64/kernalio.h:43
 
@@ -3650,14 +4054,14 @@ L0: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/conio.c
 krnio_save: /home/xahmol/oscar64/include/c64/kernalio.h:47
 
 L0: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c64/kernalio.c
-0000 ( 143)		JSR		<-	V(3 '')+0 , V(0 '')+0 , V(1 '')+0 , V(-1 '')+0 	{}
-0001 ( 171)		RET		<-		{}
+0000 ( 136)		JSR		<-	V(3 '')+0 , V(1 '')+0 , V(0 '')+0 , V(-1 '')+0 	{}
+0001 ( 151)		RET		<-		{}
 --------------------------------------------------------------------
 krnio_load: /home/xahmol/oscar64/include/c64/kernalio.h:45
 
 L0: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c64/kernalio.c
 0000 ( 113)		JSR		<-	V(2 '')+0 , V(1 '')+0 , V(0 '')+0 , V(-1 '')+0 	{}
-0001 ( 135)		RET		<-		{}
+0001 ( 128)		RET		<-		{}
 --------------------------------------------------------------------
 clrscr: /home/xahmol/oscar64/include/conio.h:58
 
@@ -4441,6 +4845,162 @@ L0: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/banking.c
 0003 (  80)		STOREA1		<-	V(-1 '')+65280 , R0(CF)[-128..255]	{V}
 0004 (  81)		RETV		<-	R1(IF)[-32768..65535]	{}
 --------------------------------------------------------------------
+bnk_memcpy: /home/xahmol/git/Oscar64Test/include/banking.h:20
+$00 R0(I), $00 R1(C), $00 R2(B), $00 R3(P), $00 R4(P), $00 R5(C), $00 R6(C), 
+L0: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/banking.c
+0000 ( 103)		LOADZ2	R0(I)[-32768..65535]	<-	V(6 '')+0 	{}
+0001 ( 102)		LOADA1	R1(C)[-128..255]	<-	V(-1 '')+65280 	{V}
+0002 ( 103)		RELOP27	R2(B)	<-	R0(I)[-32768..65535], CI:0	{}
+0003 ( 103)		BRANCH		<-	R2(BF)	{}
+		==> 4
+		==> 3
+L4: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/banking.c
+0000 ( 106)		LOADZ2	R3(P)	<-	V(4 '')+0 	{}
+0001 ( 108)		LOADZ2	R4(P)	<-	V(1 '')+0 	{}
+0002 ( 105)		LOADZ1	R2(C)[-128..255]	<-	V(3 '')+0 	{IS}
+0003 ( 107)		LOADZ1	R5(C)[-128..255]	<-	V(0 '')+0 	{IS}
+0004 ( 105)		JUMP		<-		{}
+		==> 2
+L2: <= D-1: (2) Head P55 /home/xahmol/git/Oscar64Test/include/banking.c
+0000 ( 105)		STOREA1		<-	V(-1 '')+65280 , R2(C)[-128..255]	{V}
+0001 ( 106)		LOADI1	R6(C)[-128..255]	<-	R3(P)+0	{V}
+0002 ( 107)		STOREA1		<-	V(-1 '')+65280 , R5(C)[-128..255]	{V}
+0003 ( 108)		STOREI1		<-	R4(P)+0, R6(CF)[-128..255]	{}
+0004 ( 106)		LEAI	R3(P)	<-	R3(PF)+0, CI:1	{}
+0005 ( 108)		LEAI	R4(P)	<-	R4(PF)+0, CI:1	{}
+0006 ( 109)		BINOP1	R0(I)[0..65534]	<-	R0(IF)[1..65535], CI:-1	{}
+0007 ( 103)		RELOP27	R6(B)	<-	R0(I)[0..65534], CI:0	{}
+0008 ( 103)		BRANCH		<-	R6(BF)	{}
+		==> 2
+		==> 3
+L3: <= D-1: (2)  P-1 /home/xahmol/git/Oscar64Test/include/banking.c
+0000 ( 111)		STOREA1		<-	V(-1 '')+65280 , R1(CF)[-128..255]	{V}
+0001 ( 112)		RET		<-		{}
+--------------------------------------------------------------------
+bnk_cpytovdc: /home/xahmol/git/Oscar64Test/include/banking.h:22
+$00 R0(I), $00 R1(C), $00 R2(B), $00 R3(P), $00 R4(C), 
+L0: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/banking.c
+0000 ( 129)		LOADZ2	R0(I)[-32768..65535]	<-	V(4 '')+0 	{}
+0001 ( 128)		LOADA1	R1(C)[-128..255]	<-	V(-1 '')+65280 	{V}
+0002 ( 129)		JUMP		<-		{}
+		==> 108
+L108: <= D-1: (2) Head P168 /home/xahmol/git/Oscar64Test/include/banking.c
+0000 ( 129)		RELOP27	R2(B)	<-	R0(IF)[-32768..65535], CI:0	{}
+0001 ( 129)		BRANCH		<-	R2(BF)	{}
+		==> 2
+		==> 3
+L2: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/banking.c
+0000 ( 131)		STOREA1		<-	V(-1 '')+65280 , CC:127	{V}
+0001 ( 132)		LOADZ2	R0(P)	<-	V(2 '')+0 	{}
+0002 ( 132)		LEAI	R3(P)	<-	R0(P)+0, CI:1	{}
+0003 ( 132)		STOREZ2		<-	V(2 '')+0 , R3(PF)	{}
+0004 ( 132)		LOADI1	R2(C)[-128..255]	<-	R0(PF)+0	{V}
+0005 ( 133)		STOREA1		<-	V(-1 '')+65280 , CC:14	{V}
+0006 ( 134)		LOADZ2	R0(I)[-32768..65534]	<-	V(0 '')+0 	{}
+0007 ( 134)		BINOP1	R3(I)[-32767..65535]	<-	R0(I)[-32768..65534], CI:1	{}
+0008 ( 134)		STOREZ2		<-	V(0 '')+0 , R3(IF)[-32767..65535]	{}
+0009 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
+000a (  37)		BINOP17	R3(I)[0..255]	<-	R0(I)[-32768..65534], CI:8	{}
+000b (  11)		JUMP		<-		{}
+		==> 109
+L109: <= D-1: (2) Head P167 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R4(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R4(B)	<-	R4(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R4(BF)	{}
+		==> 109
+		==> 10
+L10: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R3(CF)[0..255]	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
+0002 (  11)		JUMP		<-		{}
+		==> 111
+L111: <= D-1: (2) Head P166 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R4(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R4(B)	<-	R4(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R4(BF)	{}
+		==> 111
+		==> 15
+L15: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R0(CF)[-32768..65534]	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
+0002 (  11)		JUMP		<-		{}
+		==> 113
+L113: <= D-1: (2) Head P165 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R4(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R4(B)	<-	R4(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R4(BF)	{}
+		==> 113
+		==> 19
+L19: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R2(CF)[-128..255]	{V}
+0001 ( 135)		LOADZ2	R0(I)[-32767..65535]	<-	V(4 '')+0 	{}
+0002 ( 135)		BINOP1	R0(I)[-32768..65534]	<-	R0(IF)[-32767..65535], CI:-1	{}
+0003 ( 135)		STOREZ2		<-	V(4 '')+0 , R0(I)[-32768..65534]	{}
+0004 ( 129)		JUMP		<-		{}
+		==> 108
+L3: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/banking.c
+0000 ( 137)		STOREA1		<-	V(-1 '')+65280 , R1(CF)[-128..255]	{V}
+0001 (  22)		RET		<-		{}
+--------------------------------------------------------------------
+bnk_cpyfromvdc: /home/xahmol/git/Oscar64Test/include/banking.h:23
+$00 R0(I), $00 R1(P), $00 R2(C), $00 R3(I), $00 R4(I), $00 R5(C), 
+L0: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/banking.h
+0000 (  23)		CONST	R0(I)[2000..2000]	<-	CI:2000	{}
+0001 (  23)		CONST	R1(P)	<-	CA0(-1:8192 '')	{}
+0002 ( 142)		LOADA1	R2(C)[-128..255]	<-	V(-1 '')+65280 	{V}
+0003 ( 145)		JUMP		<-		{}
+		==> 2
+L2: <= D-1: (2) Head P166 /home/xahmol/git/Oscar64Test/include/banking.c
+0000 ( 145)		STOREA1		<-	V(-1 '')+65280 , CC:14	{V}
+0001 ( 146)		LOADZ2	R3(I)[-32768..65534]	<-	V(2 '')+0 	{}
+0002 ( 146)		BINOP1	R4(I)[-32767..65535]	<-	R3(I)[-32768..65534], CI:1	{}
+0003 ( 146)		STOREZ2		<-	V(2 '')+0 , R4(IF)[-32767..65535]	{}
+0004 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:18	{V}
+0005 (  37)		BINOP17	R4(I)[0..255]	<-	R3(I)[-32768..65534], CI:8	{}
+0006 (  11)		JUMP		<-		{}
+		==> 100
+L100: <= D-1: (2) Head P165 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R5(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R5(B)	<-	R5(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R5(BF)	{}
+		==> 100
+		==> 10
+L10: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R4(CF)[0..255]	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:19	{V}
+0002 (  11)		JUMP		<-		{}
+		==> 102
+L102: <= D-1: (2) Head P164 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  11)		LOADA1	R5(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  11)		RELOP28	R5(B)	<-	R5(CF)[-128..255], CC:128	{}
+0002 (  11)		BRANCH		<-	R5(BF)	{}
+		==> 102
+		==> 15
+L15: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  12)		STOREA1		<-	V(-1 '')+54785 , R3(CF)[-32768..65534]	{V}
+0001 (   6)		STOREA1		<-	V(-1 '')+54784 , CC:31	{V}
+0002 (  17)		JUMP		<-		{}
+		==> 104
+L104: <= D-1: (2) Head P163 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  17)		LOADA1	R5(C)[-128..255]	<-	V(-1 '')+54784 	{V}
+0001 (  17)		RELOP28	R5(B)	<-	R5(CF)[-128..255], CC:128	{}
+0002 (  17)		BRANCH		<-	R5(BF)	{}
+		==> 104
+		==> 19
+L19: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/c128/vdc.c
+0000 (  18)		LOADA1	R5(C)[-128..255]	<-	V(-1 '')+54785 	{V}
+0001 ( 147)		STOREA1		<-	V(-1 '')+65280 , CC:127	{V}
+0002 ( 148)		STOREI1		<-	R1(P)+0, R5(CF)[-128..255]	{V}
+0003 ( 148)		LEAI	R1(P)	<-	R1(PF)+0, CI:1	{}
+0004 ( 149)		BINOP1	R0(I)[0..1999]	<-	R0(IF)[1..2000], CI:-1	{}
+0005 ( 143)		RELOP27	R5(B)	<-	R0(I)[0..1999], CI:0	{}
+0006 ( 143)		BRANCH		<-	R5(BF)	{}
+		==> 2
+		==> 3
+L3: <= D-1: (1)  P-1 /home/xahmol/git/Oscar64Test/include/banking.c
+0000 ( 151)		STOREA1		<-	V(-1 '')+65280 , R2(CF)[-128..255]	{V}
+0001 (  23)		RET		<-		{}
+--------------------------------------------------------------------
 sprintf: /home/xahmol/oscar64/include/stdio.h:17
 $04 R0(P), $00 R1(I), $06 R2(P), $08 R3(P), $02 R4(C), $03 R5(B), $0a R6(I), $00 R7(I), $10 R8(L), 
 L0: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
@@ -4461,10 +5021,10 @@ L3: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
 		==> 5
 		==> 6
 L5: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
-0000 ( 561)		STOREG2		<-	V(217 'si' A)+3 , CI:10	{}
-0001 ( 565)		STOREG1		<-	V(217 'si' A)+5 , CB:0	{}
-0002 ( 566)		STOREG1		<-	V(217 'si' A)+6 , CB:0	{}
-0003 ( 567)		STOREG1		<-	V(217 'si' A)+7 , CB:0	{}
+0000 ( 561)		STOREG2		<-	V(243 'si' A)+3 , CI:10	{}
+0001 ( 565)		STOREG1		<-	V(243 'si' A)+5 , CB:0	{}
+0002 ( 566)		STOREG1		<-	V(243 'si' A)+6 , CB:0	{}
+0003 ( 567)		STOREG1		<-	V(243 'si' A)+7 , CB:0	{}
 0004 ( 548)		BRANCH		<-	R1(C)	{}
 		==> 8
 		==> 10
@@ -4476,9 +5036,9 @@ L8: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
 		==> 10
 L10: <= D-1: (2)  P-1 /home/xahmol/oscar64/include/stdio.c
 0000 ( 559)		LOADI1	R4(C)[-128..255]	<-	R2(P)+1	{}
-0001 ( 564)		STOREG1		<-	V(217 'si' A)+0 , CC:32	{}
-0002 ( 562)		STOREG1		<-	V(217 'si' A)+1 , CC:0	{}
-0003 ( 563)		STOREG1		<-	V(217 'si' A)+2 , CC:255	{}
+0001 ( 564)		STOREG1		<-	V(243 'si' A)+0 , CC:32	{}
+0002 ( 562)		STOREG1		<-	V(243 'si' A)+1 , CC:0	{}
+0003 ( 563)		STOREG1		<-	V(243 'si' A)+2 , CC:255	{}
 0004 ( 559)		LEAI	R2(P)	<-	R2(PF)+0, CI:2	{}
 0005 ( 571)		JUMP		<-		{}
 		==> 15
@@ -4488,7 +5048,7 @@ L15: <= D-1: (2) Head P424 /home/xahmol/oscar64/include/stdio.c
 		==> 17
 		==> 18
 L17: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
-0000 ( 572)		STOREG1		<-	V(217 'si' A)+5 , CB:1	{}
+0000 ( 572)		STOREG1		<-	V(243 'si' A)+5 , CB:1	{}
 0001 ( 569)		JUMP		<-		{}
 		==> 260
 L260: <= D-1: (4)  P-1 /home/xahmol/oscar64/include/stdio.c
@@ -4502,7 +5062,7 @@ L18: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
 		==> 20
 		==> 21
 L20: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
-0000 ( 574)		STOREG1		<-	V(217 'si' A)+0 , CC:48	{}
+0000 ( 574)		STOREG1		<-	V(243 'si' A)+0 , CC:48	{}
 0001 ( 569)		JUMP		<-		{}
 		==> 260
 L21: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
@@ -4511,7 +5071,7 @@ L21: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
 		==> 23
 		==> 24
 L23: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
-0000 ( 576)		STOREG1		<-	V(217 'si' A)+7 , CB:1	{}
+0000 ( 576)		STOREG1		<-	V(243 'si' A)+7 , CB:1	{}
 0001 ( 569)		JUMP		<-		{}
 		==> 260
 L24: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
@@ -4520,7 +5080,7 @@ L24: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
 		==> 26
 		==> 16
 L26: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
-0000 ( 578)		STOREG1		<-	V(217 'si' A)+6 , CB:1	{}
+0000 ( 578)		STOREG1		<-	V(243 'si' A)+6 , CB:1	{}
 0001 ( 569)		JUMP		<-		{}
 		==> 260
 L16: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
@@ -4554,7 +5114,7 @@ L35: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
 		==> 37
 		==> 36
 L36: <= D-1: (2)  P-1 /home/xahmol/oscar64/include/stdio.c
-0000 ( 592)		STOREG1		<-	V(217 'si' A)+1 , R6(CF)	{}
+0000 ( 592)		STOREG1		<-	V(243 'si' A)+1 , R6(CF)	{}
 0001 ( 595)		JUMP		<-		{}
 		==> 32
 L32: <= D-1: (3)  P-1 /home/xahmol/oscar64/include/stdio.c
@@ -4586,7 +5146,7 @@ L42: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
 0004 ( 599)		JUMP		<-		{}
 		==> 245
 L43: <= D-1: (2)  P-1 /home/xahmol/oscar64/include/stdio.c
-0000 ( 604)		STOREG1		<-	V(217 'si' A)+2 , R6(CF)	{}
+0000 ( 604)		STOREG1		<-	V(243 'si' A)+2 , R6(CF)	{}
 0001 ( 607)		JUMP		<-		{}
 		==> 40
 L40: <= D-1: (2)  P-1 /home/xahmol/oscar64/include/stdio.c
@@ -4602,7 +5162,7 @@ L261: <= D-1: (2)  P-1 /home/xahmol/oscar64/include/stdio.c
 0000 ( 609)		STOREZ2		<-	V(2 '')+0 , R3(P)	{}
 0001 ( 613)		LOADI2	R1(I)[-32768..65535]	<-	R0(P)+0	{}
 0002 ( 613)		STOREZ2		<-	V(4 '')+0 , R1(IF)[-32768..65535]	{}
-0003 ( 613)		CONST	R1(P)	<-	CG8(217:0 'si')	{S}
+0003 ( 613)		CONST	R1(P)	<-	CG8(243:0 'si')	{S}
 0004 ( 613)		STOREZ2		<-	V(0 '')+0 , R1(PF)	{}
 0005 ( 613)		CALLN	R1(I)	<-	V(3 'nformi')+0 	{}
 0006 ( 611)		JUMP		<-		{}
@@ -4636,7 +5196,7 @@ L50: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
 		==> 53
 		==> 56
 L53: <= D-1: (2)  P-1 /home/xahmol/oscar64/include/stdio.c
-0000 ( 617)		STOREG2		<-	V(217 'si' A)+3 , CI:16	{}
+0000 ( 617)		STOREG2		<-	V(243 'si' A)+3 , CI:16	{}
 0001 ( 615)		JUMP		<-		{}
 		==> 285
 L56: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
@@ -4665,7 +5225,7 @@ L61: <= D-1: (2)  P-1 /home/xahmol/oscar64/include/stdio.c
 L259: <= D-1: (2)  P-1 /home/xahmol/oscar64/include/stdio.c
 0000 ( 630)		STOREZ2		<-	V(2 '')+0 , R3(P)	{}
 0001 ( 630)		STOREZ4		<-	V(4 '')+0 , R8(LF)	{}
-0002 ( 634)		CONST	R1(P)	<-	CG8(217:0 'si')	{S}
+0002 ( 634)		CONST	R1(P)	<-	CG8(243:0 'si')	{S}
 0003 ( 634)		STOREZ2		<-	V(0 '')+0 , R1(PF)	{}
 0004 ( 634)		CALLN	R1(I)	<-	V(4 'nforml')+0 	{}
 0005 ( 632)		JUMP		<-		{}
@@ -4695,7 +5255,7 @@ L66: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
 		==> 69
 		==> 72
 L69: <= D-1: (2)  P-1 /home/xahmol/oscar64/include/stdio.c
-0000 ( 638)		STOREG2		<-	V(217 'si' A)+3 , CI:16	{}
+0000 ( 638)		STOREG2		<-	V(243 'si' A)+3 , CI:16	{}
 0001 ( 636)		JUMP		<-		{}
 		==> 284
 L72: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
@@ -4718,7 +5278,7 @@ L73: <= D-1: (2)  P-1 /home/xahmol/oscar64/include/stdio.c
 0001 ( 653)		CAST	R6(P)	<-	R6(IF)[-32768..65535]	{}
 0002 ( 653)		LEAI	R0(P)	<-	R0(PF)+0, CI:2	{}
 0003 ( 655)		CONST	R4(C)[0..0]	<-	CI:0	{}
-0004 ( 656)		LOADG1	R5(C)[-128..255]	<-	V(217 'si' A)+1 	{}
+0004 ( 656)		LOADG1	R5(C)[-128..255]	<-	V(243 'si' A)+1 	{}
 0005 ( 656)		BRANCH		<-	R5(CF)[-128..255]	{}
 		==> 80
 		==> 79
@@ -4734,7 +5294,7 @@ L81: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
 0001 ( 658)		JUMP		<-		{}
 		==> 80
 L79: <= D-1: (2)  P-1 /home/xahmol/oscar64/include/stdio.c
-0000 ( 662)		LOADG1	R5(B)	<-	V(217 'si' A)+6 	{}
+0000 ( 662)		LOADG1	R5(B)	<-	V(243 'si' A)+6 	{}
 0001 ( 662)		BRANCH		<-	R5(BF)	{}
 		==> 95
 		==> 86
@@ -4752,12 +5312,12 @@ L96: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
 0005 ( 683)		JUMP		<-		{}
 		==> 95
 L91: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
-0000 ( 688)		LOADG1	R5(B)	<-	V(217 'si' A)+6 	{}
+0000 ( 688)		LOADG1	R5(B)	<-	V(243 'si' A)+6 	{}
 0001 ( 688)		BRANCH		<-	R5(BF)	{}
 		==> 101
 		==> 2
 L101: <= D-1: (2) Head P418 /home/xahmol/oscar64/include/stdio.c
-0000 ( 690)		LOADG1	R5(C)[-128..255]	<-	V(217 'si' A)+1 	{}
+0000 ( 690)		LOADG1	R5(C)[-128..255]	<-	V(243 'si' A)+1 	{}
 0001 ( 690)		RELOP28	R5(B)	<-	R4(C)[0..], R5(CF)[-128..255]	{}
 0002 ( 690)		BRANCH		<-	R5(BF)	{}
 		==> 102
@@ -4765,14 +5325,14 @@ L101: <= D-1: (2) Head P418 /home/xahmol/oscar64/include/stdio.c
 L102: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
 0000 ( 692)		CONV33	R6(I)[0..255]	<-	R1(C)	{}
 0001 ( 692)		LEAI	R6(P)	<-	R3(P)+0, R6(IF)[0..255]	{}
-0002 ( 692)		LOADG1	R5(C)[-128..255]	<-	V(217 'si' A)+0 	{}
+0002 ( 692)		LOADG1	R5(C)[-128..255]	<-	V(243 'si' A)+0 	{}
 0003 ( 692)		STOREI1		<-	R6(PF)+0, R5(CF)[-128..255]	{}
 0004 ( 692)		BINOP1	R1(C)	<-	R1(CF), CI:1	{}
 0005 ( 693)		BINOP1	R4(C)[1..255]	<-	R4(CF)[0..254], CI:1	{}
 0006 ( 690)		JUMP		<-		{}
 		==> 101
 L86: <= D-1: (2) Head P420 /home/xahmol/oscar64/include/stdio.c
-0000 ( 664)		LOADG1	R5(C)[-128..255]	<-	V(217 'si' A)+1 	{}
+0000 ( 664)		LOADG1	R5(C)[-128..255]	<-	V(243 'si' A)+1 	{}
 0001 ( 664)		RELOP28	R5(B)	<-	R4(C)[0..], R5(CF)[-128..255]	{}
 0002 ( 664)		BRANCH		<-	R5(BF)	{}
 		==> 87
@@ -4780,7 +5340,7 @@ L86: <= D-1: (2) Head P420 /home/xahmol/oscar64/include/stdio.c
 L87: <= D-1: (1)  P-1 /home/xahmol/oscar64/include/stdio.c
 0000 ( 666)		CONV33	R7(I)[0..255]	<-	R1(C)	{}
 0001 ( 666)		LEAI	R7(P)	<-	R3(P)+0, R7(IF)[0..255]	{}
-0002 ( 666)		LOADG1	R5(C)[-128..255]	<-	V(217 'si' A)+0 	{}
+0002 ( 666)		LOADG1	R5(C)[-128..255]	<-	V(243 'si' A)+0 	{}
 0003 ( 666)		STOREI1		<-	R7(PF)+0, R5(CF)[-128..255]	{}
 0004 ( 666)		BINOP1	R1(C)	<-	R1(CF), CI:1	{}
 0005 ( 667)		BINOP1	R4(C)[1..255]	<-	R4(CF)[0..254], CI:1	{}
