@@ -29,6 +29,9 @@ CFLAGS  = -i=include -tm=$(SYS) -O3s -dNOFLOAT
 # Sources
 MAINSRC = src/main.c
 
+# Assets to include on disk
+ASSETS = -f=assets/screen.prg -f=assets/charstd.prg -f=assets/charalt.prg
+
 # Hostname of Ultimate II+ target for deployment. Edit for proper IP and usb number
 ULTHOST = ftp://192.168.1.19/usb1/temp/
 ULTHOST2 = ftp://192.168.1.31/usb1/temp
@@ -41,7 +44,7 @@ all: $(MAIN).prg
 
 # Building main program
 $(MAIN).prg: $(MAINSRC)
-	$(CC) $(CFLAGS) -n -d64=build/$(MAIN).d64 $<
+	$(CC) $(CFLAGS) -n -d64=build/$(MAIN).d64 $(ASSETS) $<
 
 # Cleaning repo of build files
 clean:

@@ -10,6 +10,7 @@
 void load_overlay(const char *fname);
 void bnk_init();
 void bnk_exit();
+char getcurrentdevice();
 
 __noinline char bnk_readb(char cr, volatile char *p);
 __noinline unsigned bnk_readw(char cr, volatile unsigned *p);
@@ -19,8 +20,13 @@ __noinline void bnk_writew(char cr, volatile unsigned *p, unsigned w);
 __noinline void bnk_writel(char cr, volatile unsigned long *p, unsigned long l);
 __noinline void bnk_memcpy(char dcr, char *dp, char scr, volatile char *sp, unsigned size);
 __noinline void bnk_memset(char cr, char *p, char val, unsigned size);
-__noinline void bnk_cpytovdc(unsigned vdcdest, char scr, volatile char * sp, unsigned size);
-__noinline void bnk_cpyfromvdc(char dcr, volatile char * dp, unsigned vdcsrc, unsigned size);
+__noinline void bnk_cpytovdc(unsigned vdcdest, char scr, volatile char *sp, unsigned size);
+__noinline void bnk_cpyfromvdc(char dcr, volatile char *dp, unsigned vdcsrc, unsigned size);
+__noinline void bnk_redef_charset(unsigned vdcdest, char scr, volatile char *sp, unsigned size);
+bool bnk_load(char device, char bank, const char* start, const char *fname);
+__noinline bool bnk_save(char device, char bank, const char *start, const char *end, const char *fname);
+
+extern char bootdevice;
 
 #pragma compile("banking.c")
 

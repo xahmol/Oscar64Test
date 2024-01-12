@@ -24,13 +24,37 @@ int main(void)
 	char testb;
 	unsigned testw;
 
+	// Init screen and banking functions, start with default 80x25 text mode
+	vdc_init(VDC_TEXT_80x25, 0);
+
+	// Loading assets
+	printf("\n\rloading assets:\n");
+	printf("- screens\n");
+	if(!bnk_load(bootdevice,1,(char*)0x5000,"screen"))
+	{
+		printf("load error.\n\r");
+	}
+	printf("- standard charset\n");
+	if(!bnk_load(bootdevice,1,(char*)0x3000,"charstd"))
+	{
+		printf("load error.\n\r");
+	}
+	printf("- alternate charset\n");
+	if(!bnk_load(bootdevice,1,(char*)0x4000,"charalt"))
+	{
+		printf("load error.\n\r");
+	}
+	bnk_redef_charset(vdc_state.char_std,BNK_1_FULL,(char*)0x3000,256);
+	bnk_redef_charset(vdc_state.char_alt,BNK_1_FULL,(char*)0x4000,256);
+	getch();
+
 	// Save and load test
 
 	// Write sample data
 	printf("write data.\n");
 	krnio_setbnk(0, 0);
 	krnio_setnam(filename);
-	printf("return value open: %d\n", krnio_open(1, 8, 1));
+	printf("return value open: %d\n", krnio_open(1, bootdevice, 1));
 	printf("status after open: %d\n", krnio_pstatus[1]);
 	printf("return value write: %d\n", krnio_write(1, testdata, 81));
 	printf("status after write: %d\n", krnio_pstatus[1]);
@@ -43,7 +67,7 @@ int main(void)
 	printf("read data.\n");
 	krnio_setbnk(0, 0);
 	krnio_setnam(filename);
-	printf("return value open: %d\n", krnio_open(1, 8, 0));
+	printf("return value open: %d\n", krnio_open(1, bootdevice, 0));
 	printf("status after open: %d\n", krnio_pstatus[1]);
 	printf("return value read: %d\n", krnio_read(1, testdata, 81));
 	printf("status after read: %d\n", krnio_pstatus[1]);
@@ -60,7 +84,7 @@ int main(void)
 	printf("write data.\n");
 	krnio_setbnk(0, 0);
 	krnio_setnam(filename);
-	printf("return value save: %d\n", krnio_save(8, testdata, testdata + strlen(testdata)));
+	printf("return value save: %d\n", krnio_save(bootdevice, testdata, testdata + strlen(testdata)));
 	printf("status after write: %d\n", krnio_pstatus[1]);
 
 	// Wipe sample data to be able to see if it loads back correctly
@@ -70,12 +94,10 @@ int main(void)
 	printf("load data.\n");
 	krnio_setbnk(0, 0);
 	krnio_setnam(filename);
-	printf("return value load: %d\n", krnio_load(1, 8, 1));
+	printf("return value load: %d\n", krnio_load(1, bootdevice, 1));
 	printf("status after write: %d\n", krnio_pstatus[1]);
 	printf("data read:\n%s\n", testdata);
 	getch();
-
-	vdc_init(VDC_TEXT_80x25, 0);
 
 	testb = 0x60;
 	testw = 0x6060;
