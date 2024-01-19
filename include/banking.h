@@ -3,6 +3,7 @@
 
 // Defines for MMU modes, MMU $FF00 configuration values
 #define BNK_DEFAULT 0x0e
+#define BNK_CHARROM 0x01
 #define BNK_0_FULL 0x3f
 #define BNK_1_FULL 0x7f
 #define BMK_0_IO 0x3e
@@ -34,8 +35,6 @@ __noinline void bnk_memset(char cr, char *p, char val, unsigned size);
 __noinline void bnk_cpytovdc(unsigned vdcdest, char scr, volatile char *sp, unsigned size);
 __noinline void bnk_cpyfromvdc(char dcr, volatile char *dp, unsigned vdcsrc, unsigned size);
 __noinline void bnk_redef_charset(unsigned vdcdest, char scr, volatile char *sp, unsigned size);
-__noinline void bnk_cpy_viewporttovdc(char sourcebank, char *sourcebase, unsigned sourcewidth, unsigned sourceheight, unsigned sourcexoffset, unsigned sourceyoffset, char xcoord, char ycoord, char viewwidth, char viewheight);
-__noinline void bnk_viewportscroll(char sourcebank, char *sourcebase, unsigned sourcewidth, unsigned sourceheight, unsigned sourcexoffset, unsigned sourceyoffset, char xcoord, char ycoord, char viewwidth, char viewheight, char direction);
 __noinline bool bnk_load(char device, char bank, const char* start, const char *fname);
 __noinline bool bnk_save(char device, char bank, const char *start, const char *end, const char *fname);
 

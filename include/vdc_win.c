@@ -1,5 +1,5 @@
 #include <c128/vdc.h>
-#include "vdcwin.h"
+#include "vdc_win.h"
 #include "vdc_core.h"
 #include "banking.h"
 
@@ -42,7 +42,7 @@ static inline void copy_bwd(unsigned sdp, const unsigned ssp, unsigned cdp, cons
 	}
 }
 
-void vdcwin_init(VDCWin *win, char sx, char sy, char wx, char wy)
+void vdcwin_init(struct VDCWin *win, char sx, char sy, char wx, char wy)
 {
 	win->sx = sx;
 	win->sy = sy;
@@ -54,17 +54,17 @@ void vdcwin_init(VDCWin *win, char sx, char sy, char wx, char wy)
 	win->cp = vdc_state.base_attr + vdc_coords(sx, sy);
 }
 
-void vdcwin_clear(VDCWin *win)
+void vdcwin_clear(struct VDCWin *win)
 {
 	vdcwin_fill(win, ' ');
 }
 
-void vdcwin_fill(VDCWin *win, char ch)
+void vdcwin_fill(struct VDCWin *win, char ch)
 {
 	vdc_clear(win->sx, win->sy, ch, win->wy);
 }
 
-void vdcwin_cursor_show(VDCWin *win, bool show)
+void vdcwin_cursor_show(struct VDCWin *win, bool show)
 {
 	unsigned cp = vdc_state.base_attr + vdc_coords(win->sx + win->cx, win->sy + win->cy);
 	if (show)
@@ -73,13 +73,13 @@ void vdcwin_cursor_show(VDCWin *win, bool show)
 		vdc_mem_write_at(cp, vdc_mem_read_at(cp) &= (VDC_A_REVERSE - 1));
 }
 
-void vdcwin_cursor_move(VDCWin *win, char cx, char cy)
+void vdcwin_cursor_move(struct VDCWin *win, char cx, char cy)
 {
 	win->cx = cx;
 	win->cy = cy;
 }
 
-bool vdcwin_cursor_left(VDCWin *win)
+bool vdcwin_cursor_left(struct VDCWin *win)
 {
 	if (win->cx > 0)
 	{
@@ -90,7 +90,7 @@ bool vdcwin_cursor_left(VDCWin *win)
 	return false;
 }
 
-bool vdcwin_cursor_right(VDCWin *win)
+bool vdcwin_cursor_right(struct VDCWin *win)
 {
 	if (win->cx + 1 < win->wx)
 	{
@@ -101,7 +101,7 @@ bool vdcwin_cursor_right(VDCWin *win)
 	return false;
 }
 
-bool vdcwin_cursor_up(VDCWin *win)
+bool vdcwin_cursor_up(struct VDCWin *win)
 {
 	if (win->cy > 0)
 	{
@@ -112,7 +112,7 @@ bool vdcwin_cursor_up(VDCWin *win)
 	return false;
 }
 
-bool vdcwin_cursor_down(VDCWin *win)
+bool vdcwin_cursor_down(struct VDCWin *win)
 {
 	if (win->cy + 1 < win->wy)
 	{
@@ -123,7 +123,7 @@ bool vdcwin_cursor_down(VDCWin *win)
 	return false;
 }
 
-bool vdcwin_cursor_newline(VDCWin *win)
+bool vdcwin_cursor_newline(struct VDCWin *win)
 {
 	win->cx = 0;
 	if (win->cy + 1 < win->wy)
@@ -135,7 +135,7 @@ bool vdcwin_cursor_newline(VDCWin *win)
 	return false;
 }
 
-bool vdcwin_cursor_forward(VDCWin *win)
+bool vdcwin_cursor_forward(struct VDCWin *win)
 {
 	if (win->cx + 1 < win->wx)
 	{
@@ -152,7 +152,7 @@ bool vdcwin_cursor_forward(VDCWin *win)
 	return false;
 }
 
-bool vdcwin_cursor_backward(VDCWin *win)
+bool vdcwin_cursor_backward(struct VDCWin *win)
 {
 	if (win->cx > 0)
 	{
@@ -182,7 +182,7 @@ static inline char s2p(char ch)
 	return ch ^ s2pmap[ch >> 5];
 }
 
-void vdcwin_read_string(VDCWin *win, char *buffer)
+void vdcwin_read_string(struct VDCWin *win, char *buffer)
 {
 	unsigned sp = win->sp;
 
@@ -200,7 +200,7 @@ void vdcwin_read_string(VDCWin *win, char *buffer)
 	buffer[i] = 0;
 }
 
-void vdcwin_write_string(VDCWin *win, const char *buffer)
+void vdcwin_write_string(struct VDCWin *win, const char *buffer)
 {
 	unsigned dp = win->sp;
 	for (char y = 0; y < win->wy; y++)
@@ -220,7 +220,7 @@ void vdcwin_write_string(VDCWin *win, const char *buffer)
 	}
 }
 
-void vdcwin_put_char(VDCWin *win, char ch, char color)
+void vdcwin_put_char(struct VDCWin *win, char ch, char color)
 {
 	vdcwin_putat_char(win, win->cx, win->cy, ch, color);
 	win->cx++;
@@ -231,7 +231,7 @@ void vdcwin_put_char(VDCWin *win, char ch, char color)
 	}
 }
 
-void vdcwin_put_chars(VDCWin *win, const char *chars, char num, char color)
+void vdcwin_put_chars(struct VDCWin *win, const char *chars, char num, char color)
 {
 	vdcwin_putat_chars(win, win->cx, win->cy, chars, color);
 	win->cx += num;
@@ -242,7 +242,7 @@ void vdcwin_put_chars(VDCWin *win, const char *chars, char num, char color)
 	}
 }
 
-char vdcwin_put_string(VDCWin *win, const char *str, char color)
+char vdcwin_put_string(struct VDCWin *win, const char *str, char color)
 {
 	char n = vdcwin_putat_string(win, win->cx, win->cy, str, color);
 	win->cx += n;
@@ -254,7 +254,7 @@ char vdcwin_put_string(VDCWin *win, const char *str, char color)
 	return n;
 }
 
-void vdcwin_put_char_raw(VDCWin *win, char ch, char color)
+void vdcwin_put_char_raw(struct VDCWin *win, char ch, char color)
 {
 	vdcwin_putat_char_raw(win, win->cx, win->cy, ch, color);
 	win->cx++;
@@ -265,7 +265,7 @@ void vdcwin_put_char_raw(VDCWin *win, char ch, char color)
 	}
 }
 
-void vdcwin_put_chars_raw(VDCWin *win, const char *chars, char num, char color)
+void vdcwin_put_chars_raw(struct VDCWin *win, const char *chars, char num, char color)
 {
 	vdcwin_putat_chars_raw(win, win->cx, win->cy, chars, color);
 	win->cx += num;
@@ -276,7 +276,7 @@ void vdcwin_put_chars_raw(VDCWin *win, const char *chars, char num, char color)
 	}
 }
 
-char vdcwin_put_string_raw(VDCWin *win, const char *str, char color)
+char vdcwin_put_string_raw(struct VDCWin *win, const char *str, char color)
 {
 	char n = vdcwin_putat_string_raw(win, win->cx, win->cy, str, color);
 	win->cx += n;
@@ -288,14 +288,14 @@ char vdcwin_put_string_raw(VDCWin *win, const char *str, char color)
 	return n;
 }
 
-void vdcwin_putat_char(VDCWin *win, char x, char y, char ch, char color)
+void vdcwin_putat_char(struct VDCWin *win, char x, char y, char ch, char color)
 {
 	vdc_printc(win->sx + x, win->sy + y, p2s(ch), color);
 }
 
 #pragma native(vdcwin_putat_char)
 
-void vdcwin_putat_chars(VDCWin *win, char x, char y, const char *chars, char num, char color)
+void vdcwin_putat_chars(struct VDCWin *win, char x, char y, const char *chars, char num, char color)
 {
 	for (char i = 0; i < num; i++)
 	{
@@ -305,7 +305,7 @@ void vdcwin_putat_chars(VDCWin *win, char x, char y, const char *chars, char num
 
 #pragma native(vdcwin_putat_chars)
 
-char vdcwin_putat_string(VDCWin *win, char x, char y, const char *str, char color)
+char vdcwin_putat_string(struct VDCWin *win, char x, char y, const char *str, char color)
 {
 	char i = 0;
 	while (char ch = str[i])
@@ -319,14 +319,14 @@ char vdcwin_putat_string(VDCWin *win, char x, char y, const char *str, char colo
 
 #pragma native(vdcwin_putat_string)
 
-void vdcwin_putat_char_raw(VDCWin *win, char x, char y, char ch, char color)
+void vdcwin_putat_char_raw(struct VDCWin *win, char x, char y, char ch, char color)
 {
 	vdc_printc(win->sx + x, win->sy + y, ch, color);
 }
 
 #pragma native(vdcwin_putat_char_raw)
 
-void vdcwin_putat_chars_raw(VDCWin *win, char x, char y, const char *chars, char num, char color)
+void vdcwin_putat_chars_raw(struct VDCWin *win, char x, char y, const char *chars, char num, char color)
 {
 	for (char i = 0; i < num; i++)
 	{
@@ -336,7 +336,7 @@ void vdcwin_putat_chars_raw(VDCWin *win, char x, char y, const char *chars, char
 
 #pragma native(vdcwin_putat_chars_raw)
 
-char vdcwin_putat_string_raw(VDCWin *win, char x, char y, const char *str, char color)
+char vdcwin_putat_string_raw(struct VDCWin *win, char x, char y, const char *str, char color)
 {
 	char i = 0;
 	while (char ch = str[i])
@@ -350,7 +350,7 @@ char vdcwin_putat_string_raw(VDCWin *win, char x, char y, const char *str, char 
 
 #pragma native(vdcwin_putat_string_raw)
 
-char vdcwin_getat_char(VDCWin *win, char x, char y)
+char vdcwin_getat_char(struct VDCWin *win, char x, char y)
 {
 	unsigned sp = win->sp + vdc_coords(x, y);
 
@@ -359,7 +359,7 @@ char vdcwin_getat_char(VDCWin *win, char x, char y)
 
 #pragma native(vdcwin_getat_char)
 
-void vdcwin_getat_chars(VDCWin *win, char x, char y, char *chars, char num)
+void vdcwin_getat_chars(struct VDCWin *win, char x, char y, char *chars, char num)
 {
 	unsigned sp = win->sp + vdc_coords(x, y);
 
@@ -371,7 +371,7 @@ void vdcwin_getat_chars(VDCWin *win, char x, char y, char *chars, char num)
 
 #pragma native(vdcwin_getat_chars)
 
-char vdcwin_getat_char_raw(VDCWin *win, char x, char y)
+char vdcwin_getat_char_raw(struct VDCWin *win, char x, char y)
 {
 	unsigned sp = win->sp + vdc_coords(x, y);
 
@@ -380,7 +380,7 @@ char vdcwin_getat_char_raw(VDCWin *win, char x, char y)
 
 #pragma native(vdcwin_getat_chars_raw)
 
-void vdcwin_getat_chars_raw(VDCWin *win, char x, char y, char *chars, char num)
+void vdcwin_getat_chars_raw(struct VDCWin *win, char x, char y, char *chars, char num)
 {
 	unsigned sp = win->sp + vdc_coords(x, y);
 
@@ -392,7 +392,7 @@ void vdcwin_getat_chars_raw(VDCWin *win, char x, char y, char *chars, char num)
 
 #pragma native(vdcwin_put_rect_raw)
 
-void vdcwin_put_rect_raw(VDCWin *win, char x, char y, char w, char h, char cr, const char *chars, char color)
+void vdcwin_put_rect_raw(struct VDCWin *win, char x, char y, char w, char h, char cr, const char *chars, char color)
 {
 	int offset = vdc_coords(x, y);
 
@@ -411,7 +411,7 @@ void vdcwin_put_rect_raw(VDCWin *win, char x, char y, char w, char h, char cr, c
 
 #pragma native(vdcwin_put_rect)
 
-void vdcwin_put_rect(VDCWin *win, char x, char y, char w, char h, char cr, const char *chars, char color)
+void vdcwin_put_rect(struct VDCWin *win, char x, char y, char w, char h, char cr, const char *chars, char color)
 {
 	int offset = vdc_coords(x, y);
 
@@ -435,7 +435,7 @@ void vdcwin_put_rect(VDCWin *win, char x, char y, char w, char h, char cr, const
 
 #pragma native(vdcwin_get_rect_raw)
 
-void vdcwin_get_rect_raw(VDCWin *win, char x, char y, char w, char h, char cr, char *chars)
+void vdcwin_get_rect_raw(struct VDCWin *win, char x, char y, char w, char h, char cr, char *chars)
 {
 	int offset = vdc_coords(x, y);
 
@@ -451,7 +451,7 @@ void vdcwin_get_rect_raw(VDCWin *win, char x, char y, char w, char h, char cr, c
 
 #pragma native(vdcwin_get_rect)
 
-void vdcwin_get_rect(VDCWin *win, char x, char y, char w, char h, char cr, char *chars)
+void vdcwin_get_rect(struct VDCWin *win, char x, char y, char w, char h, char cr, char *chars)
 {
 	int offset = vdc_coords(x, y);
 
@@ -472,7 +472,7 @@ void vdcwin_get_rect(VDCWin *win, char x, char y, char w, char h, char cr, char 
 
 #pragma native(vdcwin_getat_chars_raw)
 
-void vdcwin_insert_char(VDCWin *win)
+void vdcwin_insert_char(struct VDCWin *win)
 {
 	char y = win->wy - 1, rx = win->wx - 1;
 
@@ -499,7 +499,7 @@ void vdcwin_insert_char(VDCWin *win)
 	vdc_mem_write_at(sp, ' ');
 }
 
-void vdcwin_delete_char(VDCWin *win)
+void vdcwin_delete_char(struct VDCWin *win)
 {
 	unsigned sp = win->sp + vdc_coords(0, win->cy);
 	unsigned cp = win->cp + vdc_coords(0, win->cy);
@@ -551,7 +551,7 @@ int vdcwin_checkch(void)
 	}
 }
 
-bool vdcwin_edit_char(VDCWin *win, char ch)
+bool vdcwin_edit_char(struct VDCWin *win, char ch)
 {
 	switch (ch)
 	{
@@ -604,7 +604,7 @@ bool vdcwin_edit_char(VDCWin *win, char ch)
 	}
 }
 
-char vdcwin_edit(VDCWin *win)
+char vdcwin_edit(struct VDCWin *win)
 {
 	for (;;)
 	{
@@ -617,7 +617,7 @@ char vdcwin_edit(VDCWin *win)
 	}
 }
 
-void vdcwin_scroll_left(VDCWin *win, char by)
+void vdcwin_scroll_left(struct VDCWin *win, char by)
 {
 	unsigned sp = win->sp;
 	unsigned cp = win->cp;
@@ -626,13 +626,13 @@ void vdcwin_scroll_left(VDCWin *win, char by)
 
 	for (char y = 0; y < win->wy; y++)
 	{
-		copy_fwd(sp, sp + by, cp, cp + by, rx);
+		copy_bwd(sp, sp + by, cp, cp + by, rx);
 		sp += vdc_state.width;
 		cp += vdc_state.width;
 	}
 }
 
-void vdcwin_scroll_right(VDCWin *win, char by)
+void vdcwin_scroll_right(struct VDCWin *win, char by)
 {
 	unsigned sp = win->sp;
 	unsigned cp = win->cp;
@@ -647,13 +647,13 @@ void vdcwin_scroll_right(VDCWin *win, char by)
 	}
 }
 
-void vdcwin_scroll_up(VDCWin *win, char by)
+void vdcwin_scroll_up(struct VDCWin *win, char by)
 {
 	unsigned sp = win->sp;
 	unsigned cp = win->cp;
 
 	char rx = win->wx;
-	int dst = vdc_state.width*by;
+	int dst = vdc_state.width * by;
 
 	for (char y = 0; y < win->wy - by; y++)
 	{
@@ -663,14 +663,14 @@ void vdcwin_scroll_up(VDCWin *win, char by)
 	}
 }
 
-void vdcwin_scroll_down(VDCWin *win, char by)
+void vdcwin_scroll_down(struct VDCWin *win, char by)
 {
-	unsigned sp = win->sp + vdc_state.width*win->wy;
-	unsigned cp = win->cp + vdc_state.width*win->wy;
+	unsigned sp = win->sp + vdc_state.width * win->wy;
+	unsigned cp = win->cp + vdc_state.width * win->wy;
 
 	char rx = win->wx;
 
-	int dst = vdc_state.width*by;
+	int dst = vdc_state.width * by;
 
 	for (char y = 0; y < win->wy - by; y++)
 	{
@@ -680,18 +680,97 @@ void vdcwin_scroll_down(VDCWin *win, char by)
 	}
 }
 
-void vdcwin_fill_rect_raw(VDCWin *win, char x, char y, char w, char h, char ch, char color)
+void vdcwin_fill_rect_raw(struct VDCWin *win, char x, char y, char w, char h, char ch, char color)
 {
 	if (w > 0)
 	{
 		for (char i = 0; i < h; i++)
 		{
-			vdc_hchar(win->sx+x,win->sy+y+i,ch,color,w);
+			vdc_hchar(win->sx + x, win->sy + y + i, ch, color, w);
 		}
 	}
 }
 
-void vdcwin_fill_rect(VDCWin *win, char x, char y, char w, char h, char ch, char color)
+void vdcwin_fill_rect(struct VDCWin *win, char x, char y, char w, char h, char ch, char color)
 {
 	vdcwin_fill_rect_raw(win, x, y, w, h, p2s(ch), color);
+}
+
+void vdcwin_viewport_init(struct VDCViewport *vp, char sourcebank, char *sourcebase, unsigned sourcewidth, unsigned sourceheight, unsigned viewwidth, unsigned viewheight, char viewsx, char viewsy)
+// Initialize a viewport of screen data in memory
+// Inpuut: Viewport struct to use, source bank and basem source dimensions, view window start coord and dimensions
+{
+	vp->sourcebank = sourcebank;
+	vp->sourcebase = sourcebase;
+	vp->sourcewidth = sourcewidth;
+	vp->sourceheight = sourceheight;
+	vp->sourcexoffset = 0;
+	vp->sourceyoffset = 0;
+	vdcwin_init(&vp->win, viewsx, viewsy, viewwidth, viewheight);
+}
+
+void vdcwin_cpy_viewport(struct VDCViewport *viewport)
+// Function to copy a viewport on the source screen map to the VDC
+// Input: Initialised viewport struct
+{
+	// Charachters
+	unsigned vdcbase = viewport->win.sp;
+	char *address = viewport->sourcebase + (viewport->sourceyoffset * viewport->sourcewidth) + viewport->sourcexoffset;
+
+	for (char i = 0; i < viewport->win.wy; i++)
+	{
+		bnk_cpytovdc(vdcbase, viewport->sourcebank, address, viewport->win.wx);
+		vdcbase += vdc_state.width;
+		address += vdc_state.width;
+	}
+
+	// Attributes
+	vdcbase = viewport->win.cp;
+	address = viewport->sourcebase + (viewport->sourceyoffset * viewport->sourcewidth) + viewport->sourcexoffset + (viewport->sourceheight * viewport->sourcewidth) + 48;
+
+	for (char i = 0; i < viewport->win.wy; i++)
+	{
+		bnk_cpytovdc(vdcbase, viewport->sourcebank, address, viewport->win.wx);
+		vdcbase += vdc_state.width;
+		address += vdc_state.width;
+	}
+}
+
+void vdcwin_viewportscroll(struct VDCViewport *viewport, char direction)
+// Function to scroll a viewport on the source screen map on the VDC in the given direction
+// Input: Initialised viewport struct and direction
+{
+	struct VDCViewport vp_fill;
+
+	memcpy(&vp_fill, viewport, sizeof(vp_fill));
+
+	if (direction & SCROLL_LEFT)
+	{
+		vdcwin_scroll_right(&viewport->win, 1);
+		vp_fill.sourcexoffset--;
+		viewport->sourcexoffset--;
+		vdcwin_init(&vp_fill.win, viewport->win.sx, viewport->win.sy, 1, viewport->win.wy);
+	}
+	if (direction & SCROLL_RIGHT)
+	{
+		vdcwin_scroll_left(&viewport->win, 1);
+		vp_fill.sourcexoffset += viewport->win.wx;
+		viewport->sourcexoffset++;
+		vdcwin_init(&vp_fill.win, viewport->win.sx + viewport->win.wx - 1, viewport->win.sy, 1, viewport->win.wy);
+	}
+	if (direction & SCROLL_UP)
+	{
+		vdcwin_scroll_down(&viewport->win, 1);
+		vp_fill.sourceyoffset--;
+		viewport->sourceyoffset--;
+		vdcwin_init(&vp_fill.win, viewport->win.sx, viewport->win.sy, viewport->win.wx, 1);
+	}
+	if (direction & SCROLL_DOWN)
+	{
+		vdcwin_scroll_up(&viewport->win, 1);
+		vp_fill.sourceyoffset += viewport->win.wy;
+		viewport->sourceyoffset++;
+		vdcwin_init(&vp_fill.win, viewport->win.sx, viewport->win.sy + viewport->win.wy - 1, viewport->win.wx, 1);
+	}
+	vdcwin_cpy_viewport(&vp_fill);
 }

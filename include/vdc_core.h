@@ -29,14 +29,13 @@
 #define C_SPACE 32
 
 // Function prototypes
-char screenwidth();
+char screen_width();
 void screen_setmode(char mode);
 void fastmode(char set);
 char pet2screen(char p);
-void vdc_reg_save();
-void vdc_reg_restore();
 void vdc_set_disp_address(unsigned text, unsigned attr);
 void vdc_set_charset_address(unsigned address);
+void vdc_set_multab();
 char vdc_set_mode(char mode);
 void vdc_init(char mode, char extmem);
 void vdc_exit();
@@ -65,12 +64,19 @@ void vdc_hchar(char x, char y, char val, char attr, char length);
 void vdc_vchar(char x, char y, char val, char attr, char length);
 void vdc_clear(char x, char y, char val, char length, char lines);
 void vdc_cls();
+void vdc_wait_vblank();
+void vdc_wait_no_vblank();
+void vdc_pass_vblank();
 
 // Global variables
 enum VDCMode
 {
-    VDC_TEXT_80x25,
-    VDC_TEXT_80x50
+    VDC_TEXT_80x25_PAL,
+    VDC_TEXT_80x50_PAL,
+    VDC_TEXT_80x68_PAL,
+    VDC_TEXT_80x25_NTSC,
+    VDC_TEXT_80x50_NTSC,
+    VDC_TEXT_80x58_NTSC
 };
 struct VDCModeSet
 {
@@ -84,9 +90,9 @@ struct VDCModeSet
     unsigned char_std;
     unsigned char_alt;
     unsigned extended;
-    char regset[13];
+    char regset[17];
 };
-extern struct VDCModeSet vdc_modes[2];
+extern struct VDCModeSet vdc_modes[6];
 struct VDCStatus
 {
     char memsize;
@@ -102,9 +108,12 @@ struct VDCStatus
     unsigned char_std;
     unsigned char_alt;
     unsigned extended;
+    unsigned dispaddr_offset;
+    char disp_skip;
 };
 extern struct VDCStatus vdc_state;
 extern char linebuffer[81];
+extern unsigned multab[72];
 
 #pragma compile("vdc_core.c")
 

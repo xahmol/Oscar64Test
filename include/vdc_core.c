@@ -10,11 +10,17 @@
 
 char linebuffer[81];
 struct VDCStatus vdc_state;
+unsigned multab[72];
 
-struct VDCModeSet vdc_modes[2] =
+// VDC mode settings. Credits to Tokra.
+struct VDCModeSet vdc_modes[6] =
     {
-        {80, 25, 0, 0x0000, 0x0800, 0x1000, 0x1800, 0x2000, 0x3000, 0x4000, {VDCR_HTOTAL, 0x7f, VDCR_VTOTAL, 0x26, VDCR_VDISPLAY, 0x19, VDCR_VSYNC, 0x20, VDCR_LACE, 0xfc, VDCR_CSIZE, 0xe7, 255}},
-        {80, 50, 0, 0x0000, 0x1000, 0x4000, 0x5000, 0x2000, 0x3000, 0x6000, {VDCR_HTOTAL, 0x80, VDCR_VTOTAL, 0x40, VDCR_VDISPLAY, 0x32, VDCR_VSYNC, 0x3a, VDCR_LACE, 0x03, VDCR_CSIZE, 0x07, 255}}};
+        {80, 25, 0, 0x0000, 0x0800, 0x1000, 0x1800, 0x2000, 0x3000, 0x4000, {VDCR_HTOTAL, 0x7f, VDCR_VTOTAL, 0x26, VDCR_VADJUST, 0xe0, VDCR_VDISPLAY, 0x19, VDCR_VSYNC, 0x20, VDCR_LACE, 0xfc, VDCR_CSIZE, 0xe7, VDCR_REFRESH, 0x7e, 255}},
+        {80, 50, 0, 0x0000, 0x1000, 0x4000, 0x5000, 0x2000, 0x3000, 0x6000, {VDCR_HTOTAL, 0x7f, VDCR_VTOTAL, 0x4d, VDCR_VADJUST, 0x00, VDCR_VDISPLAY, 0x32, VDCR_VSYNC, 0x40, VDCR_LACE, 0x03, VDCR_CSIZE, 0x07, VDCR_REFRESH, 0x00, 255}},
+        {80, 70, 1, 0x0000, 0x1800, 0x6000, 0x7800, 0x4000, 0x5000, 0x9000, {VDCR_HTOTAL, 0x7f, VDCR_VTOTAL, 0x4d, VDCR_VADJUST, 0x00, VDCR_VDISPLAY, 0x46, VDCR_VSYNC, 0x48, VDCR_LACE, 0x03, VDCR_CSIZE, 0x07, VDCR_REFRESH, 0x00, 255}},
+        {80, 25, 0, 0x0000, 0x0800, 0x1000, 0x1800, 0x2000, 0x3000, 0x4000, {VDCR_HTOTAL, 0x7e, VDCR_VTOTAL, 0x20, VDCR_VADJUST, 0xe0, VDCR_VDISPLAY, 0x19, VDCR_VSYNC, 0x1d, VDCR_LACE, 0xfc, VDCR_CSIZE, 0xe7, VDCR_REFRESH, 0xf5, 255}},
+        {80, 50, 0, 0x0000, 0x1000, 0x4000, 0x5000, 0x2000, 0x3000, 0x6000, {VDCR_HTOTAL, 0x7e, VDCR_VTOTAL, 0x41, VDCR_VADJUST, 0x00, VDCR_VDISPLAY, 0x32, VDCR_VSYNC, 0x3b, VDCR_LACE, 0x03, VDCR_CSIZE, 0x07, VDCR_REFRESH, 0x00, 255}},
+        {80, 60, 1, 0x0000, 0x1800, 0x6000, 0x7800, 0x4000, 0x5000, 0x9000, {VDCR_HTOTAL, 0x7e, VDCR_VTOTAL, 0x41, VDCR_VADJUST, 0x00, VDCR_VDISPLAY, 0x3c, VDCR_VSYNC, 0x3d, VDCR_LACE, 0x03, VDCR_CSIZE, 0x07, VDCR_REFRESH, 0x00, 255}}};
 
 char screen_width()
 // Return screenwidth 40 or 80
@@ -93,21 +99,25 @@ void vdc_set_disp_address(unsigned text, unsigned attr)
 void vdc_set_charset_address(unsigned address)
 // Function to set the VDC display addresses for text and attributes
 {
-    // Get old value and wipe bits 5-7
-    char value = vdc_reg_read(VDCR_CHAR_ADDRH) & 0x1f;
-    printf("%2X %2X", vdc_reg_read(VDCR_CHAR_ADDRH), value);
+    vdc_reg_write(VDCR_CHAR_ADDRH, ((vdc_reg_read(VDCR_CHAR_ADDRH) & 0x10) | ((address >> 8) & 0xe0)));
+}
 
-    // Calculate most significant three bits of address and add to value
-    value += (address >> 8) & 0xe0;
-
-    // Save new value
-    vdc_reg_write(VDCR_CHAR_ADDRH, value);
+void vdc_set_multab()
+// Set multiplication table for screen width
+{
+    unsigned val = 0;
+    for (char index = 0; index < vdc_state.height; index++)
+    {
+        multab[index] = val;
+        val += vdc_state.width + vdc_state.disp_skip;
+    }
 }
 
 char vdc_set_mode(char mode)
 // Function to set one of the preset VDC modes. Returns 1=succes, 0=fail.
 {
     char index = 0;
+    unsigned val;
 
     // Check if extended memory is required and available. If not, return with code 0.
     if (vdc_modes[mode].extmem && vdc_state.memsize == 16)
@@ -125,11 +135,19 @@ char vdc_set_mode(char mode)
     vdc_state.char_std = vdc_modes[mode].char_std;
     vdc_state.char_alt = vdc_modes[mode].char_alt;
     vdc_state.extended = vdc_modes[mode].extended;
+    vdc_state.dispaddr_offset = 0;
+    vdc_state.disp_skip = 0;
+
+    // Set multiplication table for screen width
+    vdc_set_multab();
 
     // Set VDC addresses
+    vdc_disable_display();
     vdc_set_disp_address(vdc_modes[mode].base_text, vdc_modes[mode].base_attr);
     vdc_set_charset_address(vdc_modes[mode].char_std);
+    vdc_restore_charsets();
 
+    index = 0;
     do
     {
         vdc_reg_write(vdc_modes[mode].regset[index++], vdc_modes[mode].regset[index++]);
@@ -144,6 +162,7 @@ char vdc_set_mode(char mode)
     {
         vdc_cls();
     }
+    vdc_enable_display();
 }
 
 void vdc_init(char mode, char extmem)
@@ -160,7 +179,7 @@ void vdc_init(char mode, char extmem)
     // Give message if 40 column screen is active and wait on key before switching to 80
     if (screen_width() == 40)
     {
-        printf("SWITCH TO 80 COLUMN SCREEN\nAND PRESS KEY.\n");
+        printf("switch to 80 column screen\nand press key.\n");
         getch();
         clrscr();
         screen_setmode(80);
@@ -185,25 +204,22 @@ void vdc_init(char mode, char extmem)
 void vdc_exit()
 // Return to normal state of VDC
 {
-    fastmode(0);                  // Disable fast mode
-    vdc_set_mode(VDC_TEXT_80x25); // Set default mode
-    vdc_cls();                    // Clear screen
-    bnk_exit();                   // Reset shared memory to default
+    fastmode(0);                      // Disable fast mode
+    vdc_set_mode(VDC_TEXT_80x25_PAL); // Set default mode
+    vdc_cls();                        // Clear screen
+    bnk_exit();                       // Reset shared memory to default
 }
 
-unsigned vdc_coords(char x, char y)
+static __native inline unsigned vdc_coords(char x, char y)
 // Function returns a VDC memory address for given x,y coords. To be added to base address for text or attributes.
 {
-    return (y * vdc_state.width) + x;
+    return multab[y] + x;
 }
 
 void vdc_restore_charsets()
 // Restore charsets from ROM
 {
-    __asm
-    {
-	    jsr 0xff62
-    }
+    bnk_redef_charset(vdc_state.char_std, BNK_CHARROM, (char *)0xd000, 512);
 }
 
 void vdc_detect_mem_size()
@@ -447,4 +463,29 @@ void vdc_cls()
 // Function to clear VDC screen with given value and attribute
 {
     vdc_clear(0, 0, C_SPACE, vdc_state.width, vdc_state.height);
+}
+
+static __native inline void vdc_wait_vblank()
+// Function to wait until VDC VBLANK
+{
+    // Loop while bit 5 is on
+    do
+    {
+    } while (!(vdc.addr & 0x20));
+}
+
+static __native inline void vdc_wait_no_vblank()
+// Function to wait until after VDC VBLANK
+{
+    // Loop while bit 5 is on
+    do
+    {
+    } while (vdc.addr & 0x20);
+}
+
+static __native inline void vdc_pass_vblank()
+// Function to include a delay to wait for first scanlines passing
+{
+    vdc_wait_vblank();
+    vdc_wait_no_vblank();
 }

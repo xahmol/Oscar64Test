@@ -30,11 +30,11 @@ CFLAGS  = -i=include -tm=$(SYS) -O3s -dNOFLOAT
 MAINSRC = src/main.c
 
 # Assets to include on disk
-ASSETS = -f=assets/screen.prg
+ASSETS = -f=assets/screen1.prg -f=assets/screen2.prg
 
 # Hostname of Ultimate II+ target for deployment. Edit for proper IP and usb number
 ULTHOST = ftp://192.168.1.19/usb1/temp/
-ULTHOST2 = ftp://192.168.1.31/usb1/temp
+ULTHOST2 = ftp://192.168.1.31/usb1/temp/
 
 ########################################
 
@@ -53,7 +53,7 @@ clean:
 # To deploy software to UII+ enter make deploy. Obviously C128 needs to powered on with UII+ and USB drive connected.
 deploy: $(MAIN).prg
 	wput -u build/$(MAIN).d64 $(ULTHOST)
-#	wput -u build/$(MAIN).prg $(ULTHOST2)
+	wput -u build/$(MAIN).d64 $(ULTHOST2)
 
 # To run software using VICE x128
 vice: $(MAIN).prg
