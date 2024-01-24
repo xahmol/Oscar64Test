@@ -60,51 +60,51 @@ void vdcwin_write_string(struct VDCWin *win, const char *buffer);
 
 // Put a single char at the cursor location and advance the cursor
 //
-void vdcwin_put_char(struct VDCWin *win, char ch, char color);
+void vdcwin_put_char(struct VDCWin *win, char ch);
 
 // Put an array of chars at the cursor location and advance the cursor
 //
-void vdcwin_put_chars(struct VDCWin *win, const char *chars, char num, char color);
+void vdcwin_put_chars(struct VDCWin *win, const char *chars, char num);
 
 // Put a zero terminated string at the cursor location and advance the cursor
 //
-char vdcwin_put_string(struct VDCWin *win, const char *str, char color);
+char vdcwin_put_string(struct VDCWin *win, const char *str);
 
 // Put a single raw char at the cursor location and advance the cursor
 //
-void vdcwin_put_char_raw(struct VDCWin *win, char ch, char color);
+void vdcwin_put_char_raw(struct VDCWin *win, char ch);
 
 // Put an array of raw chars at the cursor location and advance the cursor
 //
-void vdcwin_put_chars_raw(struct VDCWin *win, const char *chars, char num, char color);
+void vdcwin_put_chars_raw(struct VDCWin *win, const char *chars, char num);
 
 // Put a zero terminated raw string at the cursor location and advance the cursor
 //
-char vdcwin_put_string_raw(struct VDCWin *win, const char *str, char color);
+char vdcwin_put_string_raw(struct VDCWin *win, const char *str);
 
 // Put a single char at the given window location
 //
-void vdcwin_putat_char(struct VDCWin *win, char x, char y, char ch, char color);
+void vdcwin_putat_char(struct VDCWin *win, char x, char y, char ch);
 
 // Put an array of chars at the given window location
 //
-void vdcwin_putat_chars(struct VDCWin *win, char x, char y, const char *chars, char num, char color);
+void vdcwin_putat_chars(struct VDCWin *win, char x, char y, const char *chars, char num);
 
 // Put a zero terminated string at the given window location
 //
-char vdcwin_putat_string(struct VDCWin *win, char x, char y, const char *str, char color);
+char vdcwin_putat_string(struct VDCWin *win, char x, char y, const char *str);
 
 // Put a single raw char at the given window location
 //
-void vdcwin_putat_char_raw(struct VDCWin *win, char x, char y, char ch, char color);
+void vdcwin_putat_char_raw(struct VDCWin *win, char x, char y, char ch);
 
 // Put an array of raw chars at the given window location
 //
-void vdcwin_putat_chars_raw(struct VDCWin *win, char x, char y, const char *chars, char num, char color);
+void vdcwin_putat_chars_raw(struct VDCWin *win, char x, char y, const char *chars, char num);
 
 // Put a zero terminated string at the given window location
 //
-char vdcwin_putat_string_raw(struct VDCWin *win, char x, char y, const char *str, char color);
+char vdcwin_putat_string_raw(struct VDCWin *win, char x, char y, const char *str);
 
 // Get a single char at the given window location
 //
@@ -123,9 +123,9 @@ char vdcwin_getat_char_raw(struct VDCWin *win, char x, char y);
 void vdcwin_getat_chars_raw(struct VDCWin *win, char x, char y, char *chars, char num);
 
 // Put an array of characters into a rectangle in the char win
-void vdcwin_put_rect_raw(struct VDCWin *win, char x, char y, char w, char h, char cr, const char *chars, char color);
+void vdcwin_put_rect_raw(struct VDCWin *win, char x, char y, char w, char h, char cr, const char *chars);
 
-void vdcwin_put_rect(struct VDCWin *win, char x, char y, char w, char h, char cr, const char *chars, char color);
+void vdcwin_put_rect(struct VDCWin *win, char x, char y, char w, char h, char cr, const char *chars);
 
 // Get an array of characters from a rectangle of a char win
 void vdcwin_get_rect_raw(struct VDCWin *win, char x, char y, char w, char h, char cr, char *chars);
@@ -163,11 +163,14 @@ void vdcwin_scroll_down(struct VDCWin *win, char by);
 
 // Fill the given rectangle with the character and color
 //
-inline void vdcwin_fill_rect(struct VDCWin *win, char x, char y, char w, char h, char ch, char color);
+inline void vdcwin_fill_rect(struct VDCWin *win, char x, char y, char w, char h, char ch);
 
 // Fill the given rectangle with the screen code and color
 //
-void vdcwin_fill_rect_raw(struct VDCWin *win, char x, char y, char w, char h, char ch, char color);
+void vdcwin_fill_rect_raw(struct VDCWin *win, char x, char y, char w, char h, char ch);
+
+void vdcwin_printline(struct VDCWin *win, const char *str);
+void vdcwin_printwrap(struct VDCWin *win, const char *str);
 
 void vdcwin_viewport_init(struct VDCViewport* vp, char sourcebank, char *sourcebase, unsigned sourcewidth, unsigned sourceheight, unsigned viewwidth, unsigned viewheight, char viewsx, char viewsy);
 void vdcwin_cpy_viewport(struct VDCViewport *viewport);

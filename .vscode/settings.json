@@ -4,6 +4,7 @@
         "string_view": "c",
         "initializer_list": "c",
         "utility": "c",
-        "vdc_softscroll.h": "c"
+        "vdc_softscroll.h": "c",
+        "vdc.h": "c"
     }
 }

@@ -4,6 +4,7 @@
 #include <conio.h>
 #include <petscii.h>
 #include <c64/kernalio.h>
+#include <c64/cia.h>
 #include <c128/vdc.h>
 #include <c128/mmu.h>
 #include "defines.h"
@@ -15,14 +16,34 @@
 // Memory region for code, data etc. from 0x1c80 to 0xbfff
 #pragma region( main, 0x1c80, 0xc000, , , {code, data, bss, heap, stack} )
 
+void generateSentence(char *sentence)
+{
+	char articles[2][4] = {"The", "A"};
+	char nouns[5][15] = {"blue jay", "cardinal", "eastern phoebe",
+						 "grackle", "sandhill crane"};
+	char verbs[5][6] = {"flies", "jumps", "sleeps", "eats", "walks"};
+	char adjectives[5][6] = {"big", "small", "angry", "wet", "happy"};
+	int articleIndex = rand() % (sizeof(articles) / sizeof(articles[0]));
+	int nounIndex = rand() % (sizeof(nouns) / sizeof(nouns[0]));
+	int verbIndex = rand() % (sizeof(verbs) / sizeof(verbs[0]));
+	int adjectiveIndex = rand() % (sizeof(adjectives) / sizeof(adjectives[0]));
+	sentence[0] = '\0';
+	sprintf(sentence, "%s %s %s %s.", articles[articleIndex],
+			adjectives[adjectiveIndex], nouns[nounIndex], verbs[verbIndex]);
+}
+
 int main(void)
 {
 	char x, y, key, mode, screencode = 0, color = 0, reverse = 0;
 	char direction;
+	struct VDCWin window;
 
 	// Initialise start viewport settings
 	struct VDCViewport viewport;
 	struct VDCSoftScrollSettings softscroll = {BNK_1_FULL, (char *)0x8000, 160, 75, 0, 0, 0, 0, 0, 0, 0, 0};
+
+	// Initialise CIA clock
+	cia_init();
 
 	// Initialise raster bar
 	// char raster[65] = {
@@ -206,7 +227,7 @@ int main(void)
 		}
 	}
 
-	for (mode = 0; mode < 6; mode++)
+	for (mode = 0; mode < 3; mode++)
 	{
 		// Set VDC mode
 		vdc_set_mode(mode);
@@ -235,8 +256,23 @@ int main(void)
 		vdc_hchar(5, vdc_state.height - 2, FRAME_DOWN, VDC_LRED, 70);
 		vdc_printc(75, vdc_state.height - 2, FRAME_BC_R, VDC_LRED);
 
+		// Define window
+		srand(cia1.todt);
+		vdcwin_init(&window, 5, 5, 70, vdc_state.height - 7);
+		for (x = 0; x < 200; x++)
+		{
+			vdc_textcolor(rand() % 15 + 1);
+			generateSentence(linebuffer);
+			vdcwin_printwrap(&window, linebuffer);
+			if (window.cx)
+			{
+				vdcwin_put_char(&window, ' ');
+			}
+		}
+		getch();
+
 		// Init and copy viewport from bank 1 screen
-		vdcwin_viewport_init(&viewport,BNK_1_FULL, (char *)0x2000, 80, 150, 70, vdc_state.height - 7,5,5);
+		vdcwin_viewport_init(&viewport, BNK_1_FULL, (char *)0x2000, 80, 150, 70, vdc_state.height - 7, 5, 5);
 		vdcwin_cpy_viewport(&viewport);
 
 		// Scroll contents using WASD keys, ESC to quit
