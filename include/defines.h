@@ -1,6 +1,16 @@
 #ifndef __DEFINES_H_
 #define __DEFINES_H_
 
+/* Frame border graphics */
+#define FRAME_UC_L 0x6c
+#define FRAME_UC_R 0x7b
+#define FRAME_BC_L 0x7c
+#define FRAME_BC_R 0x7e
+#define FRAME_UP 0x62
+#define FRAME_DOWN 0xe2
+#define FRAME_LEFT 0xe1
+#define FRAME_RIGHT 0x61
+
 /* References to steering chars */
 #define CH_CURS_UP 145    // Petscii control code for Cursor Up
 #define CH_CURS_DOWN 17   // Petscii control code for Cursor Down

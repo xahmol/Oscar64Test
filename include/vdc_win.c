@@ -810,7 +810,7 @@ void vdcwin_border_clear(struct VDCWin *win, char border)
 	{
 		border -= WIN_BOR_LE;
 	}
-	if ((border & WIN_BOR_LE) && win->sx + win->wx + 1 > vdc_state.width)
+	if ((border & WIN_BOR_RI) && win->sx + win->wx + 1 > vdc_state.width)
 	{
 		border -= WIN_BOR_RI;
 	}
