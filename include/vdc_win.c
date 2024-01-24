@@ -3,6 +3,16 @@
 #include "vdc_core.h"
 #include "banking.h"
 
+struct WinStyleStruct winStyle;
+struct WinCfgStruct winCfg;
+struct WinStruct windows[WIN_MAX_NR];
+
+// Predefined windows border styles: bordercolor plus screencodes for border chars
+struct WinStyleStruct winStyles[2] =
+    {
+        {VDC_DRED, 0x6c, 0x7b, 0x7c, 0x7e, 0x62, 0xe2, 0xe1, 0x61},
+        {VDC_LYELLOW, 0x70, 0x6e, 0x6d, 0x7d, 0x40, 0x40, 0x5d, 0x5d}};
+
 static inline void copy_fwd(unsigned sdp, const unsigned ssp, unsigned cdp, const unsigned csp, char n)
 {
 	// Screen copy
@@ -787,6 +797,64 @@ void vdcwin_printwrap(struct VDCWin *win, const char *str)
 void vdcwin_fill_rect(struct VDCWin *win, char x, char y, char w, char h, char ch)
 {
 	vdcwin_fill_rect_raw(win, x, y, w, h, p2s(ch));
+}
+
+void vdcwin_border_clear(struct VDCWin *win, char border)
+// Clear area with border with selected borderstyle
+{
+	char style = border & 0xf0;
+	char color = winStyles[(style)-1].color;
+
+	// Check if there is room for left and right borders
+	if ((border & WIN_BOR_LE) && win->sx == 0)
+	{
+		border -= WIN_BOR_LE;
+	}
+	if ((border & WIN_BOR_LE) && win->sx+win->wx + 1 > vdc_state.width)
+	{
+		border -= WIN_BOR_RI;
+	}
+
+	// Draw top and bottom borders if room
+	if ((border & WIN_BOR_UP) && win->sy>0)
+    {
+		if (border & WIN_BOR_LE)
+        {
+			vdc_printc(win->sx-1,win->sy-1,winStyles[(style)-1].upcornleft, color);
+        }
+		vdc_hchar(win->sx,win->sy-1,winStyles[(style)-1].up,color,win->wx);
+        if (border & WIN_BOR_RI)
+        {
+			vdc_printc(win->sx + win->wx,win->sy-1,winStyles[(style)-1].upcornright, color);
+        }
+    }
+    if ((border & WIN_BOR_BO) && win->sy+win->wy < vdc_state.height)
+    {
+		win->wy--;
+		if (border & WIN_BOR_LE)
+        {
+			vdc_printc(win->sx-1,win->sy+win->wy,winStyles[(style)-1].bocornleft, color);
+        }
+		vdc_hchar(win->sx,win->sy+win->wy,winStyles[(style)-1].down,color,win->wx);
+        if (border & WIN_BOR_RI)
+        {
+			vdc_printc(win->sx+win->wx,win->sy+win->wy,winStyles[(style)-1].bocornright, color);
+        }
+    }
+
+	// Draw middle section
+	for(char i=0;i<win->wy;i++)
+	{
+		if (border & WIN_BOR_LE)
+        {
+			vdc_printc(win->sx,win->sy+i,winStyles[(style)-1].left, color);
+        }
+		vdc_hchar(win->sx,win->sy+i,' ',vdc_state.text_attr,win->wx);
+        if (border & WIN_BOR_RI)
+        {
+			vdc_printc(win->sx+win->wx,win->sy+i,winStyles[(style)-1].right, color);
+        }
+	}
 }
 
 void vdcwin_viewport_init(struct VDCViewport *vp, char sourcebank, char *sourcebase, unsigned sourcewidth, unsigned sourceheight, unsigned viewwidth, unsigned viewheight, char viewsx, char viewsy)

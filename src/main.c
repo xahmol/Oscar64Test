@@ -246,19 +246,21 @@ int main(void)
 		vdc_prints(0, 3, "Move by W,A,S,D or cursor keys. ESC or STOP to exit.");
 		vdc_prints(0, vdc_state.height - 1, "Petscii art credit: 'Love is the drug' Atlantis, 2023, Art by Lobo.");
 
-		// Draw frame
-		vdc_printc(4, 4, FRAME_UC_L, VDC_LRED);
-		vdc_hchar(5, 4, FRAME_UP, VDC_LRED, 70);
-		vdc_printc(75, 4, FRAME_UC_R, VDC_LRED);
-		vdc_vchar(4, 5, FRAME_LEFT, VDC_LRED, vdc_state.height - 7);
-		vdc_vchar(75, 5, FRAME_RIGHT, VDC_LRED, vdc_state.height - 7);
-		vdc_printc(4, vdc_state.height - 2, FRAME_BC_L, VDC_LRED);
-		vdc_hchar(5, vdc_state.height - 2, FRAME_DOWN, VDC_LRED, 70);
-		vdc_printc(75, vdc_state.height - 2, FRAME_BC_R, VDC_LRED);
+		// Initialise window with frame
+		vdcwin_init(&window, 5, 5, 70, vdc_state.height - 7);
+		vdcwin_border_clear(&window,WIN_BOR_ALL);
+		//vdc_printc(4, 4, FRAME_UC_L, VDC_LRED);
+		//vdc_hchar(5, 4, FRAME_UP, VDC_LRED, 70);
+		//vdc_printc(75, 4, FRAME_UC_R, VDC_LRED);
+		//vdc_vchar(4, 5, FRAME_LEFT, VDC_LRED, vdc_state.height - 7);
+		//vdc_vchar(75, 5, FRAME_RIGHT, VDC_LRED, vdc_state.height - 7);
+		//vdc_printc(4, vdc_state.height - 2, FRAME_BC_L, VDC_LRED);
+		//vdc_hchar(5, vdc_state.height - 2, FRAME_DOWN, VDC_LRED, 70);
+		//vdc_printc(75, vdc_state.height - 2, FRAME_BC_R, VDC_LRED);
 
 		// Define window
 		srand(cia1.todt);
-		vdcwin_init(&window, 5, 5, 70, vdc_state.height - 7);
+	
 		for (x = 0; x < 200; x++)
 		{
 			vdc_textcolor(rand() % 15 + 1);

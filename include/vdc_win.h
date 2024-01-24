@@ -1,12 +1,25 @@
 #ifndef VDC_WIN_H
 #define VDC_WIN_H
 
+// Define window settings
+#define WIN_MAX_NR 5      // Maximum number of windows (of memory allows)
+#define WIN_MEMORY 0x0800 // Maximum memory available for windows (now 2 KB)
+
+// Border flags
+#define WIN_BOR_UP 0x80    // Bit 7: set top border on (1) or off (0)
+#define WIN_BOR_LE 0x40    // Bit 6: set left border on (1) or off (0)
+#define WIN_BOR_RI 0x20    // Bit 5: set right border on (1) or off (0)
+#define WIN_BOR_BO 0x10    // Bit 4: set bottom border on (1) or off (0)
+                           // Bit 0-3: style number (0-15 or max defined)
+#define WIN_BOR_ALL 0xF0   // All borders on
+#define WIN_BOR_NOTOP 0x70 // All borders expect for top
+
 struct VDCWin
 {
-	char sx, sy, wx, wy;
-	char cx, cy;
+    char sx, sy, wx, wy;
+    char cx, cy;
 
-	unsigned sp, cp;
+    unsigned sp, cp;
 };
 struct VDCViewport
 {
@@ -16,8 +29,33 @@ struct VDCViewport
     unsigned sourceheight;
     unsigned sourcexoffset;
     unsigned sourceyoffset;
-	struct VDCWin win;
+    struct VDCWin win;
 };
+struct WinStyleStruct
+{
+    char color;
+    char upcornleft;
+    char upcornright;
+    char bocornleft;
+    char bocornright;
+    char up;
+    char down;
+    char left;
+    char right;
+};
+struct WinCfgStruct
+{
+    char *membase;
+    unsigned memsize;
+    char active;
+};
+extern struct WinCfgStruct winCfg;
+struct WinStruct
+{
+    char *memaddress;
+    struct VDCWin win;
+};
+extern struct WinStruct windows[WIN_MAX_NR];
 
 // Initialize the VDCWin structure for the given screen and coordinates, does
 // not clear the window
@@ -171,8 +209,9 @@ void vdcwin_fill_rect_raw(struct VDCWin *win, char x, char y, char w, char h, ch
 
 void vdcwin_printline(struct VDCWin *win, const char *str);
 void vdcwin_printwrap(struct VDCWin *win, const char *str);
+void vdcwin_border_clear(struct VDCWin *win, char border);
 
-void vdcwin_viewport_init(struct VDCViewport* vp, char sourcebank, char *sourcebase, unsigned sourcewidth, unsigned sourceheight, unsigned viewwidth, unsigned viewheight, char viewsx, char viewsy);
+void vdcwin_viewport_init(struct VDCViewport *vp, char sourcebank, char *sourcebase, unsigned sourcewidth, unsigned sourceheight, unsigned viewwidth, unsigned viewheight, char viewsx, char viewsy);
 void vdcwin_cpy_viewport(struct VDCViewport *viewport);
 void vdcwin_viewportscroll(struct VDCViewport *viewport, char direction);
 

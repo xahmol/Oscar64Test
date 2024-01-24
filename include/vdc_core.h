@@ -26,7 +26,8 @@
 #define VDC_A_ALTCHAR 128
 
 // Character codes
-#define C_SPACE 32
+#define C_SPACE 0x20
+#define C_ARROW 0x5B
 
 // Function prototypes
 char screen_width();
