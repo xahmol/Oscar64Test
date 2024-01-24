@@ -9,9 +9,9 @@ struct WinStruct windows[WIN_MAX_NR];
 
 // Predefined windows border styles: bordercolor plus screencodes for border chars
 struct WinStyleStruct winStyles[2] =
-    {
-        {VDC_DRED, 0x6c, 0x7b, 0x7c, 0x7e, 0x62, 0xe2, 0xe1, 0x61},
-        {VDC_LYELLOW, 0x70, 0x6e, 0x6d, 0x7d, 0x40, 0x40, 0x5d, 0x5d}};
+	{
+		{VDC_DRED, 0x6c, 0x7b, 0x7c, 0x7e, 0x62, 0xe2, 0xe1, 0x61},
+		{VDC_LYELLOW, 0x70, 0x6e, 0x6d, 0x7d, 0x40, 0x40, 0x5d, 0x5d}};
 
 static inline void copy_fwd(unsigned sdp, const unsigned ssp, unsigned cdp, const unsigned csp, char n)
 {
@@ -810,50 +810,50 @@ void vdcwin_border_clear(struct VDCWin *win, char border)
 	{
 		border -= WIN_BOR_LE;
 	}
-	if ((border & WIN_BOR_LE) && win->sx+win->wx + 1 > vdc_state.width)
+	if ((border & WIN_BOR_LE) && win->sx + win->wx + 1 > vdc_state.width)
 	{
 		border -= WIN_BOR_RI;
 	}
 
 	// Draw top and bottom borders if room
-	if ((border & WIN_BOR_UP) && win->sy>0)
-    {
-		if (border & WIN_BOR_LE)
-        {
-			vdc_printc(win->sx-1,win->sy-1,winStyles[(style)-1].upcornleft, color);
-        }
-		vdc_hchar(win->sx,win->sy-1,winStyles[(style)-1].up,color,win->wx);
-        if (border & WIN_BOR_RI)
-        {
-			vdc_printc(win->sx + win->wx,win->sy-1,winStyles[(style)-1].upcornright, color);
-        }
-    }
-    if ((border & WIN_BOR_BO) && win->sy+win->wy < vdc_state.height)
-    {
-		win->wy--;
-		if (border & WIN_BOR_LE)
-        {
-			vdc_printc(win->sx-1,win->sy+win->wy,winStyles[(style)-1].bocornleft, color);
-        }
-		vdc_hchar(win->sx,win->sy+win->wy,winStyles[(style)-1].down,color,win->wx);
-        if (border & WIN_BOR_RI)
-        {
-			vdc_printc(win->sx+win->wx,win->sy+win->wy,winStyles[(style)-1].bocornright, color);
-        }
-    }
-
-	// Draw middle section
-	for(char i=0;i<win->wy;i++)
+	if ((border & WIN_BOR_UP) && win->sy > 0)
 	{
 		if (border & WIN_BOR_LE)
-        {
-			vdc_printc(win->sx,win->sy+i,winStyles[(style)-1].left, color);
-        }
-		vdc_hchar(win->sx,win->sy+i,' ',vdc_state.text_attr,win->wx);
-        if (border & WIN_BOR_RI)
-        {
-			vdc_printc(win->sx+win->wx,win->sy+i,winStyles[(style)-1].right, color);
-        }
+		{
+			vdc_printc(win->sx - 1, win->sy - 1, winStyles[(style)-1].upcornleft, color);
+		}
+		vdc_hchar(win->sx, win->sy - 1, winStyles[(style)-1].up, color, win->wx);
+		if (border & WIN_BOR_RI)
+		{
+			vdc_printc(win->sx + win->wx, win->sy - 1, winStyles[(style)-1].upcornright, color);
+		}
+	}
+	if ((border & WIN_BOR_BO) && win->sy + win->wy < vdc_state.height)
+	{
+		win->wy--;
+		if (border & WIN_BOR_LE)
+		{
+			vdc_printc(win->sx - 1, win->sy + win->wy, winStyles[(style)-1].bocornleft, color);
+		}
+		vdc_hchar(win->sx, win->sy + win->wy, winStyles[(style)-1].down, color, win->wx);
+		if (border & WIN_BOR_RI)
+		{
+			vdc_printc(win->sx + win->wx, win->sy + win->wy, winStyles[(style)-1].bocornright, color);
+		}
+	}
+
+	// Draw middle section
+	for (char i = 0; i < win->wy; i++)
+	{
+		if (border & WIN_BOR_LE)
+		{
+			vdc_printc(win->sx, win->sy + i, winStyles[(style)-1].left, color);
+		}
+		vdc_hchar(win->sx, win->sy + i, ' ', vdc_state.text_attr, win->wx);
+		if (border & WIN_BOR_RI)
+		{
+			vdc_printc(win->sx + win->wx, win->sy + i, winStyles[(style)-1].right, color);
+		}
 	}
 }
 
