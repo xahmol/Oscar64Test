@@ -17,6 +17,9 @@
 #pragma region( main, 0x1c80, 0xc000, , , {code, data, bss, heap, stack} )
 
 void generateSentence(char *sentence)
+// Adappted from
+// https://github.com/sgjava/c3l/blob/main/src/demo/dsent.c
+// Copyright (c) Steven P. Goldsmith. All rights reserved.
 {
 	char articles[2][4] = {"The", "A"};
 	char nouns[5][15] = {"blue jay", "cardinal", "eastern phoebe",

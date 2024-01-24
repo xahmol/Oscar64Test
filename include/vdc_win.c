@@ -747,6 +747,9 @@ void vdcwin_printline(struct VDCWin *win, const char *str)
 
 void vdcwin_printwrap(struct VDCWin *win, const char *str)
 // Print with line wrap in window
+// Adappted from
+// https://github.com/sgjava/c3l/blob/main/src/conww.c
+// Copyright (c) Steven P. Goldsmith. All rights reserved.
 {
 	/* Screen width should not exceed buffer size +1 */
 	char wrapbuffer[81];
