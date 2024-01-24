@@ -259,7 +259,7 @@ int main(void)
 		//vdc_printc(75, vdc_state.height - 2, FRAME_BC_R, VDC_LRED);
 
 		// Define window
-		srand(cia1.todt);
+		srand(cia1.todt+cia1.tods+1);
 	
 		for (x = 0; x < 200; x++)
 		{

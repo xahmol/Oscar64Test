@@ -752,7 +752,7 @@ void vdcwin_printwrap(struct VDCWin *win, const char *str)
 	char wrapbuffer[81];
 	char i = 0, wordLen, len = strlen(str);
 	signed wordStart = -1, wordEnd = -1;
-	char maxLine = win->wx - 1, buf = 0, maxBuf = sizeof(wrapbuffer) - 1;
+	char maxLine = win->wx, buf = 0, maxBuf = sizeof(wrapbuffer) - 1;
 	while (i < len && buf < maxBuf)
 	{
 		/* Load word buffer using space delimiter */
@@ -802,17 +802,17 @@ void vdcwin_fill_rect(struct VDCWin *win, char x, char y, char w, char h, char c
 void vdcwin_border_clear(struct VDCWin *win, char border)
 // Clear area with border with selected borderstyle
 {
-	char style = border & 0xf0;
-	char color = winStyles[(style)-1].color;
+	char style = border & 0x0f;
+	char color = winStyles[style].color;
 
 	// Check if there is room for left and right borders
 	if ((border & WIN_BOR_LE) && win->sx == 0)
 	{
-		border -= WIN_BOR_LE;
+		border &= ~WIN_BOR_LE;
 	}
 	if ((border & WIN_BOR_RI) && win->sx + win->wx + 1 > vdc_state.width)
 	{
-		border -= WIN_BOR_RI;
+		border &= ~WIN_BOR_RI;
 	}
 
 	// Draw top and bottom borders if room
@@ -820,25 +820,24 @@ void vdcwin_border_clear(struct VDCWin *win, char border)
 	{
 		if (border & WIN_BOR_LE)
 		{
-			vdc_printc(win->sx - 1, win->sy - 1, winStyles[(style)-1].upcornleft, color);
+			vdc_printc(win->sx - 1, win->sy - 1, winStyles[style].upcornleft, color);
 		}
-		vdc_hchar(win->sx, win->sy - 1, winStyles[(style)-1].up, color, win->wx);
+		vdc_hchar(win->sx, win->sy - 1, winStyles[style].up, color, win->wx);
 		if (border & WIN_BOR_RI)
 		{
-			vdc_printc(win->sx + win->wx, win->sy - 1, winStyles[(style)-1].upcornright, color);
+			vdc_printc(win->sx + win->wx, win->sy - 1, winStyles[style].upcornright, color);
 		}
 	}
 	if ((border & WIN_BOR_BO) && win->sy + win->wy < vdc_state.height)
 	{
-		win->wy--;
 		if (border & WIN_BOR_LE)
 		{
-			vdc_printc(win->sx - 1, win->sy + win->wy, winStyles[(style)-1].bocornleft, color);
+			vdc_printc(win->sx - 1, win->sy + win->wy, winStyles[style].bocornleft, color);
 		}
-		vdc_hchar(win->sx, win->sy + win->wy, winStyles[(style)-1].down, color, win->wx);
+		vdc_hchar(win->sx, win->sy + win->wy, winStyles[style].down, color, win->wx);
 		if (border & WIN_BOR_RI)
 		{
-			vdc_printc(win->sx + win->wx, win->sy + win->wy, winStyles[(style)-1].bocornright, color);
+			vdc_printc(win->sx + win->wx, win->sy + win->wy, winStyles[style].bocornright, color);
 		}
 	}
 
@@ -847,12 +846,12 @@ void vdcwin_border_clear(struct VDCWin *win, char border)
 	{
 		if (border & WIN_BOR_LE)
 		{
-			vdc_printc(win->sx, win->sy + i, winStyles[(style)-1].left, color);
+			vdc_printc(win->sx-1, win->sy + i, winStyles[style].left, color);
 		}
 		vdc_hchar(win->sx, win->sy + i, ' ', vdc_state.text_attr, win->wx);
 		if (border & WIN_BOR_RI)
 		{
-			vdc_printc(win->sx + win->wx, win->sy + i, winStyles[(style)-1].right, color);
+			vdc_printc(win->sx + win->wx, win->sy + i, winStyles[style].right, color);
 		}
 	}
 }
