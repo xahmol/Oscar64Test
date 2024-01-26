@@ -14,7 +14,7 @@
 #include "vdc_win.h"
 
 // Memory region for code, data etc. from 0x1c80 to 0xbfff
-#pragma region( main, 0x1c80, 0xc000, , , {code, data, bss, heap, stack} )
+#pragma region( vdctest, 0x1c80, 0xc000, , , {code, data, bss, heap, stack} )
 
 void generateSentence(char *sentence)
 // Adappted from

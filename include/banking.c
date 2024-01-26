@@ -11,7 +11,7 @@
 #include "vdc_core.h"
 
 // Section and region for low memory area overlay
-#pragma overlay(ovl1, 1)
+#pragma overlay(vdctestlmc, 1)
 #pragma section(bcode1, 0)
 #pragma section(bdata1, 0)
 #pragma section(bbss1, 0)
@@ -65,7 +65,7 @@ void bnk_init()
 
 	// Load overlay in low memory
 	printf("loading low memory code.\n");
-	load_overlay("ovl1");
+	load_overlay("vdctestlmc");
 }
 
 void bnk_exit()

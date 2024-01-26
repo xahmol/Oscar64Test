@@ -125,7 +125,7 @@ void vdc_softscroll_right(struct VDCSoftScrollSettings *settings, char step)
 void vdc_softscroll_left(struct VDCSoftScrollSettings *settings, char step)
 // Do a soft scroll left
 {
-    settings->yoff-=step;
+    settings->xoff-=step;
     settings->hscroll += step;
     if (settings->hscroll > 8 - step)
     {
