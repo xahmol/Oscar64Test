@@ -199,31 +199,19 @@ int main(void)
 				key = getch();
 				if (key == 'w' || key == CH_CURS_UP)
 				{
-					if (softscroll.yoff || softscroll.vscroll)
-					{
-						vdc_softscroll_up(&softscroll, 2);
-					}
+					vdc_softscroll_up(&softscroll, 2);
 				}
 				if (key == 's' || key == CH_CURS_DOWN)
 				{
-					if (softscroll.yoff < softscroll.height || softscroll.vscroll < 6 )
-					{
-						vdc_softscroll_down(&softscroll, 2);
-					}
+					vdc_softscroll_down(&softscroll, 2);
 				}
 				if (key == 'a' || key == CH_CURS_LEFT)
 				{
-					if (softscroll.xoff || softscroll.hscroll)
-					{
-						vdc_softscroll_left(&softscroll, 2);
-					}
+					vdc_softscroll_left(&softscroll, 2);
 				}
 				if (key == 'd' || key == CH_CURS_RIGHT)
 				{
-					if (softscroll.xoff < softscroll.width || softscroll.hscroll < 6)
-					{
-						vdc_softscroll_right(&softscroll, 2);
-					}
+					vdc_softscroll_right(&softscroll, 2);
 				}
 			} while (key != CH_ESC && key != CH_STOP);
 			vdc_softscroll_exit(&softscroll, mode);
@@ -251,19 +239,19 @@ int main(void)
 
 		// Initialise window with frame
 		vdcwin_init(&window, 5, 5, 70, vdc_state.height - 7);
-		vdcwin_border_clear(&window,WIN_BOR_ALL);
-		//vdc_printc(4, 4, FRAME_UC_L, VDC_LRED);
-		//vdc_hchar(5, 4, FRAME_UP, VDC_LRED, 70);
-		//vdc_printc(75, 4, FRAME_UC_R, VDC_LRED);
-		//vdc_vchar(4, 5, FRAME_LEFT, VDC_LRED, vdc_state.height - 7);
-		//vdc_vchar(75, 5, FRAME_RIGHT, VDC_LRED, vdc_state.height - 7);
-		//vdc_printc(4, vdc_state.height - 2, FRAME_BC_L, VDC_LRED);
-		//vdc_hchar(5, vdc_state.height - 2, FRAME_DOWN, VDC_LRED, 70);
-		//vdc_printc(75, vdc_state.height - 2, FRAME_BC_R, VDC_LRED);
+		vdcwin_border_clear(&window, WIN_BOR_ALL);
+		// vdc_printc(4, 4, FRAME_UC_L, VDC_LRED);
+		// vdc_hchar(5, 4, FRAME_UP, VDC_LRED, 70);
+		// vdc_printc(75, 4, FRAME_UC_R, VDC_LRED);
+		// vdc_vchar(4, 5, FRAME_LEFT, VDC_LRED, vdc_state.height - 7);
+		// vdc_vchar(75, 5, FRAME_RIGHT, VDC_LRED, vdc_state.height - 7);
+		// vdc_printc(4, vdc_state.height - 2, FRAME_BC_L, VDC_LRED);
+		// vdc_hchar(5, vdc_state.height - 2, FRAME_DOWN, VDC_LRED, 70);
+		// vdc_printc(75, vdc_state.height - 2, FRAME_BC_R, VDC_LRED);
 
 		// Define window
-		srand(cia1.todt+cia1.tods+1);
-	
+		srand(cia1.todt + cia1.tods + 1);
+
 		for (x = 0; x < 200; x++)
 		{
 			vdc_textcolor(rand() % 15 + 1);

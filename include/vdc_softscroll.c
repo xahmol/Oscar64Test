@@ -70,11 +70,18 @@ void vdc_softscroll_down(struct VDCSoftScrollSettings *settings, char step)
     settings->vscroll += step;
     if (settings->vscroll > 8 - step)
     {
-        settings->vscroll = 0;
-        settings->yoff++;
-        settings->addr_offset += settings->width;
-        vdc_reg_write(VDCR_VSCROLL, settings->vscroll_base);
-        vdc_set_disp_address(vdc_state.base_text + settings->addr_offset, vdc_state.base_attr + settings->addr_offset);
+        if (settings->yoff < settings->height - vdc_state.height - 1)
+        {
+            settings->vscroll = 0;
+            settings->yoff++;
+            settings->addr_offset += settings->width;
+            vdc_reg_write(VDCR_VSCROLL, settings->vscroll_base);
+            vdc_set_disp_address(vdc_state.base_text + settings->addr_offset, vdc_state.base_attr + settings->addr_offset);
+        }
+        else
+        {
+            settings->vscroll -= step;
+        }
     }
     else
     {
@@ -93,12 +100,15 @@ void vdc_softscroll_up(struct VDCSoftScrollSettings *settings, char step)
     }
     else
     {
-        settings->vscroll = 8 - step;
-        settings->yoff--;
-        settings->addr_offset -= settings->width;
-        vdc_wait_no_vblank();
-        vdc_reg_write(VDCR_VSCROLL, settings->vscroll_base + settings->vscroll);
-        vdc_set_disp_address(vdc_state.base_text + settings->addr_offset, vdc_state.base_attr + settings->addr_offset);
+        if (settings->yoff)
+        {
+            settings->vscroll = 8 - step;
+            settings->yoff--;
+            settings->addr_offset -= settings->width;
+            vdc_wait_no_vblank();
+            vdc_reg_write(VDCR_VSCROLL, settings->vscroll_base + settings->vscroll);
+            vdc_set_disp_address(vdc_state.base_text + settings->addr_offset, vdc_state.base_attr + settings->addr_offset);
+        }
     }
 }
 
@@ -113,13 +123,16 @@ void vdc_softscroll_right(struct VDCSoftScrollSettings *settings, char step)
     }
     else
     {
-        settings->hscroll = 8 - step;
-        settings->xoff++;
-        settings->addr_offset++;
-        vdc_wait_no_vblank();
-        vdc_set_disp_address(vdc_state.base_text + settings->addr_offset, vdc_state.base_attr + settings->addr_offset);
-        vdc_wait_vblank();
-        vdc_reg_write(VDCR_HSCROLL, settings->hscroll_base + settings->hscroll);
+        if (settings->xoff < settings->width - vdc_state.width - 1)
+        {
+            settings->hscroll = 8 - step + settings->hscroll_def % step;
+            settings->xoff++;
+            settings->addr_offset++;
+            vdc_wait_no_vblank();
+            vdc_set_disp_address(vdc_state.base_text + settings->addr_offset, vdc_state.base_attr + settings->addr_offset);
+            vdc_wait_vblank();
+            vdc_reg_write(VDCR_HSCROLL, settings->hscroll_base + settings->hscroll);
+        }
     }
 }
 
@@ -129,13 +142,21 @@ void vdc_softscroll_left(struct VDCSoftScrollSettings *settings, char step)
     settings->hscroll += step;
     if (settings->hscroll > 8 - step)
     {
-        settings->hscroll = 0;
-        settings->xoff--;
-        settings->addr_offset--;
-        vdc_wait_no_vblank();
-        vdc_set_disp_address(vdc_state.base_text + settings->addr_offset, vdc_state.base_attr + settings->addr_offset);
-        vdc_pass_vblank();
-        vdc_reg_write(VDCR_HSCROLL, settings->hscroll_base);
+        if (settings->xoff)
+        {
+            settings->hscroll = settings->hscroll_def % step;
+            settings->xoff--;
+            settings->addr_offset--;
+            vdc_wait_no_vblank();
+            vdc_set_disp_address(vdc_state.base_text + settings->addr_offset, vdc_state.base_attr + settings->addr_offset);
+            vdc_pass_vblank();
+            vdc_reg_write(VDCR_HSCROLL, settings->hscroll_base);
+        }
+        else
+        {
+            settings->hscroll = settings->hscroll_def;
+            vdc_reg_write(VDCR_HSCROLL, settings->hscroll_base + settings->hscroll);
+        }
     }
     else
     {
