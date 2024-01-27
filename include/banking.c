@@ -42,9 +42,11 @@ void load_overlay(const char *fname)
 {
 	krnio_setbnk(0, 0);
 	krnio_setnam(fname);
+	printf("loading: %s\n",fname);
 	if (!krnio_load(1, bootdevice, 1))
 	{
 		printf("loading overlay file failed.\n");
+		printf("status: %d\n", krnio_pstatus[1]);
 		exit(1);
 	}
 }

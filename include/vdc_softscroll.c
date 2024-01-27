@@ -66,11 +66,12 @@ void vdc_softscroll_down(struct VDCSoftScrollSettings *settings, char step)
 // Do a soft scroll down
 {
     vdc_pass_vblank();
-    settings->yoff+=step;
+
     settings->vscroll += step;
     if (settings->vscroll > 8 - step)
     {
         settings->vscroll = 0;
+        settings->yoff++;
         settings->addr_offset += settings->width;
         vdc_reg_write(VDCR_VSCROLL, settings->vscroll_base);
         vdc_set_disp_address(vdc_state.base_text + settings->addr_offset, vdc_state.base_attr + settings->addr_offset);
@@ -85,7 +86,6 @@ void vdc_softscroll_up(struct VDCSoftScrollSettings *settings, char step)
 // Do a soft scroll up
 {
     vdc_pass_vblank();
-    settings->yoff-=step;
     if (settings->vscroll > step - 1)
     {
         settings->vscroll -= step;
@@ -94,6 +94,7 @@ void vdc_softscroll_up(struct VDCSoftScrollSettings *settings, char step)
     else
     {
         settings->vscroll = 8 - step;
+        settings->yoff--;
         settings->addr_offset -= settings->width;
         vdc_wait_no_vblank();
         vdc_reg_write(VDCR_VSCROLL, settings->vscroll_base + settings->vscroll);
@@ -104,7 +105,6 @@ void vdc_softscroll_up(struct VDCSoftScrollSettings *settings, char step)
 void vdc_softscroll_right(struct VDCSoftScrollSettings *settings, char step)
 // Do a soft scroll right
 {
-    settings->xoff+=step;
     if (settings->hscroll > step - 1)
     {
         settings->hscroll -= step;
@@ -114,6 +114,7 @@ void vdc_softscroll_right(struct VDCSoftScrollSettings *settings, char step)
     else
     {
         settings->hscroll = 8 - step;
+        settings->xoff++;
         settings->addr_offset++;
         vdc_wait_no_vblank();
         vdc_set_disp_address(vdc_state.base_text + settings->addr_offset, vdc_state.base_attr + settings->addr_offset);
@@ -125,11 +126,11 @@ void vdc_softscroll_right(struct VDCSoftScrollSettings *settings, char step)
 void vdc_softscroll_left(struct VDCSoftScrollSettings *settings, char step)
 // Do a soft scroll left
 {
-    settings->xoff-=step;
     settings->hscroll += step;
     if (settings->hscroll > 8 - step)
     {
         settings->hscroll = 0;
+        settings->xoff--;
         settings->addr_offset--;
         vdc_wait_no_vblank();
         vdc_set_disp_address(vdc_state.base_text + settings->addr_offset, vdc_state.base_attr + settings->addr_offset);

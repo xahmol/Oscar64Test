@@ -20,8 +20,8 @@ struct VDCSoftScrollSettings {
     char hscroll;
     char vscroll_base;
     char hscroll_base;
-    unsigned xoff;
-    unsigned yoff;
+    char xoff;
+    char yoff;
     char hscroll_def;
 };
 

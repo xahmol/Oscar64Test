@@ -199,28 +199,28 @@ int main(void)
 				key = getch();
 				if (key == 'w' || key == CH_CURS_UP)
 				{
-					if (softscroll.yoff)
+					if (softscroll.yoff || softscroll.vscroll)
 					{
 						vdc_softscroll_up(&softscroll, 2);
 					}
 				}
 				if (key == 's' || key == CH_CURS_DOWN)
 				{
-					if (softscroll.yoff < (softscroll.height * 8))
+					if (softscroll.yoff < softscroll.height || softscroll.vscroll < 6 )
 					{
 						vdc_softscroll_down(&softscroll, 2);
 					}
 				}
 				if (key == 'a' || key == CH_CURS_LEFT)
 				{
-					if (softscroll.xoff)
+					if (softscroll.xoff || softscroll.hscroll)
 					{
 						vdc_softscroll_left(&softscroll, 2);
 					}
 				}
 				if (key == 'd' || key == CH_CURS_RIGHT)
 				{
-					if (softscroll.xoff < (softscroll.width * 8))
+					if (softscroll.xoff < softscroll.width || softscroll.hscroll < 6)
 					{
 						vdc_softscroll_right(&softscroll, 2);
 					}
