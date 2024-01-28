@@ -44,11 +44,10 @@ all: $(MAIN).prg bootsect.bin $(MAIN).d64 $(MAIN).d71 $(MAIN).d81
 
 # Building temp .d64
 $(MAIN).prg: $(MAINSRC)
-	$(CC) $(CFLAGS) -n -o=build/$(MAIN).prg -d64=build/temp.d64 $(ASSETS) $<
+	$(CC) $(CFLAGS) -n -o=build/$(MAIN).prg $(ASSETS) $<
 
 bootsect.bin: $(MAIN).prg
-	cl65 -t c128 -C bootsect-ca65.cfg src/bootsect.s
-	mv bootsect.bin build/
+	$(CC) -tf=bin -rt=src/bootsect.c -o=build/bootsect.bin
 	cp assets/screen*.prg build/
 
 $(MAIN).d64:	bootsect.bin
