@@ -18,11 +18,9 @@ char vdc_softscroll_init(struct VDCSoftScrollSettings *settings, char mode)
     {
         return 0;
     }
-    // Set mode if not already in that mode
-    if (mode != vdc_state.mode)
-    {
-        vdc_set_mode(mode);
-    }
+
+    vdc_set_mode(mode);
+
     // Set up new vdc state
     vdc_state.base_text = 0x2000;
     vdc_state.base_attr = 0x2000 + vdcsize;

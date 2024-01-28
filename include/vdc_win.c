@@ -14,6 +14,7 @@ struct WinStyleStruct winStyles[2] =
 		{VDC_LYELLOW, 0x70, 0x6e, 0x6d, 0x7d, 0x40, 0x40, 0x5d, 0x5d}};
 
 static inline void copy_fwd(unsigned sdp, const unsigned ssp, unsigned cdp, const unsigned csp, char n)
+// Copy of a line direct from VDC source to VDC destination (for vertical based copy)
 {
 	// Screen copy
 	vdc_block_copy(sdp, ssp, n);
@@ -22,6 +23,7 @@ static inline void copy_fwd(unsigned sdp, const unsigned ssp, unsigned cdp, cons
 }
 
 static inline void copy_bwd(unsigned sdp, const unsigned ssp, unsigned cdp, const unsigned csp, char n)
+// Copy of a line from VDC source via swap memory to VDC destination (for horizontal based copy)
 {
 	// Check if swap memory is available given screenmode and VDC memory size
 	if (!vdc_state.memextended && vdc_state.swap_text > 0x3ff)
@@ -45,6 +47,7 @@ static inline void copy_bwd(unsigned sdp, const unsigned ssp, unsigned cdp, cons
 }
 
 void vdcwin_init(struct VDCWin *win, char sx, char sy, char wx, char wy)
+// Initialize the VDCWin structure for the given screen and coordinates, does not clear the window
 {
 	win->sx = sx;
 	win->sy = sy;
@@ -57,16 +60,19 @@ void vdcwin_init(struct VDCWin *win, char sx, char sy, char wx, char wy)
 }
 
 void vdcwin_clear(struct VDCWin *win)
+// Clear the window
 {
 	vdcwin_fill(win, ' ');
 }
 
 void vdcwin_fill(struct VDCWin *win, char ch)
+// Fill the window with the given character and the active attributes
 {
 	vdc_clear(win->sx, win->sy, ch, win->wx, win->wy);
 }
 
 void vdcwin_cursor_show(struct VDCWin *win, bool show)
+// Show or hide the cursor by setting or clearing the reverse attribute
 {
 	unsigned cp = vdc_state.base_attr + vdc_coords(win->sx + win->cx, win->sy + win->cy);
 	if (show)
@@ -76,12 +82,14 @@ void vdcwin_cursor_show(struct VDCWin *win, bool show)
 }
 
 void vdcwin_cursor_move(struct VDCWin *win, char cx, char cy)
+// Move the cursor to the given location
 {
 	win->cx = cx;
 	win->cy = cy;
 }
 
 bool vdcwin_cursor_left(struct VDCWin *win)
+// Move the cursor left in the window, returns true if the cursor could be moved
 {
 	if (win->cx > 0)
 	{
@@ -93,6 +101,7 @@ bool vdcwin_cursor_left(struct VDCWin *win)
 }
 
 bool vdcwin_cursor_right(struct VDCWin *win)
+// Move the cursor right in the window, returns true if the cursor could be moved
 {
 	if (win->cx + 1 < win->wx)
 	{
@@ -104,6 +113,7 @@ bool vdcwin_cursor_right(struct VDCWin *win)
 }
 
 bool vdcwin_cursor_up(struct VDCWin *win)
+// Move the cursor up in the window, returns true if the cursor could be moved
 {
 	if (win->cy > 0)
 	{
@@ -115,6 +125,7 @@ bool vdcwin_cursor_up(struct VDCWin *win)
 }
 
 bool vdcwin_cursor_down(struct VDCWin *win)
+// Move the cursor down in the window, returns true if the cursor could be moved
 {
 	if (win->cy + 1 < win->wy)
 	{
@@ -126,6 +137,7 @@ bool vdcwin_cursor_down(struct VDCWin *win)
 }
 
 bool vdcwin_cursor_newline(struct VDCWin *win)
+// Go to next line
 {
 	win->cx = 0;
 	if (win->cy + 1 < win->wy)
@@ -138,6 +150,7 @@ bool vdcwin_cursor_newline(struct VDCWin *win)
 }
 
 bool vdcwin_cursor_forward(struct VDCWin *win)
+// Move cursor position forward
 {
 	if (win->cx + 1 < win->wx)
 	{
@@ -155,6 +168,7 @@ bool vdcwin_cursor_forward(struct VDCWin *win)
 }
 
 bool vdcwin_cursor_backward(struct VDCWin *win)
+// Move cursor position backward
 {
 	if (win->cx > 0)
 	{
@@ -171,20 +185,24 @@ bool vdcwin_cursor_backward(struct VDCWin *win)
 	return false;
 }
 
+// PETSCII to and from screencode conversion tables
 static char p2smap[] = {0x00, 0x00, 0x40, 0x20, 0x80, 0xc0, 0x80, 0x80};
 static char s2pmap[] = {0x40, 0x00, 0x20, 0xc0, 0xc0, 0x80, 0xa0, 0x40};
 
 static inline char p2s(char ch)
+// PETSCII to screencode conversion
 {
 	return ch ^ p2smap[ch >> 5];
 }
 
 static inline char s2p(char ch)
+// Screencode to PETSCII converion
 {
 	return ch ^ s2pmap[ch >> 5];
 }
 
 void vdcwin_read_string(struct VDCWin *win, char *buffer)
+// Read the full window into a string
 {
 	unsigned sp = win->sp;
 
@@ -203,6 +221,7 @@ void vdcwin_read_string(struct VDCWin *win, char *buffer)
 }
 
 void vdcwin_write_string(struct VDCWin *win, const char *buffer)
+// Write the fill window with the given string
 {
 	unsigned dp = win->sp;
 	for (char y = 0; y < win->wy; y++)
@@ -223,6 +242,7 @@ void vdcwin_write_string(struct VDCWin *win, const char *buffer)
 }
 
 void vdcwin_put_char(struct VDCWin *win, char ch)
+// Put a single char at the cursor location and advance the cursor
 {
 	vdcwin_putat_char(win, win->cx, win->cy, ch);
 	win->cx++;
@@ -239,6 +259,7 @@ void vdcwin_put_char(struct VDCWin *win, char ch)
 }
 
 void vdcwin_put_chars(struct VDCWin *win, const char *chars, char num)
+// Put an array of chars at the cursor location and advance the cursor
 {
 	vdcwin_putat_chars(win, win->cx, win->cy, chars);
 	win->cx += num;
@@ -255,6 +276,7 @@ void vdcwin_put_chars(struct VDCWin *win, const char *chars, char num)
 }
 
 char vdcwin_put_string(struct VDCWin *win, const char *str)
+// Put a zero terminated string at the cursor location and advance the cursor
 {
 	char n = vdcwin_putat_string(win, win->cx, win->cy, str);
 	win->cx += n;
@@ -272,6 +294,7 @@ char vdcwin_put_string(struct VDCWin *win, const char *str)
 }
 
 void vdcwin_put_char_raw(struct VDCWin *win, char ch)
+// Put a single raw char at the cursor location and advance the cursor
 {
 	vdcwin_putat_char_raw(win, win->cx, win->cy, ch);
 	win->cx++;
@@ -288,6 +311,7 @@ void vdcwin_put_char_raw(struct VDCWin *win, char ch)
 }
 
 void vdcwin_put_chars_raw(struct VDCWin *win, const char *chars, char num)
+// Put an array of raw chars at the cursor location and advance the cursor
 {
 	vdcwin_putat_chars_raw(win, win->cx, win->cy, chars);
 	win->cx += num;
@@ -304,6 +328,7 @@ void vdcwin_put_chars_raw(struct VDCWin *win, const char *chars, char num)
 }
 
 char vdcwin_put_string_raw(struct VDCWin *win, const char *str)
+// Put a zero terminated raw string at the cursor location and advance the cursor
 {
 	char n = vdcwin_putat_string_raw(win, win->cx, win->cy, str);
 	win->cx += n;
@@ -322,6 +347,7 @@ char vdcwin_put_string_raw(struct VDCWin *win, const char *str)
 }
 
 void vdcwin_putat_char(struct VDCWin *win, char x, char y, char ch)
+// Put a single char at the given window location
 {
 	vdc_printc(win->sx + x, win->sy + y, p2s(ch), vdc_state.text_attr);
 }
@@ -329,6 +355,7 @@ void vdcwin_putat_char(struct VDCWin *win, char x, char y, char ch)
 #pragma native(vdcwin_putat_char)
 
 void vdcwin_putat_chars(struct VDCWin *win, char x, char y, const char *chars, char num)
+// Put an array of chars at the given window location
 {
 	for (char i = 0; i < num; i++)
 	{
@@ -339,6 +366,7 @@ void vdcwin_putat_chars(struct VDCWin *win, char x, char y, const char *chars, c
 #pragma native(vdcwin_putat_chars)
 
 char vdcwin_putat_string(struct VDCWin *win, char x, char y, const char *str)
+// Put a zero terminated string at the given window location
 {
 	char i = 0;
 	char ch;
@@ -354,6 +382,7 @@ char vdcwin_putat_string(struct VDCWin *win, char x, char y, const char *str)
 #pragma native(vdcwin_putat_string)
 
 void vdcwin_putat_char_raw(struct VDCWin *win, char x, char y, char ch)
+// Put a single raw char at the given window location
 {
 	vdc_printc(win->sx + x, win->sy + y, ch, vdc_state.text_attr);
 }
@@ -361,6 +390,7 @@ void vdcwin_putat_char_raw(struct VDCWin *win, char x, char y, char ch)
 #pragma native(vdcwin_putat_char_raw)
 
 void vdcwin_putat_chars_raw(struct VDCWin *win, char x, char y, const char *chars, char num)
+// Put an array of raw chars at the given window location
 {
 	for (char i = 0; i < num; i++)
 	{
@@ -371,6 +401,7 @@ void vdcwin_putat_chars_raw(struct VDCWin *win, char x, char y, const char *char
 #pragma native(vdcwin_putat_chars_raw)
 
 char vdcwin_putat_string_raw(struct VDCWin *win, char x, char y, const char *str)
+// Put a zero terminated string at the given window location
 {
 	char i = 0;
 	char ch;
@@ -386,6 +417,7 @@ char vdcwin_putat_string_raw(struct VDCWin *win, char x, char y, const char *str
 #pragma native(vdcwin_putat_string_raw)
 
 char vdcwin_getat_char(struct VDCWin *win, char x, char y)
+// Get a single char at the given window location
 {
 	unsigned sp = win->sp + vdc_coords(x, y);
 
@@ -395,6 +427,7 @@ char vdcwin_getat_char(struct VDCWin *win, char x, char y)
 #pragma native(vdcwin_getat_char)
 
 void vdcwin_getat_chars(struct VDCWin *win, char x, char y, char *chars, char num)
+// Get an array of chars at the given window location
 {
 	unsigned sp = win->sp + vdc_coords(x, y);
 
@@ -407,6 +440,7 @@ void vdcwin_getat_chars(struct VDCWin *win, char x, char y, char *chars, char nu
 #pragma native(vdcwin_getat_chars)
 
 char vdcwin_getat_char_raw(struct VDCWin *win, char x, char y)
+// Get a single char at the given window location
 {
 	unsigned sp = win->sp + vdc_coords(x, y);
 
@@ -416,6 +450,7 @@ char vdcwin_getat_char_raw(struct VDCWin *win, char x, char y)
 #pragma native(vdcwin_getat_chars_raw)
 
 void vdcwin_getat_chars_raw(struct VDCWin *win, char x, char y, char *chars, char num)
+// Get an array of chars at the given window location
 {
 	unsigned sp = win->sp + vdc_coords(x, y);
 
@@ -428,6 +463,7 @@ void vdcwin_getat_chars_raw(struct VDCWin *win, char x, char y, char *chars, cha
 #pragma native(vdcwin_put_rect_raw)
 
 void vdcwin_put_rect_raw(struct VDCWin *win, char x, char y, char w, char h, char cr, const char *chars)
+// Put an array of raw characters into a rectangle in the char win
 {
 	int offset = vdc_coords(x, y);
 
@@ -447,6 +483,7 @@ void vdcwin_put_rect_raw(struct VDCWin *win, char x, char y, char w, char h, cha
 #pragma native(vdcwin_put_rect)
 
 void vdcwin_put_rect(struct VDCWin *win, char x, char y, char w, char h, char cr, const char *chars)
+// Put an array of characters into a rectangle in the char win
 {
 	int offset = vdc_coords(x, y);
 
@@ -471,6 +508,7 @@ void vdcwin_put_rect(struct VDCWin *win, char x, char y, char w, char h, char cr
 #pragma native(vdcwin_get_rect_raw)
 
 void vdcwin_get_rect_raw(struct VDCWin *win, char x, char y, char w, char h, char cr, char *chars)
+// Get an array of raw characters from a rectangle of a char win
 {
 	int offset = vdc_coords(x, y);
 
@@ -487,6 +525,7 @@ void vdcwin_get_rect_raw(struct VDCWin *win, char x, char y, char w, char h, cha
 #pragma native(vdcwin_get_rect)
 
 void vdcwin_get_rect(struct VDCWin *win, char x, char y, char w, char h, char cr, char *chars)
+// Get an array of characters from a rectangle of a char win
 {
 	int offset = vdc_coords(x, y);
 
@@ -508,6 +547,7 @@ void vdcwin_get_rect(struct VDCWin *win, char x, char y, char w, char h, char cr
 #pragma native(vdcwin_getat_chars_raw)
 
 void vdcwin_insert_char(struct VDCWin *win)
+// Insert one space character at the cursor position
 {
 	char y = win->wy - 1, rx = win->wx - 1;
 
@@ -538,6 +578,7 @@ void vdcwin_insert_char(struct VDCWin *win)
 }
 
 void vdcwin_delete_char(struct VDCWin *win)
+// Delete the character at the cursor position
 {
 	unsigned sp = win->sp + vdc_coords(0, win->cy);
 	unsigned cp = win->cp + vdc_coords(0, win->cy);
@@ -564,6 +605,7 @@ void vdcwin_delete_char(struct VDCWin *win)
 }
 
 int vdcwin_getch(void)
+// Get character function
 {
 	__asm
 	{
@@ -578,6 +620,7 @@ int vdcwin_getch(void)
 }
 
 int vdcwin_checkch(void)
+// Check character functions
 {
 	__asm
 	{
@@ -590,6 +633,7 @@ int vdcwin_checkch(void)
 }
 
 bool vdcwin_edit_char(struct VDCWin *win, char ch)
+// Edit the window position using the char as the input
 {
 	switch (ch)
 	{
@@ -643,6 +687,7 @@ bool vdcwin_edit_char(struct VDCWin *win, char ch)
 }
 
 char vdcwin_edit(struct VDCWin *win)
+// Edit the window using keyboard input, returns the key the exited the edit, either return or stop
 {
 	for (;;)
 	{
@@ -656,6 +701,7 @@ char vdcwin_edit(struct VDCWin *win)
 }
 
 void vdcwin_scroll_left(struct VDCWin *win, char by)
+// Scroll the window left, does not fill the new empty space
 {
 	unsigned sp = win->sp;
 	unsigned cp = win->cp;
@@ -671,6 +717,7 @@ void vdcwin_scroll_left(struct VDCWin *win, char by)
 }
 
 void vdcwin_scroll_right(struct VDCWin *win, char by)
+// Scroll the window right, does not fill the new empty space
 {
 	unsigned sp = win->sp;
 	unsigned cp = win->cp;
@@ -686,6 +733,7 @@ void vdcwin_scroll_right(struct VDCWin *win, char by)
 }
 
 void vdcwin_scroll_up(struct VDCWin *win, char by)
+// Scroll the window up, does not fill the new empty space
 {
 	unsigned sp = win->sp;
 	unsigned cp = win->cp;
@@ -702,6 +750,7 @@ void vdcwin_scroll_up(struct VDCWin *win, char by)
 }
 
 void vdcwin_scroll_down(struct VDCWin *win, char by)
+// Scroll the window down, does not fill the new empty space
 {
 	unsigned sp = win->sp + vdc_state.width * win->wy;
 	unsigned cp = win->cp + vdc_state.width * win->wy;
@@ -719,6 +768,7 @@ void vdcwin_scroll_down(struct VDCWin *win, char by)
 }
 
 void vdcwin_fill_rect_raw(struct VDCWin *win, char x, char y, char w, char h, char ch)
+// Fill the given rectangle with the character and the active color
 {
 	if (w > 0)
 	{
@@ -727,6 +777,12 @@ void vdcwin_fill_rect_raw(struct VDCWin *win, char x, char y, char w, char h, ch
 			vdc_hchar(win->sx + x, win->sy + y + i, ch, vdc_state.text_attr, w);
 		}
 	}
+}
+
+void vdcwin_fill_rect(struct VDCWin *win, char x, char y, char w, char h, char ch)
+// Fill the given rectangle with the screen code and color
+{
+	vdcwin_fill_rect_raw(win, x, y, w, h, p2s(ch));
 }
 
 void vdcwin_printline(struct VDCWin *win, const char *str)
@@ -797,11 +853,6 @@ void vdcwin_printwrap(struct VDCWin *win, const char *str)
 	}
 }
 
-void vdcwin_fill_rect(struct VDCWin *win, char x, char y, char w, char h, char ch)
-{
-	vdcwin_fill_rect_raw(win, x, y, w, h, p2s(ch));
-}
-
 void vdcwin_border_clear(struct VDCWin *win, char border)
 // Clear area with border with selected borderstyle
 {
@@ -849,7 +900,7 @@ void vdcwin_border_clear(struct VDCWin *win, char border)
 	{
 		if (border & WIN_BOR_LE)
 		{
-			vdc_printc(win->sx-1, win->sy + i, winStyles[style].left, color);
+			vdc_printc(win->sx - 1, win->sy + i, winStyles[style].left, color);
 		}
 		vdc_hchar(win->sx, win->sy + i, ' ', vdc_state.text_attr, win->wx);
 		if (border & WIN_BOR_RI)
@@ -857,6 +908,134 @@ void vdcwin_border_clear(struct VDCWin *win, char border)
 			vdc_printc(win->sx + win->wx, win->sy + i, winStyles[style].right, color);
 		}
 	}
+}
+
+void vdcwin_winstorage_init(char memcr, char *membase, unsigned memsize)
+// Initialise window background saving storage
+{
+	winCfg.memcr = memcr;
+	winCfg.membase = membase;
+	winCfg.memsize = memsize;
+	winCfg.active = 0;
+	winCfg.memactive = membase;
+}
+
+bool vdcwin_win_new(char border, char xpos, char ypos, char width, char height)
+// Create new window with background save
+{
+	// Local vars
+	char iwidth = width, iheight = height, line;
+	unsigned size;
+	unsigned vdcaddress = vdc_coords(xpos, ypos);
+
+	// Derive width and height including potential border
+	if ((border & WIN_BOR_LE) && xpos)
+	{
+		iwidth++;
+		vdcaddress--;
+	}
+	if ((border & WIN_BOR_RI) && xpos + width < vdc_state.width)
+	{
+		iwidth++;
+	}
+	if ((border & WIN_BOR_UP) && ypos)
+	{
+		iheight++;
+		vdcaddress -= vdc_state.width;
+	}
+	if ((border & WIN_BOR_BO) && ypos + height < vdc_state.height)
+	{
+		iheight++;
+	}
+
+	// Calculate needed memory and return if insufficient memory left
+	size = width * height * 2;
+	if (winCfg.memactive + size > winCfg.membase + winCfg.memsize - 2)
+	{
+		return false;
+	}
+
+	// Check if not at window maximum
+	if (winCfg.active == WIN_MAX_NR)
+	{
+		return false;
+	}
+
+	// Set window
+	winCfg.active++;
+	vdcwin_init(&windows[winCfg.active-1].win, xpos, ypos, width, height);
+	windows[winCfg.active-1].memaddress = winCfg.memactive;
+	windows[winCfg.active-1].border = border;
+
+	// Copy background
+	for (line = 0; line < iheight; line++)
+	{
+		// Text
+		bnk_cpyfromvdc(winCfg.memcr, winCfg.memactive, vdc_state.base_text + vdcaddress, iwidth);
+		winCfg.memactive += iwidth;
+		// Color
+		bnk_cpyfromvdc(winCfg.memcr, winCfg.memactive, vdc_state.base_attr + vdcaddress, iwidth);
+		winCfg.memactive += iwidth;
+		vdcaddress += vdc_state.width;
+	}
+
+	// Clear window and draw desired borders
+	vdcwin_border_clear(&windows[winCfg.active-1].win, border);
+}
+
+void vdcwin_win_free()
+// Close window and restore background
+{
+	// Local vars
+	char iwidth, iheight, line, border;
+	unsigned vdcaddress;
+
+	// Return if no windows active
+	if (!winCfg.active)
+	{
+		return;
+	}
+
+	// Derive width and height including potential border
+	vdcaddress = vdc_coords(windows[winCfg.active-1].win.sx, windows[winCfg.active-1].win.sy);
+	iwidth = windows[winCfg.active-1].win.wx;
+	iheight = windows[winCfg.active-1].win.wy;
+	border = windows[winCfg.active-1].border;
+	if ((border & WIN_BOR_LE) && windows[winCfg.active-1].win.sx)
+	{
+		iwidth++;
+		vdcaddress--;
+	}
+	if ((border & WIN_BOR_RI) && windows[winCfg.active-1].win.sx + windows[winCfg.active-1].win.wx < vdc_state.width)
+	{
+		iwidth++;
+	}
+	if ((border & WIN_BOR_UP) && windows[winCfg.active-1].win.sy)
+	{
+		iheight++;
+		vdcaddress -= vdc_state.width;
+	}
+	if ((border & WIN_BOR_BO) && windows[winCfg.active-1].win.sy + windows[winCfg.active-1].win.wy < vdc_state.height)
+	{
+		iheight++;
+	}
+
+	// Restore background
+	winCfg.memactive = windows[winCfg.active-1].memaddress;
+	for (line = 0; line < iheight; line++)
+	{
+		// Text
+		bnk_cpytovdc(vdc_state.base_text + vdcaddress, winCfg.memcr, winCfg.memactive, iwidth);
+		winCfg.memactive += iwidth;
+		// Color
+		bnk_cpytovdc(vdc_state.base_attr + vdcaddress, winCfg.memcr, winCfg.memactive, iwidth);
+		winCfg.memactive += iwidth;
+		vdcaddress += vdc_state.width;
+	}
+
+	// Make previous window if any active
+	winCfg.memactive = windows[winCfg.active-1].memaddress;
+	winCfg.active--;
 }
 
 void vdcwin_viewport_init(struct VDCViewport *vp, char sourcebank, char *sourcebase, unsigned sourcewidth, unsigned sourceheight, unsigned viewwidth, unsigned viewheight, char viewsx, char viewsy)

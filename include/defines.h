@@ -1,17 +1,13 @@
 #ifndef __DEFINES_H_
 #define __DEFINES_H_
 
-/* Frame border graphics */
-#define FRAME_UC_L 0x6c
-#define FRAME_UC_R 0x7b
-#define FRAME_BC_L 0x7c
-#define FRAME_BC_R 0x7e
-#define FRAME_UP 0x62
-#define FRAME_DOWN 0xe2
-#define FRAME_LEFT 0xe1
-#define FRAME_RIGHT 0x61
+// Memory map bank 1
+#define MEM_WINDOW 0x2000
+#define MEM_SCREEN1 0x4000
+#define MEM_SCREEN2 0xA000
+#define MEM_CHARSET 0xD000
 
-/* References to steering chars */
+// References to steering chars
 #define CH_CURS_UP 145    // Petscii control code for Cursor Up
 #define CH_CURS_DOWN 17   // Petscii control code for Cursor Down
 #define CH_CURS_LEFT 157  // Petscii control code for Cursor Left
@@ -52,16 +48,16 @@
 #define CH_LBLUE 154      // Petscii control code for light blue      C=-7
 #define CH_LGREY 155      // Petscii control code for light grey      C=-8
 
-/* Defines for versioning */
-/* Version number */
+// Defines for versioning
+// Version number
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 90
-/* Build year */
+// Build year
 #define BUILD_YEAR_CH0 (__DATE__[7])
 #define BUILD_YEAR_CH1 (__DATE__[8])
 #define BUILD_YEAR_CH2 (__DATE__[9])
 #define BUILD_YEAR_CH3 (__DATE__[10])
-/* Build month */
+// Build month
 #define BUILD_MONTH_IS_JAN (__DATE__[0] == 'J' && __DATE__[1] == 'a' && __DATE__[2] == 'n')
 #define BUILD_MONTH_IS_FEB (__DATE__[0] == 'F')
 #define BUILD_MONTH_IS_MAR (__DATE__[0] == 'M' && __DATE__[1] == 'a' && __DATE__[2] == 'r')
@@ -89,14 +85,14 @@
                                  : (BUILD_MONTH_IS_OCT)   ? '0' \
                                  : (BUILD_MONTH_IS_NOV)   ? '1' \
                                  : (BUILD_MONTH_IS_DEC)   ? '2' \
-                                                          : /* error default */ '?')
-/* Build day */
+                                                          : // error default '?')
+// Build day
 #define BUILD_DAY_CH0 ((__DATE__[4] >= '0') ? (__DATE__[4]) : '0')
 #define BUILD_DAY_CH1 (__DATE__[5])
-/* Build hour */
+// Build hour
 #define BUILD_HOUR_CH0 (__TIME__[0])
 #define BUILD_HOUR_CH1 (__TIME__[1])
-/* Build minute */
+// Build minute
 #define BUILD_MIN_CH0 (__TIME__[3])
 #define BUILD_MIN_CH1 (__TIME__[4])
 

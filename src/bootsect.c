@@ -1,3 +1,6 @@
+// Create bootsector for building the disk images
+// Credit to Scott Robison for this method    
+
 #include <petscii.h>
 
 #pragma section( startup, 0 )
