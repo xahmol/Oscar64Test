@@ -60,6 +60,7 @@ void vdc_blink(char set);
 void vdc_underline(char set);
 void vdc_reverse(char set);
 void vdc_printc(char x, char y, char val, char attr);
+void vdc_prints_attr(char x, char y, const char *string, char attr);
 void vdc_prints(char x, char y, const char *string);
 void vdc_hchar(char x, char y, char val, char attr, char length);
 void vdc_vchar(char x, char y, char val, char attr, char length);

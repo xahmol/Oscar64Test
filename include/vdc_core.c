@@ -126,6 +126,7 @@ char vdc_set_mode(char mode)
     }
 
     // Set screen state
+    vdc_state.mode = mode;
     vdc_state.width = vdc_modes[mode].width;
     vdc_state.height = vdc_modes[mode].height;
     vdc_state.base_text = vdc_modes[mode].base_text;
@@ -416,8 +417,8 @@ void vdc_printc(char x, char y, char val, char attr)
     vdc_mem_write_at(address + vdc_state.base_attr, attr);
 }
 
-void vdc_prints(char x, char y, const char *string)
-// Function to plot a string at a given coordinate
+void vdc_prints_attr(char x, char y, const char *string, char attr)
+// Function to plot a string at a given coordinate with given attributes
 {
     unsigned address = vdc_coords(x, y);
     char len = strlen(string);
@@ -430,7 +431,13 @@ void vdc_prints(char x, char y, const char *string)
     }
 
     // Color
-    vdc_block_fill(address + vdc_state.base_attr, vdc_state.text_attr, len - 1);
+    vdc_block_fill(address + vdc_state.base_attr, attr, len - 1);
+}
+
+void vdc_prints(char x, char y, const char *string)
+// Function to plot a string at a given coordinate with active attributes
+{
+    vdc_prints_attr(x,y,string,vdc_state.text_attr);
 }
 
 void vdc_hchar(char x, char y, char val, char attr, char length)

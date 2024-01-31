@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <c128/vdc.h>
 #include "vdc_win.h"
 #include "vdc_core.h"
@@ -261,7 +262,7 @@ void vdcwin_put_char(struct VDCWin *win, char ch)
 void vdcwin_put_chars(struct VDCWin *win, const char *chars, char num)
 // Put an array of chars at the cursor location and advance the cursor
 {
-	vdcwin_putat_chars(win, win->cx, win->cy, chars);
+	vdcwin_putat_chars(win, win->cx, win->cy, chars, num);
 	win->cx += num;
 	if (win->cx >= win->wx)
 	{
@@ -313,7 +314,7 @@ void vdcwin_put_char_raw(struct VDCWin *win, char ch)
 void vdcwin_put_chars_raw(struct VDCWin *win, const char *chars, char num)
 // Put an array of raw chars at the cursor location and advance the cursor
 {
-	vdcwin_putat_chars_raw(win, win->cx, win->cy, chars);
+	vdcwin_putat_chars_raw(win, win->cx, win->cy, chars, num);
 	win->cx += num;
 	if (win->cx >= win->wx)
 	{
@@ -841,6 +842,15 @@ void vdcwin_printwrap(struct VDCWin *win, const char *str)
 		{
 			wrapbuffer[buf] = 0x00;
 			wordLen = strlen(wrapbuffer);
+
+			while (wordLen > win->wx)
+			{
+				vdcwin_printline(win, "");
+				vdcwin_put_chars(win, wrapbuffer, win->wx);
+				strcpy(wrapbuffer, wrapbuffer + win->wx);
+				wordLen = strlen(wrapbuffer);
+			}
+
 			if (win->cx + wordLen > maxLine)
 			{
 				vdcwin_printline(win, "");
@@ -963,9 +973,9 @@ bool vdcwin_win_new(char border, char xpos, char ypos, char width, char height)
 
 	// Set window
 	winCfg.active++;
-	vdcwin_init(&windows[winCfg.active-1].win, xpos, ypos, width, height);
-	windows[winCfg.active-1].memaddress = winCfg.memactive;
-	windows[winCfg.active-1].border = border;
+	vdcwin_init(&windows[winCfg.active - 1].win, xpos, ypos, width, height);
+	windows[winCfg.active - 1].memaddress = winCfg.memactive;
+	windows[winCfg.active - 1].border = border;
 
 	// Copy background
 	for (line = 0; line < iheight; line++)
@@ -980,7 +990,7 @@ bool vdcwin_win_new(char border, char xpos, char ypos, char width, char height)
 	}
 
 	// Clear window and draw desired borders
-	vdcwin_border_clear(&windows[winCfg.active-1].win, border);
+	vdcwin_border_clear(&windows[winCfg.active - 1].win, border);
 }
 
 void vdcwin_win_free()
@@ -997,31 +1007,31 @@ void vdcwin_win_free()
 	}
 
 	// Derive width and height including potential border
-	vdcaddress = vdc_coords(windows[winCfg.active-1].win.sx, windows[winCfg.active-1].win.sy);
-	iwidth = windows[winCfg.active-1].win.wx;
-	iheight = windows[winCfg.active-1].win.wy;
-	border = windows[winCfg.active-1].border;
-	if ((border & WIN_BOR_LE) && windows[winCfg.active-1].win.sx)
+	vdcaddress = vdc_coords(windows[winCfg.active - 1].win.sx, windows[winCfg.active - 1].win.sy);
+	iwidth = windows[winCfg.active - 1].win.wx;
+	iheight = windows[winCfg.active - 1].win.wy;
+	border = windows[winCfg.active - 1].border;
+	if ((border & WIN_BOR_LE) && windows[winCfg.active - 1].win.sx)
 	{
 		iwidth++;
 		vdcaddress--;
 	}
-	if ((border & WIN_BOR_RI) && windows[winCfg.active-1].win.sx + windows[winCfg.active-1].win.wx < vdc_state.width)
+	if ((border & WIN_BOR_RI) && windows[winCfg.active - 1].win.sx + windows[winCfg.active - 1].win.wx < vdc_state.width)
 	{
 		iwidth++;
 	}
-	if ((border & WIN_BOR_UP) && windows[winCfg.active-1].win.sy)
+	if ((border & WIN_BOR_UP) && windows[winCfg.active - 1].win.sy)
 	{
 		iheight++;
 		vdcaddress -= vdc_state.width;
 	}
-	if ((border & WIN_BOR_BO) && windows[winCfg.active-1].win.sy + windows[winCfg.active-1].win.wy < vdc_state.height)
+	if ((border & WIN_BOR_BO) && windows[winCfg.active - 1].win.sy + windows[winCfg.active - 1].win.wy < vdc_state.height)
 	{
 		iheight++;
 	}
 
 	// Restore background
-	winCfg.memactive = windows[winCfg.active-1].memaddress;
+	winCfg.memactive = windows[winCfg.active - 1].memaddress;
 	for (line = 0; line < iheight; line++)
 	{
 		// Text
@@ -1034,7 +1044,7 @@ void vdcwin_win_free()
 	}
 
 	// Make previous window if any active
-	winCfg.memactive = windows[winCfg.active-1].memaddress;
+	winCfg.memactive = windows[winCfg.active - 1].memaddress;
 	winCfg.active--;
 }
 
@@ -1063,7 +1073,7 @@ void vdcwin_cpy_viewport(struct VDCViewport *viewport)
 	{
 		bnk_cpytovdc(vdcbase, viewport->sourcebank, address, viewport->win.wx);
 		vdcbase += vdc_state.width;
-		address += vdc_state.width;
+		address += viewport->sourcewidth;
 	}
 
 	// Attributes
@@ -1074,7 +1084,7 @@ void vdcwin_cpy_viewport(struct VDCViewport *viewport)
 	{
 		bnk_cpytovdc(vdcbase, viewport->sourcebank, address, viewport->win.wx);
 		vdcbase += vdc_state.width;
-		address += vdc_state.width;
+		address += viewport->sourcewidth;
 	}
 }
 

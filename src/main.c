@@ -12,9 +12,20 @@
 #include "banking.h"
 #include "vdc_softscroll.h"
 #include "vdc_win.h"
+#include "vdc_menu.h"
 
 // Memory region for code, data etc. from 0x1c80 to 0xbfff
 #pragma region( vdctest, 0x1c80, 0xc000, , , {code, data, bss, heap, stack} )
+
+struct SCREENSettings
+{
+	char *source;
+	char width;
+	char height;
+};
+struct SCREENSettings screenset[2] = {
+	{(char *)MEM_SCREEN1, 80, 150},
+	{(char *)MEM_SCREEN2, 160, 75}};
 
 void generateSentence(char *sentence)
 // Adappted from
@@ -35,16 +46,169 @@ void generateSentence(char *sentence)
 			adjectives[adjectiveIndex], nouns[nounIndex], verbs[verbIndex]);
 }
 
+void settings_screenmode()
+// Set screen mode from main menu
+{
+	char old_attr = vdc_state.text_attr;
+	char menuchoice;
+
+	vdc_state.text_attr = VDC_POPUP_COLOR;
+	vdcwin_win_new(VDC_POPUP_BORDER, 8, 8, 30, 10);
+
+	vdc_prints(10, 9, "Select screen mode");
+	menuchoice = menu_pulldown(25, 11, 6, 1);
+	vdcwin_win_free();
+
+	if (menuchoice)
+	{
+		vdc_set_mode(menuchoice - 1);
+	}
+
+	vdc_state.text_attr = old_attr;
+}
+
+void windows_windowstacking()
+// Windowing demo
+{
+	char x, y;
+
+	vdc_prints(0, 3, "Press key to continue in every stage.");
+
+	// Create windows
+	srand(cia1.todt + cia1.tods + 1);
+
+	x = 0;
+	do
+	{
+		vdcwin_win_new(WIN_BOR_ALL + (x % 2), 5 + (x * 5), 5 + (x * 3), 40, vdc_state.height / 3);
+
+		for (y = 0; y < 100; y++)
+		{
+			vdc_textcolor(rand() % 15 + 1);
+			generateSentence(linebuffer);
+			vdcwin_printwrap(&windows[winCfg.active - 1].win, linebuffer);
+			if (windows[winCfg.active - 1].win.cx)
+			{
+				vdcwin_put_char(&windows[winCfg.active - 1].win, ' ');
+			}
+		}
+		getch();
+
+		vdc_textcolor(VDC_LYELLOW);
+		x++;
+	} while (winCfg.active < WIN_MAX_NR);
+
+	do
+	{
+		vdcwin_win_free();
+
+		for (y = 0; y < 100; y++)
+		{
+			vdc_textcolor(rand() % 15 + 1);
+			generateSentence(linebuffer);
+			vdcwin_printwrap(&windows[winCfg.active - 1].win, linebuffer);
+			if (windows[winCfg.active - 1].win.cx)
+			{
+				vdcwin_put_char(&windows[winCfg.active - 1].win, ' ');
+			}
+		}
+		getch();
+
+		vdc_textcolor(VDC_LYELLOW);
+	} while (winCfg.active > 1);
+
+	vdcwin_win_free();
+}
+
+void viewport_demo(char screen)
+// Viewport scrolling demo
+{
+	char key, direction;
+	struct VDCWin window;
+	struct VDCViewport viewport;
+
+	vdc_prints(0, 3, "Move by W,A,S,D or cursor keys. ESC or STOP to exit.");
+
+	if(screen==0)
+	{
+		vdc_prints(0, vdc_state.height - 1, "Petscii art credit: 'Love is the drug' Atlantis, 2023, Art by Lobo.");
+	}
+	
+
+	// Init and copy viewport from bank 1 screen
+	vdcwin_init(&window, 5, 5, 70, vdc_state.height - 7);
+	vdcwin_border_clear(&window, WIN_BOR_ALL);
+	vdcwin_viewport_init(&viewport, BNK_1_FULL, screenset[screen].source, screenset[screen].width, screenset[screen].height, 70, vdc_state.height - 7, 5, 5);
+	vdcwin_cpy_viewport(&viewport);
+
+	// Scroll contents using WASD keys, ESC to quit
+	do
+	{
+		key = getch();
+		direction = 0;
+		if ((key == 'w' || key == CH_CURS_UP) && viewport.sourceyoffset > 0)
+		{
+			direction |= SCROLL_UP;
+		}
+		if ((key == 's' || key == CH_CURS_DOWN) && viewport.sourceyoffset < (screenset[screen].height - vdc_state.height + 6))
+		{
+			direction |= SCROLL_DOWN;
+		}
+		if ((key == 'a' || key == CH_CURS_LEFT) && viewport.sourcexoffset > 0)
+		{
+			direction |= SCROLL_LEFT;
+		}
+		if ((key == 'd' || key == CH_CURS_RIGHT) && viewport.sourcexoffset < screenset[screen].width-71)
+		{
+			direction |= SCROLL_RIGHT;
+		}
+		if (direction)
+		{
+			vdcwin_viewportscroll(&viewport, direction);
+		}
+	} while (key != CH_ESC && key != CH_STOP);
+}
+
+void scroll_fullscreen_smooth(char screen)
+// Full screen smooth scroll demo
+{
+	struct VDCSoftScrollSettings softscroll;
+	char key;
+
+	softscroll.cr = BNK_1_FULL;
+	softscroll.source = screenset[screen].source;
+	softscroll.width = screenset[screen].width;
+	softscroll.height = screenset[screen].height;
+
+	if (vdc_softscroll_init(&softscroll, vdc_state.mode))
+	{
+		do
+		{
+			key = getch();
+			if (key == 'w' || key == CH_CURS_UP)
+			{
+				vdc_softscroll_up(&softscroll, 2);
+			}
+			if (key == 's' || key == CH_CURS_DOWN)
+			{
+				vdc_softscroll_down(&softscroll, 2);
+			}
+			if (key == 'a' || key == CH_CURS_LEFT)
+			{
+				vdc_softscroll_left(&softscroll, 2);
+			}
+			if (key == 'd' || key == CH_CURS_RIGHT)
+			{
+				vdc_softscroll_right(&softscroll, 2);
+			}
+		} while (key != CH_ESC && key != CH_STOP);
+		vdc_softscroll_exit(&softscroll, vdc_state.mode);
+	}
+}
+
 int main(void)
 {
-	// Set demo variables
-	char x, y, key, mode, screencode = 0, color = 0, reverse = 0;
-	char direction;
-	struct VDCWin window;
-
-	// Initialise start viewport settings
-	struct VDCViewport viewport;
-	struct VDCSoftScrollSettings softscroll = {BNK_1_FULL, (char *)MEM_SCREEN2, 160, 75, 0, 0, 0, 0, 0, 0, 0, 0};
+	char menuchoice = 0;
 
 	// Initialise CIA clock
 	cia_init();
@@ -63,161 +227,45 @@ int main(void)
 	vdc_prints(0, 5, "- screen 1: Love is a Drug");
 	if (!bnk_load(bootdevice, 1, (char *)MEM_SCREEN1, "screen1"))
 	{
-		vdc_prints(0, 6, "Load error.");
+		menu_fileerrormessage();
 		exit(1);
 	}
 	vdc_prints(0, 6, "- screen 2: Logo test screen");
 	if (!bnk_load(bootdevice, 1, (char *)MEM_SCREEN2, "screen2"))
 	{
-		vdc_prints(0, 7, "Load error.");
+		menu_fileerrormessage();
 		exit(1);
 	}
 
-	// Windowing test
-	for (mode = 0; mode < 3; mode++)
+	do
 	{
-		// Set VDC mode
-		vdc_set_mode(mode);
+		menu_placetop(" Oscar64 VDC Demo");
+		menuchoice = menu_main();
 
-		// Draw header
-		 vdc_hchar(0, 0, C_SPACE, VDC_LGREEN + VDC_A_REVERSE + VDC_A_ALTCHAR, 79);
-		 vdc_textcolor(VDC_LGREEN);
-		 vdc_reverse(1);
-		 vdc_prints(0, 0, "Oscar64 VDC demo");
-		 vdc_reverse(0);
-		 vdc_textcolor(VDC_LYELLOW);
-		
-		// Print mem and screen size
-		 sprintf(linebuffer, "VDC Memory Detected: %d KB, screen size: %dx%d, ext.mem: %s", vdc_state.memsize, vdc_state.width, vdc_state.height, (vdc_state.memextended) ? "On " : "Off");
-		 vdc_prints(0, 2, linebuffer);
-		 vdc_prints(0, 3, "Press key to continue in every stage.");
-		
-		// Create windows
-		srand(cia1.todt + cia1.tods + 1);
-
-		x = 0;
-		do
+		switch (menuchoice)
 		{
-			vdcwin_win_new(WIN_BOR_ALL + (x % 2), 5 + (x * 5), 5 + (x * 3), 40, vdc_state.height / 3);
+		case 11:
+			settings_screenmode();
+			break;
 
-			for (y = 0; y < 100; y++)
-			{
-				vdc_textcolor(rand() % 15 + 1);
-				generateSentence(linebuffer);
-				vdcwin_printwrap(&windows[winCfg.active - 1].win, linebuffer);
-				if (windows[winCfg.active - 1].win.cx)
-				{
-					vdcwin_put_char(&windows[winCfg.active - 1].win, ' ');
-				}
-			}
-			getch();
+		case 21:
+			windows_windowstacking();
+			break;
 
-			vdc_textcolor(VDC_LYELLOW);
-			x++;
-		} while (winCfg.active < WIN_MAX_NR);
+		case 31:
+		case 32:
+			viewport_demo(menuchoice - 31);
+			break;
 
-		do
-		{
-			vdcwin_win_free();
+		case 41:
+		case 42:
+			scroll_fullscreen_smooth(menuchoice - 41);
+			break;
 
-			for (y = 0; y < 100; y++)
-			{
-				vdc_textcolor(rand() % 15 + 1);
-				generateSentence(linebuffer);
-				vdcwin_printwrap(&windows[winCfg.active - 1].win, linebuffer);
-				if (windows[winCfg.active - 1].win.cx)
-				{
-					vdcwin_put_char(&windows[winCfg.active - 1].win, ' ');
-				}
-			}
-			getch();
-
-			vdc_textcolor(VDC_LYELLOW);
-		} while (winCfg.active > 1);
-
-		vdcwin_win_free();
-	}
-
-	// Soft scroll test
-	for (mode = 0; mode < 3; mode++)
-	{
-		if (vdc_softscroll_init(&softscroll, mode))
-		{
-			do
-			{
-				key = getch();
-				if (key == 'w' || key == CH_CURS_UP)
-				{
-					vdc_softscroll_up(&softscroll, 2);
-				}
-				if (key == 's' || key == CH_CURS_DOWN)
-				{
-					vdc_softscroll_down(&softscroll, 2);
-				}
-				if (key == 'a' || key == CH_CURS_LEFT)
-				{
-					vdc_softscroll_left(&softscroll, 2);
-				}
-				if (key == 'd' || key == CH_CURS_RIGHT)
-				{
-					vdc_softscroll_right(&softscroll, 2);
-				}
-			} while (key != CH_ESC && key != CH_STOP);
-			vdc_softscroll_exit(&softscroll, mode);
+		default:
+			break;
 		}
-	}
-
-	// Viewport test
-	for (mode = 0; mode < 3; mode++)
-	{
-		// Set VDC mode
-		vdc_set_mode(mode);
-
-		// Draw header
-		vdc_hchar(0, 0, C_SPACE, VDC_LGREEN + VDC_A_REVERSE + VDC_A_ALTCHAR, 79);
-		vdc_textcolor(VDC_LGREEN);
-		vdc_reverse(1);
-		vdc_prints(0, 0, "Oscar64 VDC demo");
-		vdc_reverse(0);
-		vdc_textcolor(VDC_LYELLOW);
-
-		// Print mem and screen size
-		sprintf(linebuffer, "VDC Memory Detected: %d KB, screen size: %dx%d, ext.mem: %s", vdc_state.memsize, vdc_state.width, vdc_state.height, (vdc_state.memextended) ? "On " : "Off");
-		vdc_prints(0, 2, linebuffer);
-		vdc_prints(0, 3, "Move by W,A,S,D or cursor keys. ESC or STOP to exit.");
-		vdc_prints(0, vdc_state.height - 1, "Petscii art credit: 'Love is the drug' Atlantis, 2023, Art by Lobo.");
-
-		// Init and copy viewport from bank 1 screen
-		vdcwin_viewport_init(&viewport, BNK_1_FULL, (char *)MEM_SCREEN1, 80, 150, 70, vdc_state.height - 7, 5, 5);
-		vdcwin_cpy_viewport(&viewport);
-
-		// Scroll contents using WASD keys, ESC to quit
-		do
-		{
-			key = getch();
-			direction = 0;
-			if ((key == 'w' || key == CH_CURS_UP) && viewport.sourceyoffset > 0)
-			{
-				direction |= SCROLL_UP;
-			}
-			if ((key == 's' || key == CH_CURS_DOWN) && viewport.sourceyoffset < 150 - vdc_state.height + 6)
-			{
-				direction |= SCROLL_DOWN;
-			}
-			if ((key == 'a' || key == CH_CURS_LEFT) && viewport.sourcexoffset > 0)
-			{
-				direction |= SCROLL_LEFT;
-			}
-			if ((key == 'd' || key == CH_CURS_RIGHT) && viewport.sourcexoffset < 9)
-			{
-				direction |= SCROLL_RIGHT;
-			}
-			if (direction)
-			{
-				vdcwin_viewportscroll(&viewport, direction);
-			}
-		} while (key != CH_ESC && key != CH_STOP);
-	}
+	} while (menuchoice != 13);
 
 	vdc_exit();
 
