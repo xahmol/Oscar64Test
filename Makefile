@@ -24,7 +24,7 @@ CC = /home/xahmol/oscar64/bin/oscar64
 MAIN = vdctest
 
 # Common compile flags
-CFLAGS  = -i=include -tm=$(SYS) -O3s -dNOFLOAT
+CFLAGS  = -i=include -tm=$(SYS) -O2s -dNOFLOAT
 
 # Sources
 MAINSRC = src/main.c

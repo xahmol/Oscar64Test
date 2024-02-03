@@ -72,8 +72,6 @@ void windows_windowstacking()
 {
 	char x, y;
 
-	vdc_prints(0, 3, "Press key to continue in every stage.");
-
 	// Create windows
 	srand(cia1.todt + cia1.tods + 1);
 
@@ -127,6 +125,7 @@ void viewport_demo(char screen)
 	struct VDCWin window;
 	struct VDCViewport viewport;
 
+	vdc_clear(0,2,CH_SPACE,80,23);
 	vdc_prints(0, 3, "Move by W,A,S,D or cursor keys. ESC or STOP to exit.");
 
 	if(screen==0)
@@ -208,6 +207,7 @@ void scroll_fullscreen_smooth(char screen)
 
 int main(void)
 {
+	struct VDCViewport logo;
 	char menuchoice = 0;
 
 	// Initialise CIA clock
@@ -237,9 +237,28 @@ int main(void)
 		exit(1);
 	}
 
+	// Initialise logo viewport
+	vdcwin_viewport_init(&logo,BNK_1_FULL, (char*)MEM_SCREEN2,160,75,48,12,16,6);
+	logo.sourcexoffset = 16;
+	logo.sourceyoffset = 6;
+
 	do
 	{
 		menu_placetop(" Oscar64 VDC Demo");
+		sprintf(linebuffer,"M: %u TA: %4x AA: %4x W: %3u H: %3u A: %2x",vdc_state.mode,vdc_state.base_text, vdc_state.base_attr, vdc_state.width,vdc_state.height,vdc_state.text_attr);
+		vdc_prints(0, 2, linebuffer);
+
+		// Draw info, intructions and logo
+		sprintf(linebuffer, "VDC memory detected: %u KB, extended memory %sabled.", vdc_state.memsize, (vdc_state.memextended) ? "En" : "Dis");
+		vdc_prints(0, 3, linebuffer);
+		sprintf(linebuffer,"Screenmode: %s",pulldown_titles[6][vdc_state.mode]);
+		vdc_prints(0, 4, linebuffer);
+		vdc_prints(0,19,"Select desired demo using cursor keys and RETURN in menu.");
+		vdc_prints(0,20,"In scrolling demos, press WASD or cursor keys to move, ESC to exit.");
+		vdc_prints(0,21,"In other demos, press a kety to continue to next step.");
+		vdcwin_cpy_viewport(&logo);
+
+		// Start menu lselection
 		menuchoice = menu_main();
 
 		switch (menuchoice)

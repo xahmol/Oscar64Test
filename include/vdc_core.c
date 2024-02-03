@@ -159,10 +159,8 @@ char vdc_set_mode(char mode)
     {
         vdc_set_extended_memsize();
     }
-    else
-    {
-        vdc_cls();
-    }
+
+    vdc_cls();
     vdc_enable_display();
 }
 
@@ -211,7 +209,7 @@ void vdc_exit()
     bnk_exit();                       // Reset shared memory to default
 }
 
-static __native inline unsigned vdc_coords(char x, char y)
+unsigned vdc_coords(char x, char y)
 // Function returns a VDC memory address for given x,y coords. To be added to base address for text or attributes.
 {
     return multab[y] + x;
