@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <petscii.h>
 #include <c128/vdc.h>
 #include "vdc_win.h"
 #include "vdc_core.h"
@@ -1058,7 +1059,7 @@ void vdcwin_viewport_init(struct VDCViewport *vp, char sourcebank, char *sourceb
 	vp->sourceheight = sourceheight;
 	vp->sourcexoffset = 0;
 	vp->sourceyoffset = 0;
-	vdcwin_init(&vp->win, viewsx, viewsy, viewwidth, viewheight);
+	vdcwin_init(&vp->view, viewsx, viewsy, viewwidth, viewheight);
 }
 
 void vdcwin_cpy_viewport(struct VDCViewport *viewport)
@@ -1066,23 +1067,23 @@ void vdcwin_cpy_viewport(struct VDCViewport *viewport)
 // Input: Initialised viewport struct
 {
 	// Charachters
-	unsigned vdcbase = viewport->win.sp;
+	unsigned vdcbase = viewport->view.sp;
 	char *address = viewport->sourcebase + (viewport->sourceyoffset * viewport->sourcewidth) + viewport->sourcexoffset;
 
-	for (char i = 0; i < viewport->win.wy; i++)
+	for (char i = 0; i < viewport->view.wy; i++)
 	{
-		bnk_cpytovdc(vdcbase, viewport->sourcebank, address, viewport->win.wx);
+		bnk_cpytovdc(vdcbase, viewport->sourcebank, address, viewport->view.wx);
 		vdcbase += vdc_state.width;
 		address += viewport->sourcewidth;
 	}
 
 	// Attributes
-	vdcbase = viewport->win.cp;
+	vdcbase = viewport->view.cp;
 	address = viewport->sourcebase + (viewport->sourceyoffset * viewport->sourcewidth) + viewport->sourcexoffset + (viewport->sourceheight * viewport->sourcewidth) + 48;
 
-	for (char i = 0; i < viewport->win.wy; i++)
+	for (char i = 0; i < viewport->view.wy; i++)
 	{
-		bnk_cpytovdc(vdcbase, viewport->sourcebank, address, viewport->win.wx);
+		bnk_cpytovdc(vdcbase, viewport->sourcebank, address, viewport->view.wx);
 		vdcbase += vdc_state.width;
 		address += viewport->sourcewidth;
 	}
@@ -1098,31 +1099,31 @@ void vdcwin_viewportscroll(struct VDCViewport *viewport, char direction)
 
 	if (direction & SCROLL_LEFT)
 	{
-		vdcwin_scroll_right(&viewport->win, 1);
+		vdcwin_scroll_right(&viewport->view, 1);
 		vp_fill.sourcexoffset--;
 		viewport->sourcexoffset--;
-		vdcwin_init(&vp_fill.win, viewport->win.sx, viewport->win.sy, 1, viewport->win.wy);
+		vdcwin_init(&vp_fill.view, viewport->view.sx, viewport->view.sy, 1, viewport->view.wy);
 	}
 	if (direction & SCROLL_RIGHT)
 	{
-		vdcwin_scroll_left(&viewport->win, 1);
-		vp_fill.sourcexoffset += viewport->win.wx;
+		vdcwin_scroll_left(&viewport->view, 1);
+		vp_fill.sourcexoffset += viewport->view.wx;
 		viewport->sourcexoffset++;
-		vdcwin_init(&vp_fill.win, viewport->win.sx + viewport->win.wx - 1, viewport->win.sy, 1, viewport->win.wy);
+		vdcwin_init(&vp_fill.view, viewport->view.sx + viewport->view.wx - 1, viewport->view.sy, 1, viewport->view.wy);
 	}
 	if (direction & SCROLL_UP)
 	{
-		vdcwin_scroll_down(&viewport->win, 1);
+		vdcwin_scroll_down(&viewport->view, 1);
 		vp_fill.sourceyoffset--;
 		viewport->sourceyoffset--;
-		vdcwin_init(&vp_fill.win, viewport->win.sx, viewport->win.sy, viewport->win.wx, 1);
+		vdcwin_init(&vp_fill.view, viewport->view.sx, viewport->view.sy, viewport->view.wx, 1);
 	}
 	if (direction & SCROLL_DOWN)
 	{
-		vdcwin_scroll_up(&viewport->win, 1);
-		vp_fill.sourceyoffset += viewport->win.wy;
+		vdcwin_scroll_up(&viewport->view, 1);
+		vp_fill.sourceyoffset += viewport->view.wy;
 		viewport->sourceyoffset++;
-		vdcwin_init(&vp_fill.win, viewport->win.sx, viewport->win.sy + viewport->win.wy - 1, viewport->win.wx, 1);
+		vdcwin_init(&vp_fill.view, viewport->view.sx, viewport->view.sy + viewport->view.wy - 1, viewport->view.wx, 1);
 	}
 	vdcwin_cpy_viewport(&vp_fill);
 }

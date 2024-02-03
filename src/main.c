@@ -67,6 +67,32 @@ void settings_screenmode()
 	vdc_state.text_attr = old_attr;
 }
 
+void settings_versioninfo()
+// Print version information
+{
+	char old_attr = vdc_state.text_attr;
+	char version[22];
+
+	vdc_state.text_attr = VDC_POPUP_COLOR;
+	vdcwin_win_new(VDC_POPUP_BORDER, 5, 5, 60, 15);
+
+	vdc_underline(1);
+    vdc_prints(6,6,"Version information and credits");
+	vdc_underline(0);
+    vdc_prints(6,8,"Oscar64 VDC Demo");
+    vdc_prints(6,9,"Written in 2024 by Xander Mol");
+    sprintf(linebuffer,"Version: %s",VERSION);
+    vdc_prints(6,11,linebuffer);
+    vdc_prints(6,13,"Full source code, documentation and credits at:");
+    vdc_prints(6,14,"https://github.com/xahmol/Oscar64Test/");
+    vdc_prints(6,16,"(C) 2024, IDreamtIn8Bits.com");
+    vdc_prints(6,18,"Press a key to continue.");
+
+    getch();
+    vdcwin_win_free();
+	vdc_state.text_attr = old_attr;
+}
+
 void windows_windowstacking()
 // Windowing demo
 {
@@ -122,48 +148,47 @@ void viewport_demo(char screen)
 // Viewport scrolling demo
 {
 	char key, direction;
-	struct VDCWin window;
-	struct VDCViewport viewport;
+	struct VDCWin win_vpdemo;
+	struct VDCViewport vp_vpdemo;
 
-	vdc_clear(0,2,CH_SPACE,80,23);
+	vdc_clear(0, 2, CH_SPACE, 80, vdc_state.height-2);
 	vdc_prints(0, 3, "Move by W,A,S,D or cursor keys. ESC or STOP to exit.");
 
-	if(screen==0)
+	if (screen == 0)
 	{
 		vdc_prints(0, vdc_state.height - 1, "Petscii art credit: 'Love is the drug' Atlantis, 2023, Art by Lobo.");
 	}
-	
 
 	// Init and copy viewport from bank 1 screen
-	vdcwin_init(&window, 5, 5, 70, vdc_state.height - 7);
-	vdcwin_border_clear(&window, WIN_BOR_ALL);
-	vdcwin_viewport_init(&viewport, BNK_1_FULL, screenset[screen].source, screenset[screen].width, screenset[screen].height, 70, vdc_state.height - 7, 5, 5);
-	vdcwin_cpy_viewport(&viewport);
+	vdcwin_init(&win_vpdemo, 5, 5, 70, vdc_state.height - 7);
+	vdcwin_border_clear(&win_vpdemo, WIN_BOR_ALL);
+	vdcwin_viewport_init(&vp_vpdemo, BNK_1_FULL, screenset[screen].source, screenset[screen].width, screenset[screen].height, 70, vdc_state.height - 7, 5, 5);
+	vdcwin_cpy_viewport(&vp_vpdemo);
 
 	// Scroll contents using WASD keys, ESC to quit
 	do
 	{
 		key = getch();
 		direction = 0;
-		if ((key == 'w' || key == CH_CURS_UP) && viewport.sourceyoffset > 0)
+		if ((key == 'w' || key == CH_CURS_UP) && vp_vpdemo.sourceyoffset > 0)
 		{
 			direction |= SCROLL_UP;
 		}
-		if ((key == 's' || key == CH_CURS_DOWN) && viewport.sourceyoffset < (screenset[screen].height - vdc_state.height + 6))
+		if ((key == 's' || key == CH_CURS_DOWN) && vp_vpdemo.sourceyoffset < (screenset[screen].height - vdc_state.height + 6))
 		{
 			direction |= SCROLL_DOWN;
 		}
-		if ((key == 'a' || key == CH_CURS_LEFT) && viewport.sourcexoffset > 0)
+		if ((key == 'a' || key == CH_CURS_LEFT) && vp_vpdemo.sourcexoffset > 0)
 		{
 			direction |= SCROLL_LEFT;
 		}
-		if ((key == 'd' || key == CH_CURS_RIGHT) && viewport.sourcexoffset < screenset[screen].width-71)
+		if ((key == 'd' || key == CH_CURS_RIGHT) && vp_vpdemo.sourcexoffset < screenset[screen].width - 71)
 		{
 			direction |= SCROLL_RIGHT;
 		}
 		if (direction)
 		{
-			vdcwin_viewportscroll(&viewport, direction);
+			vdcwin_viewportscroll(&vp_vpdemo, direction);
 		}
 	} while (key != CH_ESC && key != CH_STOP);
 }
@@ -207,7 +232,7 @@ void scroll_fullscreen_smooth(char screen)
 
 int main(void)
 {
-	struct VDCViewport logo;
+	struct VDCViewport vp_logo;
 	char menuchoice = 0;
 
 	// Initialise CIA clock
@@ -237,26 +262,24 @@ int main(void)
 		exit(1);
 	}
 
-	// Initialise logo viewport
-	vdcwin_viewport_init(&logo,BNK_1_FULL, (char*)MEM_SCREEN2,160,75,48,12,16,6);
-	logo.sourcexoffset = 16;
-	logo.sourceyoffset = 6;
-
 	do
 	{
 		menu_placetop(" Oscar64 VDC Demo");
-		sprintf(linebuffer,"M: %u TA: %4x AA: %4x W: %3u H: %3u A: %2x",vdc_state.mode,vdc_state.base_text, vdc_state.base_attr, vdc_state.width,vdc_state.height,vdc_state.text_attr);
-		vdc_prints(0, 2, linebuffer);
+
+		// Initialise logo viewport
+		vdcwin_viewport_init(&vp_logo, BNK_1_FULL, (char *)MEM_SCREEN2, 160, 75, 48, 12, 16, (vdc_state.height/2)-6);
+		vp_logo.sourcexoffset = 16;
+		vp_logo.sourceyoffset = 6;
 
 		// Draw info, intructions and logo
 		sprintf(linebuffer, "VDC memory detected: %u KB, extended memory %sabled.", vdc_state.memsize, (vdc_state.memextended) ? "En" : "Dis");
 		vdc_prints(0, 3, linebuffer);
-		sprintf(linebuffer,"Screenmode: %s",pulldown_titles[6][vdc_state.mode]);
+		sprintf(linebuffer, "Screenmode: %s", pulldown_titles[6][vdc_state.mode]);
 		vdc_prints(0, 4, linebuffer);
-		vdc_prints(0,19,"Select desired demo using cursor keys and RETURN in menu.");
-		vdc_prints(0,20,"In scrolling demos, press WASD or cursor keys to move, ESC to exit.");
-		vdc_prints(0,21,"In other demos, press a kety to continue to next step.");
-		vdcwin_cpy_viewport(&logo);
+		vdc_prints(0, vdc_state.height - 4, "Select desired demo using cursor keys and RETURN in menu.");
+		vdc_prints(0, vdc_state.height - 3, "In scrolling demos, press WASD or cursor keys to move, ESC to exit.");
+		vdc_prints(0, vdc_state.height - 2, "In other demos, press a kety to continue to next step.");
+		vdcwin_cpy_viewport(&vp_logo);
 
 		// Start menu lselection
 		menuchoice = menu_main();
@@ -265,6 +288,10 @@ int main(void)
 		{
 		case 11:
 			settings_screenmode();
+			break;
+
+		case 12:
+			settings_versioninfo();
 			break;
 
 		case 21:

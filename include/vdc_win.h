@@ -30,7 +30,7 @@ struct VDCViewport
     unsigned sourceheight;
     unsigned sourcexoffset;
     unsigned sourceyoffset;
-    struct VDCWin win;
+    struct VDCWin view;
 };
 struct WinStyleStruct
 {

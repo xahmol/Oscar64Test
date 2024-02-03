@@ -23,8 +23,14 @@ CC = /home/xahmol/oscar64/bin/oscar64
 # Application names
 MAIN = vdctest
 
+# Build versioning
+VERSION_MAJOR = 0
+VERSION_MINOR = 1
+VERSION_TIMESTAMP = $(shell date "+%Y%m%d-%H%M")
+VERSION = v$(VERSION_MAJOR)$(VERSION_MINOR)-$(VERSION_TIMESTAMP)
+
 # Common compile flags
-CFLAGS  = -i=include -tm=$(SYS) -O2s -dNOFLOAT
+CFLAGS  = -i=include -tm=$(SYS) -O2s -dNOFLOAT -dVERSION="\"$(VERSION)\""
 
 # Sources
 MAINSRC = src/main.c
@@ -36,13 +42,17 @@ ASSETS = -f=assets/screen1.prg -f=assets/screen2.prg
 ULTHOST = ftp://192.168.1.19/usb1/temp/
 ULTHOST2 = ftp://192.168.1.31/usb1/temp/
 
+# ZIP file contents
+ZIP = oscar64_vdcdemo_$(VERSION).zip
+README = README.pdf
+ZIPLIST = $(MAIN).d64 $(MAIN).d71 $(MAIN).d81 $(README)
+
 ########################################
 
 .SUFFIXES:
 .PHONY: all clean deploy vice
-all: $(MAIN).prg bootsect.bin $(MAIN).d64 $(MAIN).d71 $(MAIN).d81
+all: $(MAIN).prg bootsect.bin $(MAIN).d64 $(MAIN).d71 $(MAIN).d81 $(ZIP)
 
-# Building temp .d64
 $(MAIN).prg: $(MAINSRC)
 	$(CC) $(CFLAGS) -n -o=build/$(MAIN).prg $(ASSETS) $<
 
@@ -79,6 +89,10 @@ $(MAIN).d81:	bootsect.bin
 	c1541 -cd build/ -attach $(MAIN).d81 -write vdctestlmc.prg vdctestlmc
 	c1541 -cd build/ -attach $(MAIN).d81 -write screen1.prg screen1
 	c1541 -cd build/ -attach $(MAIN).d81 -write screen2.prg screen2
+
+# Creating ZIP file for distribution
+$(ZIP): $(ZIPLIST)
+	zip $@ $^
 
 # Cleaning repo of build files
 clean:
