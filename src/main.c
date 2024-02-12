@@ -16,7 +16,7 @@
 
 // Memory region for code, data etc. from 0x1c80 to 0xbfff
 #pragma region( vdctest, 0x1c80, 0xc000, , , {code, data, bss, heap, stack} )
-#pragma region( zeropage, 0x80, 0xfd, , , {} )
+#pragma region( zeropage, 0x80, 0xfb, , , {} )
 
 struct SCREENSettings
 {
@@ -57,7 +57,7 @@ void settings_screenmode()
 	vdcwin_win_new(VDC_POPUP_BORDER, 8, 8, 30, 10);
 
 	vdc_prints(10, 9, "Select screen mode");
-	menuchoice = menu_pulldown(25, 11, 6, 1);
+	menuchoice = menu_pulldown(25, 11, 7, 1);
 	vdcwin_win_free();
 
 	if (menuchoice)
@@ -78,19 +78,20 @@ void settings_versioninfo()
 	vdcwin_win_new(VDC_POPUP_BORDER, 5, 5, 60, 15);
 
 	vdc_underline(1);
-    vdc_prints(6,6,"Version information and credits");
+	vdc_prints(6, 6, "Version information and credits");
 	vdc_underline(0);
-    vdc_prints(6,8,"Oscar64 VDC Demo");
-    vdc_prints(6,9,"Written in 2024 by Xander Mol");
-    sprintf(linebuffer,"Version: %s",VERSION);
-    vdc_prints(6,11,linebuffer);
-    vdc_prints(6,13,"Full source code, documentation and credits at:");
-    vdc_prints(6,14,"https://github.com/xahmol/Oscar64Test/");
-    vdc_prints(6,16,"(C) 2024, IDreamtIn8Bits.com");
-    vdc_prints(6,18,"Press a key to continue.");
+	vdc_prints(6, 8, "Oscar64 VDC Demo");
+	vdc_prints(6, 9, "Written in 2024 by Xander Mol");
+	sprintf(linebuffer, "Version: %s", VERSION);
+	vdc_prints(6, 10, linebuffer);
+	vdc_prints(6, 12, "Music by Nordischsound");
+	vdc_prints(6, 13, "Full source code, documentation and credits at:");
+	vdc_prints(6, 14, "https://github.com/xahmol/Oscar64Test/");
+	vdc_prints(6, 16, "(C) 2024, IDreamtIn8Bits.com");
+	vdc_prints(6, 18, "Press a key to continue.");
 
-    getch();
-    vdcwin_win_free();
+	getch();
+	vdcwin_win_free();
 	vdc_state.text_attr = old_attr;
 }
 
@@ -152,7 +153,7 @@ void viewport_demo(char screen)
 	struct VDCWin win_vpdemo;
 	struct VDCViewport vp_vpdemo;
 
-	vdc_clear(0, 2, CH_SPACE, 80, vdc_state.height-2);
+	vdc_clear(0, 2, CH_SPACE, 80, vdc_state.height - 2);
 	vdc_prints(0, 3, "Move by W,A,S,D or cursor keys. ESC or STOP to exit.");
 
 	if (screen == 0)
@@ -235,6 +236,7 @@ int main(void)
 {
 	struct VDCViewport vp_logo;
 	char menuchoice = 0;
+	char musicchoice = 1;
 
 	// Initialise CIA clock
 	cia_init();
@@ -276,7 +278,7 @@ int main(void)
 		menu_placetop(" Oscar64 VDC Demo");
 
 		// Initialise logo viewport
-		vdcwin_viewport_init(&vp_logo, BNK_1_FULL, (char *)MEM_SCREEN2, 160, 75, 48, 12, 16, (vdc_state.height/2)-6);
+		vdcwin_viewport_init(&vp_logo, BNK_1_FULL, (char *)MEM_SCREEN2, 160, 75, 48, 12, 16, (vdc_state.height / 2) - 6);
 		vp_logo.sourcexoffset = 16;
 		vp_logo.sourceyoffset = 6;
 
@@ -315,6 +317,29 @@ int main(void)
 		case 41:
 		case 42:
 			scroll_fullscreen_smooth(menuchoice - 41);
+			break;
+
+		case 61:
+		case 62:
+			if (musicchoice != (menuchoice - 60))
+			{
+				sid_stopmusic();
+				musicchoice = menuchoice - 60;
+				sprintf(linebuffer, "music%u", musicchoice);
+				if (!bnk_load(bootdevice, 1, (char *)MEM_SID, linebuffer))
+				{
+					menu_fileerrormessage();
+				}
+				sid_startmusic();
+			}
+			break;
+		
+		case 63:
+			sid_stopmusic();
+			break;
+
+		case 64:
+			sid_startmusic();
 			break;
 
 		default:

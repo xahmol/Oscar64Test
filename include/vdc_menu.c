@@ -8,11 +8,11 @@
 #include "vdc_menu.h"
 
 struct VDCMenuBar menubar = {
-    {"Settings", "Windows", "Viewport", "Scroll", "Charset"},
-    {0, 0, 0, 0, 0},
+    {"Settings", "Windows", "Viewport", "Scroll", "Charset", "Music"},
+    {0, 0, 0, 0, 0, 0},
     1};
 
-char pulldown_options[VDC_PULLDOWN_NUMBER] = {3, 2, 2, 2, 1, 2, 6};
+char pulldown_options[VDC_PULLDOWN_NUMBER] = {3, 2, 2, 2, 1, 4, 2, 6};
 char pulldown_titles[VDC_PULLDOWN_NUMBER][VDC_PULLDOWN_MAXOPTIONS][VDC_PULLDOWN_MAXLENGTH] = {
     {"Screenmode",
      "Info      ",
@@ -24,6 +24,10 @@ char pulldown_titles[VDC_PULLDOWN_NUMBER][VDC_PULLDOWN_MAXOPTIONS][VDC_PULLDOWN_
     {"Fullscreen 1",
      "Fullscreen 2"},
     {"Charset demo"},
+    {"Ultimate Axel F",
+     "Faded          ",
+     "Stop music     ",
+     "Restart music  "},
     {"Yes",
      "No "},
     {"PAL  80x25",
@@ -31,7 +35,7 @@ char pulldown_titles[VDC_PULLDOWN_NUMBER][VDC_PULLDOWN_MAXOPTIONS][VDC_PULLDOWN_
      "PAL  80x70",
      "NTSC 80x25",
      "NTSC 80x50",
-     "NTSC 80x70"}};
+     "NTSC 80x60"}};
 
 void menu_placeheader(const char *header)
 // Print header title
@@ -215,7 +219,7 @@ char menu_main()
         if (key != CH_ESC && key != CH_STOP)
         {
             xpos = menubar.xstart[menubarchoice - 1];
-            menuoptionchoice = menu_pulldown(xpos, menubar.ypos+1, menubarchoice - 1, 1);
+            menuoptionchoice = menu_pulldown(xpos, menubar.ypos + 1, menubarchoice - 1, 1);
             if (menuoptionchoice == 18)
             {
                 menuoptionchoice = 0;

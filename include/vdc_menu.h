@@ -8,9 +8,9 @@
 
 // Define
 // Set these for menubar and pulldown menu dimensions
-#define VDC_MENUBAR_MAXOPTIONS 5  // Number of options in main menu bar
+#define VDC_MENUBAR_MAXOPTIONS 6  // Number of options in main menu bar
 #define VDC_MENUBAR_MAXLENGTH 9   // Maxiumum length of main menu bar option names
-#define VDC_PULLDOWN_NUMBER 7     // Number of pull down menus defined
+#define VDC_PULLDOWN_NUMBER 8     // Number of pull down menus defined
 #define VDC_PULLDOWN_MAXOPTIONS 6 // Maximum number of options for pull down meus
 #define VDC_PULLDOWN_MAXLENGTH 17 // Maximum length of pull down menu option names
 
@@ -25,7 +25,7 @@
 #define VDC_PULLDOWN_SELECTCH CH_MINUS                                     // Set char before selected option
 #define VDC_POPUP_COLOR VDC_LYELLOW + VDC_A_ALTCHAR                        // Set pop-up window default attributes
 #define VDC_POPUP_BORDER WIN_BOR_ALL                                       // Default pop-up border style
-#define VDC_MENU_YESNO 5                                                   // Number for Yes No pull down menu
+#define VDC_MENU_YESNO 6                                                   // Number for Yes No pull down menu
 
 // Function prototypes
 void menu_placeheader(const char *header);
