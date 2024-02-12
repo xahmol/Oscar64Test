@@ -2,10 +2,11 @@
 #define __DEFINES_H_
 
 // Memory map bank 1
-#define MEM_WINDOW 0x2000
+#define MEM_SID 0x2000
 #define MEM_SCREEN1 0x4000
 #define MEM_SCREEN2 0xA000
 #define MEM_CHARSET 0xD000
+#define MEM_WINDOW 0xE000
 
 // References to steering chars
 #define CH_CURS_UP 145    // Petscii control code for Cursor Up

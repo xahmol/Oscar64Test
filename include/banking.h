@@ -10,10 +10,10 @@
 #define BNK_1_IO 0x7e
 
 // Defines for scroll directions
-#define SCROLL_LEFT             0x01
-#define SCROLL_RIGHT            0x02
-#define SCROLL_DOWN             0x04
-#define SCROLL_UP               0x08
+#define SCROLL_LEFT 0x01
+#define SCROLL_RIGHT 0x02
+#define SCROLL_DOWN 0x04
+#define SCROLL_UP 0x08
 
 // Function Prototypes
 
@@ -35,8 +35,10 @@ __noinline void bnk_memset(char cr, char *p, char val, unsigned size);
 __noinline void bnk_cpytovdc(unsigned vdcdest, char scr, volatile char *sp, unsigned size);
 __noinline void bnk_cpyfromvdc(char dcr, volatile char *dp, unsigned vdcsrc, unsigned size);
 __noinline void bnk_redef_charset(unsigned vdcdest, char scr, volatile char *sp, unsigned size);
-__noinline bool bnk_load(char device, char bank, const char* start, const char *fname);
+__noinline bool bnk_load(char device, char bank, const char *start, const char *fname);
 __noinline bool bnk_save(char device, char bank, const char *start, const char *end, const char *fname);
+__noinline void sid_startmusic();
+__noinline void sid_stopmusic();
 
 // Global variables
 extern char bootdevice;

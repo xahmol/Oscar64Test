@@ -35,9 +35,6 @@ CFLAGS  = -i=include -tm=$(SYS) -O2s -dNOFLOAT -dVERSION="\"$(VERSION)\""
 # Sources
 MAINSRC = src/main.c
 
-# Assets to include on disk
-ASSETS = -f=assets/screen1.prg -f=assets/screen2.prg
-
 # Hostname of Ultimate II+ target for deployment. Edit for proper IP and usb number
 ULTHOST = ftp://192.168.1.19/usb1/temp/
 ULTHOST2 = ftp://192.168.1.31/usb1/temp/
@@ -54,11 +51,12 @@ ZIPLIST = $(MAIN).d64 $(MAIN).d71 $(MAIN).d81 $(README)
 all: $(MAIN).prg bootsect.bin $(MAIN).d64 $(MAIN).d71 $(MAIN).d81 $(ZIP)
 
 $(MAIN).prg: $(MAINSRC)
-	$(CC) $(CFLAGS) -n -o=build/$(MAIN).prg $(ASSETS) $<
+	$(CC) $(CFLAGS) -n -o=build/$(MAIN).prg $<
 
 bootsect.bin: $(MAIN).prg
 	$(CC) -tf=bin -rt=src/bootsect.c -o=build/bootsect.bin
 	cp assets/screen*.prg build/
+	cp assets/music*.prg build/
 
 $(MAIN).d64:	bootsect.bin
 	c1541 -cd build/ -format "$(MAIN),xm" d64 $(MAIN).d64
@@ -69,6 +67,8 @@ $(MAIN).d64:	bootsect.bin
 	c1541 -cd build/ -attach $(MAIN).d64 -write vdctestlmc.prg vdctestlmc
 	c1541 -cd build/ -attach $(MAIN).d64 -write screen1.prg screen1
 	c1541 -cd build/ -attach $(MAIN).d64 -write screen2.prg screen2
+	c1541 -cd build/ -attach $(MAIN).d64 -write music1.prg music1
+	c1541 -cd build/ -attach $(MAIN).d64 -write music2.prg music2
 
 $(MAIN).d71:	bootsect.bin
 	c1541 -cd build/ -format "$(MAIN),xm" d71 $(MAIN).d71
@@ -79,6 +79,8 @@ $(MAIN).d71:	bootsect.bin
 	c1541 -cd build/ -attach $(MAIN).d71 -write vdctestlmc.prg vdctestlmc
 	c1541 -cd build/ -attach $(MAIN).d71 -write screen1.prg screen1
 	c1541 -cd build/ -attach $(MAIN).d71 -write screen2.prg screen2
+	c1541 -cd build/ -attach $(MAIN).d71 -write music1.prg music1
+	c1541 -cd build/ -attach $(MAIN).d71 -write music2.prg music2
 
 $(MAIN).d81:	bootsect.bin
 	c1541 -cd build/ -format "$(MAIN),xm" d81 $(MAIN).d81
@@ -89,6 +91,8 @@ $(MAIN).d81:	bootsect.bin
 	c1541 -cd build/ -attach $(MAIN).d81 -write vdctestlmc.prg vdctestlmc
 	c1541 -cd build/ -attach $(MAIN).d81 -write screen1.prg screen1
 	c1541 -cd build/ -attach $(MAIN).d81 -write screen2.prg screen2
+	c1541 -cd build/ -attach $(MAIN).d81 -write music1.prg music1
+	c1541 -cd build/ -attach $(MAIN).d81 -write music2.prg music2
 
 # Creating ZIP file for distribution
 $(ZIP): $(ZIPLIST)

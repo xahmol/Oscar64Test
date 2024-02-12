@@ -42,7 +42,7 @@ void load_overlay(const char *fname)
 {
 	krnio_setbnk(0, 0);
 	krnio_setnam(fname);
-	printf("loading: %s\n",fname);
+	printf("loading: %s\n", fname);
 	if (!krnio_load(1, bootdevice, 1))
 	{
 		printf("loading overlay file failed.\n");
@@ -85,6 +85,9 @@ void bnk_exit()
 #pragma code(bcode1)
 #pragma data(bdata1)
 #pragma bss(bbss1)
+
+char sid_irq[2];
+char sid_cr[2];
 
 char bnk_readb(char cr, volatile char *p)
 // Function to read a byte from given address with specified banking config register value
@@ -215,6 +218,110 @@ void bnk_redef_charset(unsigned vdcdest, char scr, volatile char *sp, unsigned s
 		size--;
 	}
 	mmu.cr = old;
+}
+
+__asm sid_interrupt
+{
+	// Store old MMU config and change to bank 1 wkth I/O ($7e)
+	lda	$ff00
+	sta sid_cr
+	lda sid_cr+1
+	sta $ff00
+	
+	// Play frame
+	inc $d020
+	jsr $2003
+	dec $d020
+	
+	// Restore memory configuration
+	lda sid_cr
+	sta $ff00
+
+	// jump to old irq
+	lda sid_irq
+	sta sid_oldirq+1
+	lda sid_irq+1
+	sta sid_oldirq+2
+sid_oldirq:
+	jmp $fa65
+}
+
+void sid_startmusic()
+// Start SID music from a selected bank and address
+// Assumes a SID file with:
+// - init address = base address;
+// - play frame address = base address +3;
+// - zp address use $fb and $fc
+{
+	// Safeguard MMU and zeropage values and set new MMU CR
+	char old = mmu.cr;
+	mmu.cr = BNK_1_FULL;
+	sid_cr[1] = BNK_1_FULL;
+
+	// Call SID init routine and set new IRQ vector
+	__asm
+		{
+		lda #$00
+		jsr $2000
+        sei									
+		lda $314							
+		sta sid_irq									
+        lda #<sid_interrupt					
+		sta $314							
+		lda $315							
+		sta sid_irq+1										
+        lda #>sid_interrupt					
+		sta $315
+		cli
+		}
+
+	// Restore MMU and zeropage values
+	mmu.cr = old;
+}
+
+void sid_stopmusic()
+{
+	// Restore IRQ vector
+	__asm 
+	{
+		sei 
+		ldx sid_irq
+		ldy sid_irq+1
+		stx $314
+		sty $315
+		cli
+	}
+
+	// Reset SID
+	__asm 
+	{
+		ldx #$18
+        lda #$00
+rst1:    
+        sta $d400,x
+        dex
+        bpl rst1
+ 
+        lda #$08
+        sta $d404
+        sta $d40b
+        sta $d412 
+        ldx #$03
+rst2:       
+        bit $d011
+        bpl *-3
+        bit $d011
+        bmi *-3
+        dex
+        bpl rst2
+ 
+        lda #$00
+        sta $d404
+        sta $d40b
+        sta $d412
+        lda #$00
+        sta $d418
+	}
 }
 
 bool bnk_load(char device, char bank, const char *start, const char *fname)

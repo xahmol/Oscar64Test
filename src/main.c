@@ -16,6 +16,7 @@
 
 // Memory region for code, data etc. from 0x1c80 to 0xbfff
 #pragma region( vdctest, 0x1c80, 0xc000, , , {code, data, bss, heap, stack} )
+#pragma region( zeropage, 0x80, 0xfd, , , {} )
 
 struct SCREENSettings
 {
@@ -261,6 +262,14 @@ int main(void)
 		menu_fileerrormessage();
 		exit(1);
 	}
+	vdc_prints(0, 7, "- music: Ultimate Axel F from Nordischsound");
+	if (!bnk_load(bootdevice, 1, (char *)MEM_SID, "music1"))
+	{
+		menu_fileerrormessage();
+		exit(1);
+	}
+
+	sid_startmusic();
 
 	do
 	{
@@ -313,6 +322,7 @@ int main(void)
 		}
 	} while (menuchoice != 13);
 
+	sid_stopmusic();
 	vdc_exit();
 
 	return 0;
