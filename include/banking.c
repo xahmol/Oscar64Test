@@ -87,7 +87,7 @@ void bnk_exit()
 #pragma bss(bbss1)
 
 char sid_irq[2];
-char sid_cr[2];
+char sid_oldcr;
 
 char bnk_readb(char cr, volatile char *p)
 // Function to read a byte from given address with specified banking config register value
@@ -223,18 +223,16 @@ void bnk_redef_charset(unsigned vdcdest, char scr, volatile char *sp, unsigned s
 __asm sid_interrupt
 {
 	// Store old MMU config and change to bank 1 wkth I/O ($7e)
-	lda	$ff00
-	sta sid_cr
-	lda sid_cr+1
+	lda $ff00
+	sta sid_oldcr
+	lda #BNK_1_IO
 	sta $ff00
 	
 	// Play frame
-	inc $d020
 	jsr $2003
-	dec $d020
 	
 	// Restore memory configuration
-	lda sid_cr
+	lda sid_oldcr
 	sta $ff00
 
 	// jump to old irq
@@ -255,15 +253,17 @@ void sid_startmusic()
 {
 	// Safeguard MMU and zeropage values and set new MMU CR
 	char old = mmu.cr;
-	mmu.cr = BNK_1_FULL;
-	sid_cr[1] = BNK_1_FULL;
+	mmu.cr = BNK_1_IO;
 
 	// Call SID init routine and set new IRQ vector
 	__asm
 		{
+		sei
+		lda #BNK_1_IO
+		sta $ff00
 		lda #$00
 		jsr $2000
-        sei									
+							
 		lda $314							
 		sta sid_irq									
         lda #<sid_interrupt					
