@@ -30,7 +30,7 @@ VERSION_TIMESTAMP = $(shell date "+%Y%m%d-%H%M")
 VERSION = v$(VERSION_MAJOR)$(VERSION_MINOR)-$(VERSION_TIMESTAMP)
 
 # Common compile flags
-CFLAGS  = -i=include -tm=$(SYS) -O2 -dNOFLOAT -dVERSION="\"$(VERSION)\""
+CFLAGS  = -i=include -tm=$(SYS) -O1 -dNOFLOAT -dVERSION="\"$(VERSION)\""
 
 # Sources
 MAINSRC = src/main.c

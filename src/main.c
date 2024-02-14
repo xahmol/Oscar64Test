@@ -406,6 +406,10 @@ int main(void)
 			scroll_fullscreen_smooth(menuchoice - 41);
 			break;
 
+		case 51:
+			charset_demo();
+			break;
+
 		case 61:
 		case 62:
 			if (musicchoice != (menuchoice - 60))
