@@ -39,6 +39,8 @@ __noinline bool bnk_load(char device, char bank, const char *start, const char *
 __noinline bool bnk_save(char device, char bank, const char *start, const char *end, const char *fname);
 __noinline void sid_startmusic();
 __noinline void sid_stopmusic();
+__noinline void sid_resetsid();
+__noinline void sid_pausemusic();
 
 // Global variables
 extern char bootdevice;

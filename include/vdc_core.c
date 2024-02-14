@@ -162,6 +162,7 @@ char vdc_set_mode(char mode)
 
     vdc_cls();
     vdc_enable_display();
+    return 1;
 }
 
 void vdc_init(char mode, char extmem)

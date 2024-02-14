@@ -88,6 +88,7 @@ void bnk_exit()
 
 char sid_irq[2];
 char sid_oldcr;
+char sid_pause;
 
 char bnk_readb(char cr, volatile char *p)
 // Function to read a byte from given address with specified banking config register value
@@ -221,7 +222,12 @@ void bnk_redef_charset(unsigned vdcdest, char scr, volatile char *sp, unsigned s
 }
 
 __asm sid_interrupt
+// SID play IRQ routine
 {
+	// Check if music is paused
+	lda sid_pause
+	bne sid_oldirq
+
 	// Store old MMU config and change to bank 1 wkth I/O ($7e)
 	lda $ff00
 	sta sid_oldcr
@@ -245,11 +251,11 @@ sid_oldirq:
 }
 
 void sid_startmusic()
-// Start SID music from a selected bank and address
+// Start SID music
 // Assumes a SID file with:
-// - init address = base address;
-// - play frame address = base address +3;
-// - zp address use $fb and $fc
+// - init address = $2000
+// - play frame address = $2003;
+// - zp address use between $fc and $fe
 {
 	// Safeguard MMU and zeropage values and set new MMU CR
 	char old = mmu.cr;
@@ -279,19 +285,9 @@ void sid_startmusic()
 	mmu.cr = old;
 }
 
-void sid_stopmusic()
+void sid_resetsid()
+// Resets SID and silences presently played notes
 {
-	// Restore IRQ vector
-	__asm 
-	{
-		sei 
-		ldx sid_irq
-		ldy sid_irq+1
-		stx $314
-		sty $315
-		cli
-	}
-
 	// Reset SID
 	__asm 
 	{
@@ -322,6 +318,29 @@ rst2:
         lda #$00
         sta $d418
 	}
+}
+
+void sid_stopmusic()
+// Stops music and restores original IRQ vector
+{
+	// Restore IRQ vector
+	__asm 
+	{
+		sei 
+		ldx sid_irq
+		ldy sid_irq+1
+		stx $314
+		sty $315
+		cli
+	}
+	sid_resetsid();
+}
+
+void sid_pausemusic()
+// Toggles pause / unpause of music
+{
+	sid_pause != sid_pause;
+	sid_resetsid();
 }
 
 bool bnk_load(char device, char bank, const char *start, const char *fname)

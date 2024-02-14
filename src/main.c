@@ -20,13 +20,12 @@
 
 struct SCREENSettings
 {
-	char *source;
 	char width;
 	char height;
 };
 struct SCREENSettings screenset[2] = {
-	{(char *)MEM_SCREEN1, 80, 150},
-	{(char *)MEM_SCREEN2, 160, 75}};
+	{80, 150},
+	{160, 75}};
 
 void generateSentence(char *sentence)
 // Adappted from
@@ -146,6 +145,72 @@ void windows_windowstacking()
 	vdcwin_win_free();
 }
 
+char screen_switch(char screen, char end, char fullscreen)
+// Function to load second screen or restore first screen if needed
+{
+	char succes = 1;
+
+	// Clears screen but header and prints loading messeage
+	vdc_clear(0, 2, CH_SPACE, 80, vdc_state.height - 2);
+	vdc_prints(0, 3, "Loading screen data.");
+
+	if (screen == 0 || screen == 2)
+	{
+		// Pauses music to not disturb loading routine
+		sid_pausemusic();
+
+		// Loads back logo screen
+		if (end)
+		{
+			if (!bnk_load(bootdevice, 1, (char *)MEM_SCREEN, "screen2"))
+			{
+				menu_fileerrormessage();
+				succes = 0;
+			}
+		}
+
+		// Load petscii art screen
+		else
+		{
+			if (screen == 0)
+			{
+				if (!bnk_load(bootdevice, 1, (char *)MEM_SCREEN, "screen1"))
+				{
+					menu_fileerrormessage();
+					succes = 0;
+				}
+				if (!fullscreen)
+				{
+					vdc_prints(0, vdc_state.height - 1, "Petscii art credit: 'Love is the drug' Atlantis, 2023, Art by Lobo.");
+				}
+			}
+			else
+			{
+				if (!bnk_load(bootdevice, 1, (char *)MEM_SCREEN, "screen3"))
+				{
+					menu_fileerrormessage();
+					succes = 0;
+				}
+				vdc_prints(0, 4, "Loading charset.");
+				if (!bnk_load(bootdevice, 1, (char *)MEM_CHARSET, "chars1"))
+				{
+					menu_fileerrormessage();
+					succes = 0;
+				}
+			}
+		}
+
+		// Resume music
+		sid_pausemusic();
+	}
+
+	// Clear loading message
+	vdc_clear(0, 3, CH_SPACE, 80, 2);
+
+	// Return succes code
+	return succes;
+}
+
 void viewport_demo(char screen)
 // Viewport scrolling demo
 {
@@ -153,18 +218,17 @@ void viewport_demo(char screen)
 	struct VDCWin win_vpdemo;
 	struct VDCViewport vp_vpdemo;
 
-	vdc_clear(0, 2, CH_SPACE, 80, vdc_state.height - 2);
-	vdc_prints(0, 3, "Move by W,A,S,D or cursor keys. ESC or STOP to exit.");
-
-	if (screen == 0)
+	if (!screen_switch(screen, 0, 0))
 	{
-		vdc_prints(0, vdc_state.height - 1, "Petscii art credit: 'Love is the drug' Atlantis, 2023, Art by Lobo.");
+		return;
 	}
+
+	vdc_prints(0, 3, "Move by W,A,S,D or cursor keys. ESC or STOP to exit.");
 
 	// Init and copy viewport from bank 1 screen
 	vdcwin_init(&win_vpdemo, 5, 5, 70, vdc_state.height - 7);
 	vdcwin_border_clear(&win_vpdemo, WIN_BOR_ALL);
-	vdcwin_viewport_init(&vp_vpdemo, BNK_1_FULL, screenset[screen].source, screenset[screen].width, screenset[screen].height, 70, vdc_state.height - 7, 5, 5);
+	vdcwin_viewport_init(&vp_vpdemo, BNK_1_FULL, (char *)MEM_SCREEN, screenset[screen].width, screenset[screen].height, 70, vdc_state.height - 7, 5, 5);
 	vdcwin_cpy_viewport(&vp_vpdemo);
 
 	// Scroll contents using WASD keys, ESC to quit
@@ -193,6 +257,8 @@ void viewport_demo(char screen)
 			vdcwin_viewportscroll(&vp_vpdemo, direction);
 		}
 	} while (key != CH_ESC && key != CH_STOP);
+
+	screen_switch(screen, 1, 0);
 }
 
 void scroll_fullscreen_smooth(char screen)
@@ -201,10 +267,16 @@ void scroll_fullscreen_smooth(char screen)
 	struct VDCSoftScrollSettings softscroll;
 	char key;
 
+	screen_switch(screen, 0, 1);
 	softscroll.cr = BNK_1_FULL;
-	softscroll.source = screenset[screen].source;
+	softscroll.source = (char *)MEM_SCREEN;
 	softscroll.width = screenset[screen].width;
 	softscroll.height = screenset[screen].height;
+
+	// vdc_clear(0, 2, CH_SPACE, 80, vdc_state.height - 2);
+	// sprintf(linebuffer,"Screen: %u Address: %4x W: %3u H: %3u",screen,softscroll.source,softscroll.width,softscroll.height);
+	// vdc_prints(0,3,linebuffer);
+	// getch();
 
 	if (vdc_softscroll_init(&softscroll, vdc_state.mode))
 	{
@@ -230,6 +302,27 @@ void scroll_fullscreen_smooth(char screen)
 		} while (key != CH_ESC && key != CH_STOP);
 		vdc_softscroll_exit(&softscroll, vdc_state.mode);
 	}
+	screen_switch(screen, 1, 1);
+}
+
+void charset_demo()
+// Charset redefine demo
+{
+	struct VDCViewport vp_chardemo;
+
+	// Clear screen but header
+	vdc_clear(0, 2, CH_SPACE, 80, vdc_state.height - 2);
+
+	// Loading screen and charset
+	screen_switch(2,0,0);
+
+	// Init and copy viewport from bank 1 screen
+	vdcwin_viewport_init(&vp_chardemo, BNK_1_FULL, (char *)MEM_SCREEN, 80, 25, 80, vdc_state.height - 2, 0, (vdc_state.height/2)-10);
+	vdcwin_cpy_viewport(&vp_chardemo);
+
+	// Wait on keypress
+	getch();
+	screen_switch(2,1,0);
 }
 
 int main(void)
@@ -252,19 +345,13 @@ int main(void)
 	sprintf(linebuffer, "VDC memory detected: %u KB, extended memory %sabled.", vdc_state.memsize, (vdc_state.memextended) ? "En" : "Dis");
 	vdc_prints(0, 2, linebuffer);
 	vdc_prints(0, 4, "Loading assets:");
-	vdc_prints(0, 5, "- screen 1: Love is a Drug");
-	if (!bnk_load(bootdevice, 1, (char *)MEM_SCREEN1, "screen1"))
+	vdc_prints(0, 5, "- screen: Logo and test screen");
+	if (!bnk_load(bootdevice, 1, (char *)MEM_SCREEN, "screen2"))
 	{
 		menu_fileerrormessage();
 		exit(1);
 	}
-	vdc_prints(0, 6, "- screen 2: Logo test screen");
-	if (!bnk_load(bootdevice, 1, (char *)MEM_SCREEN2, "screen2"))
-	{
-		menu_fileerrormessage();
-		exit(1);
-	}
-	vdc_prints(0, 7, "- music: Ultimate Axel F from Nordischsound");
+	vdc_prints(0, 6, "- music: Ultimate Axel F from Nordischsound");
 	if (!bnk_load(bootdevice, 1, (char *)MEM_SID, "music1"))
 	{
 		menu_fileerrormessage();
@@ -278,7 +365,7 @@ int main(void)
 		menu_placetop(" Oscar64 VDC Demo");
 
 		// Initialise logo viewport
-		vdcwin_viewport_init(&vp_logo, BNK_1_FULL, (char *)MEM_SCREEN2, 160, 75, 48, 12, 16, (vdc_state.height / 2) - 6);
+		vdcwin_viewport_init(&vp_logo, BNK_1_FULL, (char *)MEM_SCREEN, 160, 75, 48, 12, 16, (vdc_state.height / 2) - 6);
 		vp_logo.sourcexoffset = 16;
 		vp_logo.sourceyoffset = 6;
 
@@ -333,7 +420,7 @@ int main(void)
 				sid_startmusic();
 			}
 			break;
-		
+
 		case 63:
 			sid_stopmusic();
 			break;

@@ -121,7 +121,7 @@ void vdc_softscroll_right(struct VDCSoftScrollSettings *settings, char step)
     }
     else
     {
-        if (settings->xoff < settings->width - vdc_state.width - 1)
+        if ((settings->xoff + 1) < settings->width - vdc_state.width)
         {
             settings->hscroll = 8 - step + settings->hscroll_def % step;
             settings->xoff++;

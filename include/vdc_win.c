@@ -992,6 +992,8 @@ bool vdcwin_win_new(char border, char xpos, char ypos, char width, char height)
 
 	// Clear window and draw desired borders
 	vdcwin_border_clear(&windows[winCfg.active - 1].win, border);
+
+	return true;
 }
 
 void vdcwin_win_free()
