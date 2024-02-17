@@ -72,6 +72,7 @@ $(MAIN).d64:	bootsect.bin
 	c1541 -cd build/ -attach $(MAIN).d64 -write music1.prg music1
 	c1541 -cd build/ -attach $(MAIN).d64 -write music2.prg music2
 	c1541 -cd build/ -attach $(MAIN).d64 -write chars1.prg chars1
+	c1541 -cd build/ -attach $(MAIN).d64 -write chars2.prg chars2
 
 $(MAIN).d71:	bootsect.bin
 	c1541 -cd build/ -format "$(MAIN),xm" d71 $(MAIN).d71
@@ -86,6 +87,7 @@ $(MAIN).d71:	bootsect.bin
 	c1541 -cd build/ -attach $(MAIN).d71 -write music1.prg music1
 	c1541 -cd build/ -attach $(MAIN).d71 -write music2.prg music2
 	c1541 -cd build/ -attach $(MAIN).d71 -write chars1.prg chars1
+	c1541 -cd build/ -attach $(MAIN).d71 -write chars2.prg chars2
 
 $(MAIN).d81:	bootsect.bin
 	c1541 -cd build/ -format "$(MAIN),xm" d81 $(MAIN).d81
@@ -100,6 +102,7 @@ $(MAIN).d81:	bootsect.bin
 	c1541 -cd build/ -attach $(MAIN).d81 -write music1.prg music1
 	c1541 -cd build/ -attach $(MAIN).d81 -write music2.prg music2
 	c1541 -cd build/ -attach $(MAIN).d81 -write chars1.prg chars1
+	c1541 -cd build/ -attach $(MAIN).d81 -write chars2.prg chars2
 
 # Creating ZIP file for distribution
 $(ZIP): $(ZIPLIST)
