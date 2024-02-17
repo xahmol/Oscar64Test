@@ -23,9 +23,10 @@ struct SCREENSettings
 	char width;
 	char height;
 };
-struct SCREENSettings screenset[2] = {
+struct SCREENSettings screenset[3] = {
 	{80, 150},
-	{160, 75}};
+	{160, 75},
+	{80, 25}};
 
 void generateSentence(char *sentence)
 // Adappted from
@@ -143,6 +144,27 @@ void windows_windowstacking()
 	} while (winCfg.active > 1);
 
 	vdcwin_win_free();
+}
+
+void windows_textinput()
+{
+	char *input = malloc(251);
+	vdcwin_win_new(WIN_BOR_ALL, 5, (vdc_state.height / 2) - 6, 60, 12);
+	vdcwin_putat_string(&windows[winCfg.active - 1].win, 0, 1, "Try text entry in window, accept with RETURN.");
+	vdcwin_win_new(WIN_BOR_ALL, 10, (vdc_state.height / 2) - 3, 50, 5);
+	vdcwin_edit(&windows[winCfg.active - 1].win);
+	vdcwin_get_rect(&windows[winCfg.active - 1].win, 0, 0, 50, 5, BNK_DEFAULT, input);
+	vdcwin_win_free();
+	vdcwin_clear(&windows[winCfg.active - 1].win);
+	vdcwin_putat_string(&windows[winCfg.active - 1].win, 0, 1, "Entered string formatted with word wrap:");
+	vdcwin_cursor_move(&windows[winCfg.active - 1].win, 0, 3);
+	vdcwin_printwrap(&windows[winCfg.active - 1].win, input);
+	vdcwin_printline(&windows[winCfg.active - 1].win,"");
+	vdcwin_cursor_down(&windows[winCfg.active - 1].win);
+	vdcwin_put_string(&windows[winCfg.active - 1].win,"Press key.");
+	getch();
+	vdcwin_win_free();
+	free(input);
 }
 
 char screen_switch(char screen, char end, char fullscreen)
@@ -310,19 +332,33 @@ void charset_demo()
 {
 	struct VDCViewport vp_chardemo;
 
+	char wave_base = vdc_reg_read(VDCR_VSCROLL) & 0xf0;
+	char wave = 0;
+	char dir = 1;
+
 	// Clear screen but header
 	vdc_clear(0, 2, CH_SPACE, 80, vdc_state.height - 2);
 
-	// Loading screen and charset
-	screen_switch(2,0,0);
+	// Loading screen and set charset
+	screen_switch(2, 0, 0);
+	bnk_redef_charset(vdc_state.char_std, BNK_1_FULL, (char *)MEM_CHARSET, 256);
 
 	// Init and copy viewport from bank 1 screen
-	vdcwin_viewport_init(&vp_chardemo, BNK_1_FULL, (char *)MEM_SCREEN, 80, 25, 80, vdc_state.height - 2, 0, (vdc_state.height/2)-10);
+	vdcwin_viewport_init(&vp_chardemo, BNK_1_FULL, (char *)MEM_SCREEN, 80, 25, 80, (vdc_state.height > 25) ? 25 : 23, 0, (vdc_state.height / 2) - 10);
 	vdcwin_cpy_viewport(&vp_chardemo);
 
-	// Wait on keypress
+	// Print messages
+	vdc_prints(47, 3, "Graphics from redefining charset.");
+	vdc_prints(70, 4, "Press key.");
+
+	// Debounce character input
 	getch();
-	screen_switch(2,1,0);
+
+	vdc_reg_write(VDCR_VSCROLL, wave_base);
+
+	// Restore charset and logo screen
+	vdc_restore_charsets();
+	screen_switch(2, 1, 0);
 }
 
 int main(void)
@@ -394,6 +430,10 @@ int main(void)
 
 		case 21:
 			windows_windowstacking();
+			break;
+
+		case 22:
+			windows_textinput();
 			break;
 
 		case 31:

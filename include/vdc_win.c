@@ -538,7 +538,7 @@ void vdcwin_get_rect(struct VDCWin *win, char x, char y, char w, char h, char cr
 
 		for (char j = 0; j < w; j++)
 		{
-			bnk_writeb(chars + j, s2p(vdc_mem_read_at(sp + j)));
+			bnk_writeb(cr, chars + j, s2p(vdc_mem_read_at(sp + j)));
 		}
 
 		chars += w;
