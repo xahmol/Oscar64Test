@@ -710,12 +710,22 @@ void vdcwin_scroll_left(struct VDCWin *win, char by)
 
 	char rx = win->wx - by;
 
+	vdc_wait_vblank();
 	for (char y = 0; y < win->wy; y++)
 	{
+		//if(y==0)
+		//{
+		//	vdc_wait_vblank();
+		//}
+		//if(y==1)
+		//{
+		//	vdc_wait_no_vblank();
+		//}
 		copy_bwd(sp, sp + by, cp, cp + by, rx);
 		sp += vdc_state.width;
 		cp += vdc_state.width;
 	}
+	vdc_wait_no_vblank();
 }
 
 void vdcwin_scroll_right(struct VDCWin *win, char by)

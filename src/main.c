@@ -13,6 +13,7 @@
 #include "vdc_softscroll.h"
 #include "vdc_win.h"
 #include "vdc_menu.h"
+#include "vdc_textscroller.h"
 
 // Memory region for code, data etc. from 0x1c80 to 0xbfff
 #pragma region( vdctest, 0x1c80, 0xc000, , , {code, data, bss, heap, stack} )
@@ -159,9 +160,9 @@ void windows_textinput()
 	vdcwin_putat_string(&windows[winCfg.active - 1].win, 0, 1, "Entered string formatted with word wrap:");
 	vdcwin_cursor_move(&windows[winCfg.active - 1].win, 0, 3);
 	vdcwin_printwrap(&windows[winCfg.active - 1].win, input);
-	vdcwin_printline(&windows[winCfg.active - 1].win,"");
+	vdcwin_printline(&windows[winCfg.active - 1].win, "");
 	vdcwin_cursor_down(&windows[winCfg.active - 1].win);
-	vdcwin_put_string(&windows[winCfg.active - 1].win,"Press key.");
+	vdcwin_put_string(&windows[winCfg.active - 1].win, "Press key.");
 	getch();
 	vdcwin_win_free();
 	free(input);
@@ -327,6 +328,47 @@ void scroll_fullscreen_smooth(char screen)
 	screen_switch(screen, 1, 1);
 }
 
+void scroll_bigfont()
+{
+	struct TXTSCRBigFont bigfont;
+	struct TXTSCRScrollText scroller;
+	char color[5] = {VDC_LGREY, VDC_LCYAN, VDC_DCYAN, VDC_LBLUE, VDC_DBLUE};
+	char scrolltext[] = "Welcome to Oscar64 VDC Demo. This demo is written to test and demonstrate the VDC library functions I have tried to build for the Oscar64 compiler. Hope you enjoy it! Greetings, Xander Mol.     ";
+	char key;
+
+	// Loading big PETSCII font data
+	vdc_clear(0, 2, CH_SPACE, 80, vdc_state.height - 2);
+	vdc_prints(0, 3, "Loading data.");
+
+	vdc_prints(0, 4, "Loading scroll PETSCII font.");
+	if (!bnk_load(bootdevice, 1, (char *)MEM_CHARSET, "chars2"))
+	{
+		menu_fileerrormessage();
+		return;
+	}
+
+	vdc_clear(0, 3, CH_SPACE, 80, 2);
+
+	// Initialise big font
+	txtscr_bigfont_init(&bigfont, BNK_1_FULL, (char *)MEM_CHARSET, 80, 4, 5, 91, color);
+
+	// Initialize scroller
+	txtscr_scroller_init(&scroller, &bigfont, scrolltext, 5, (vdc_state.height/2)-2, 70, WIN_BOR_ALL);
+
+	// Debounce keypreses
+	while (vdcwin_checkch())
+	{
+		;
+	}
+
+	// Bigfont sroller
+	do
+	{
+		key = vdcwin_checkch();
+		txtscr_scroll_do(&scroller);
+	} while (key != CH_ESC && key != CH_STOP);
+}
+
 void charset_demo()
 // Charset redefine demo
 {
@@ -444,6 +486,10 @@ int main(void)
 		case 41:
 		case 42:
 			scroll_fullscreen_smooth(menuchoice - 41);
+			break;
+
+		case 43:
+			scroll_bigfont();
 			break;
 
 		case 51:

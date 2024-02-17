@@ -12,7 +12,7 @@ struct VDCMenuBar menubar = {
     {0, 0, 0, 0, 0, 0},
     1};
 
-char pulldown_options[VDC_PULLDOWN_NUMBER] = {3, 2, 2, 2, 1, 4, 2, 6};
+char pulldown_options[VDC_PULLDOWN_NUMBER] = {3, 2, 2, 3, 1, 4, 2, 6};
 char pulldown_titles[VDC_PULLDOWN_NUMBER][VDC_PULLDOWN_MAXOPTIONS][VDC_PULLDOWN_MAXLENGTH] = {
     {"Screenmode",
      "Info      ",
@@ -22,7 +22,8 @@ char pulldown_titles[VDC_PULLDOWN_NUMBER][VDC_PULLDOWN_MAXOPTIONS][VDC_PULLDOWN_
     {"Screen 1",
      "Screen 2"},
     {"Fullscreen 1",
-     "Fullscreen 2"},
+     "Fullscreen 2",
+     "Bigfont text"},
     {"Charset demo"},
     {"Ultimate Axel F",
      "Faded          ",
