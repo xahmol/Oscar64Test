@@ -14,10 +14,10 @@ char vdc_softscroll_init(struct VDCSoftScrollSettings *settings, char mode)
     unsigned sourcesize = vdcsize + vdcsize + 48;
 
     // Return if virtual screen is too big to leave room for charsets
-    //if ((sourcesize > 8192 && !vdc_state.memextended) || (sourcesize > 57344))
-    //{
-    //    return 0;
-    //}
+    if ((sourcesize > 8192 && !vdc_state.memextended) || (sourcesize > 57344))
+    {
+        return 0;
+    }
 
     vdc_set_mode(mode);
 
