@@ -36,7 +36,7 @@ PETSCII art:
 -   Love is the Drug, art by Lobo.      https://csdb.dk/release/?id=237148
 
 Text scroller PETSCII font:
--   Small Round Font.                   https://csdb.dk/release/?id=188169
+-   Small Round Font by Cupid.          https://csdb.dk/release/?id=188169
 
 Code and resources from others used:
 
