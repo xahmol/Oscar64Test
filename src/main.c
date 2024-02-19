@@ -533,11 +533,11 @@ int main(void)
 		// Draw info, intructions and logo
 		sprintf(linebuffer, "VDC memory detected: %u KB, extended memory %sabled.", vdc_state.memsize, (vdc_state.memextended) ? "En" : "Dis");
 		vdc_prints(0, 3, linebuffer);
-		sprintf(linebuffer, "Screenmode: %s", pulldown_titles[6][vdc_state.mode]);
+		sprintf(linebuffer, "Screenmode: %s", pulldown_titles[7][vdc_state.mode]);
 		vdc_prints(0, 4, linebuffer);
 		vdc_prints(0, vdc_state.height - 4, "Select desired demo using cursor keys and RETURN in menu.");
 		vdc_prints(0, vdc_state.height - 3, "In scrolling demos, press WASD or cursor keys to move, ESC to exit.");
-		vdc_prints(0, vdc_state.height - 2, "In other demos, press a kety to continue to next step.");
+		vdc_prints(0, vdc_state.height - 2, "In other demos, press a key to continue to next step.");
 		vdcwin_cpy_viewport(&vp_logo);
 
 		// Start menu lselection
