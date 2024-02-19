@@ -32,8 +32,11 @@ Credit to included music:
 
 Credit to included PESTCII art:
 
+PETSCII art:
 -   Love is the Drug, art by Lobo.      https://csdb.dk/release/?id=237148
 
+Text scroller PETSCII font:
+-   Small Round Font.                   https://csdb.dk/release/?id=188169
 
 Code and resources from others used:
 
