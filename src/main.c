@@ -19,8 +19,11 @@ Credit to included music:
 
 Credit to included PESTCII art:
 
-    Love is the Drug, art by Lobo.      https://csdb.dk/release/?id=237148
+-	PETSCII art:
+	Love is the Drug, art by Lobo. https://csdb.dk/release/?id=237148
 
+-	Text scroller PETSCII font:
+	Small Round Font by Cupid. https://csdb.dk/release/?id=188169
 
 Code and resources from others used:
 
@@ -423,7 +426,7 @@ void scroll_bigfont()
 	vdc_clear(0, 2, CH_SPACE, 80, vdc_state.height - 2);
 	vdc_prints(0, 3, "Loading data.");
 
-	vdc_prints(0, 4, "Loading scroll PETSCII font.");
+	vdc_prints(0, 4, "Loading scroll PETSCII font: 'Small Round Font' by Cupid.");
 	if (!bnk_load(bootdevice, 1, (char *)MEM_CHARSET, "chars2"))
 	{
 		menu_fileerrormessage();
