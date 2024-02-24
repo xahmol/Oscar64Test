@@ -253,9 +253,6 @@ void vdc_init(char mode, char extmem)
         screen_setmode(80);
     }
 
-    // Init low memory
-    bnk_init();
-
     // Set 2 Mhz mode
     fastmode(1);
 

@@ -1,0 +1,27 @@
+
+Path, loader only:
+Name               Source                                        Remarks
+
+ca65               https://cc65.github.io                        set path to <cc65path>/bin
+ld65               https://www.cc65.org/                         set path to <cc65path>/bin
+ar65               https://www.cc65.org/                         set path to <cc65path>/bin
+
+make               https://www.gnu.org/software/make/
+gcc                https://gcc.gnu.org/                          needed to build cc1541 and most of the compressors
+
+perl               https://www.perl.org/                         needed to generate a symbols file for the make prg target in loader/src and
+                                                                  to run the compressed file converter for Taboo Levelcrush
+python             https://www.python.org/                       needed to run tinycrunch's tc_encode.py
+rust               https://www.rust-lang.org/                    needed to build NuCrunch
+zip                                                              needed to make a loader binary archive for the make prg target in loader/src
+
+
+Path, samples folder:
+Name               Source                                        Remarks
+
+lua                https://www.lua.org/                          needed to run the benchmarks
+
+c1541              https://vice-emu.sourceforge.net/
+vice               https://vice-emu.sourceforge.net/
+plus4emu           https://plus4emu.sourceforge.net/             needed if not using the USE_VICE=1 make run switch on Plus/4 and MAC OS X
+Yape/YapeWin64     http://yape.homeserver.hu/                    needed if not using the USE_VICE=1 make run switch on Plus/4 and Windows

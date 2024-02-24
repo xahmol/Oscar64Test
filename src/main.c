@@ -13,9 +13,9 @@ Credit to included music:
 
 -   Music by Nordischsound:
 
-    Ultimate Axel F.                    https://csdb.dk/release/?id=228585
+	Ultimate Axel F.                    https://csdb.dk/release/?id=228585
 
-    Faded                               https://csdb.dk/release/?id=229218
+	Faded                               https://csdb.dk/release/?id=229218
 
 Credit to included PESTCII art:
 
@@ -29,54 +29,54 @@ Code and resources from others used:
 
 -   Oscar64 cross compiler
 
-    https://github.com/drmortalwombat/oscar64
+	https://github.com/drmortalwombat/oscar64
 
-    Many thanks also to https://github.com/drmortalwombat to provide extrordinary support and tips for making this and adapting Oscar64 to my needs faster than I could ask it.
+	Many thanks also to https://github.com/drmortalwombat to provide extrordinary support and tips for making this and adapting Oscar64 to my needs faster than I could ask it.
 
 -   Screens used in the demo made with my own VDC Screen Editor.
 
-    https://github.com/xahmol/VDCScreenEdit
+	https://github.com/xahmol/VDCScreenEdit
 
 -   Commodore logo charset created using CharPad Pro.
 
-    https://subchristsoftware.itch.io/c64-pro-editions
+	https://subchristsoftware.itch.io/c64-pro-editions
 
 -   C128 Programmers Reference Guide: For the basic VDC register routines and VDC code inspiration
 
-    http://www.zimmers.net/anonftp/pub/cbm/manuals/c128/C128_Programmers_Reference_Guide.pdf
+	http://www.zimmers.net/anonftp/pub/cbm/manuals/c128/C128_Programmers_Reference_Guide.pdf
 
 -   Tokra: For the optimal VDC registry settings for 80x50 and 80x70 textmodes
 
 -   Scott Hutter - VDC Core functions inspiration:
 
-    https://github.com/Commodore64128/vdc_gui/blob/master/src/vdc_core.c
+	https://github.com/Commodore64128/vdc_gui/blob/master/src/vdc_core.c
 
-    (used as starting point)
+	(used as starting point)
 
 -   Scott Robison for teaching me how o create a C128 disk boot sector
 
 -   Francesco Sblendorio - Screen Utility: used for inspiration:
 
-    https://github.com/xlar54/ultimateii-dos-lib/blob/master/src/samples/screen_utility.c
+	https://github.com/xlar54/ultimateii-dos-lib/blob/master/src/samples/screen_utility.c
 
 -   DevDef: Commodore 128 Assembly - Part 3: The 80-column (8563) chip
 
-    https://devdef.blogspot.com/2018/03/commodore-128-assembly-part-3-80-column.html
+	https://devdef.blogspot.com/2018/03/commodore-128-assembly-part-3-80-column.html
 
 -   Tips and Tricks for C128: VDC
 
-    http://commodore128.mirkosoft.sk/vdc.html
+	http://commodore128.mirkosoft.sk/vdc.html
 
 -   Steve Goldsmith - C3L Commodore 128 CP/M C Library
 
-    https://github.com/sgjava/c3l
+	https://github.com/sgjava/c3l
 
-    (Used for inspiration and for the text wrap and random sentence generator functions)
+	(Used for inspiration and for the text wrap and random sentence generator functions)
 
 -   Bart van Leeuwen: For inspiration and advice while coding. Also for providing the excellent Device Manager ROM to make testing on real hardware very easy
 
 -   Original windowing system code on Commodore 128 by unknown author.
-   
+
 -   Tested using real hardware (C128D and C128DCR) plus VICE.
 
 The code can be used freely as long as you retain a notice describing original source and author.
@@ -100,10 +100,15 @@ THE PROGRAMS ARE DISTRIBUTED IN THE HOPE THAT THEY WILL BE USEFUL, BUT WITHOUT A
 #include "vdc_win.h"
 #include "vdc_menu.h"
 #include "vdc_textscroller.h"
+#include "krill.h"
 
 // Memory region for code, data etc. from 0x1c80 to 0xbfff
 #pragma region( vdctest, 0x1c80, 0xc000, , , {code, data, bss, heap, stack} )
-#pragma region( zeropage, 0x80, 0xfb, , , {} )
+
+// Set zeropage range to use for C compiler
+// Krill loader uses f8-fc
+// SID file uses fd-fe
+#pragma region( zeropage, 0x80, 0xea, , , {} )
 
 struct SCREENSettings
 {
@@ -439,7 +444,7 @@ void scroll_bigfont()
 	txtscr_bigfont_init(&bigfont, BNK_1_FULL, (char *)MEM_CHARSET, 80, 4, 5, 91, color);
 
 	// Initialize scroller
-	txtscr_scroller_init(&scroller, &bigfont, scrolltext, 5, (vdc_state.height/2)-2, 70, WIN_BOR_ALL);
+	txtscr_scroller_init(&scroller, &bigfont, scrolltext, 5, (vdc_state.height / 2) - 2, 70, WIN_BOR_ALL);
 
 	// Debounce keypreses
 	while (vdcwin_checkch())
@@ -501,8 +506,15 @@ int main(void)
 	// Initialize memory settings for backing up windows backgrounds
 	vdcwin_winstorage_init(BNK_1_FULL, (char *)MEM_WINDOW, WIN_MEMORY);
 
+	// Init low memory
+	bnk_init();
+
+	// Install Krill's loader
+	krill_loadcode();
+
 	// Init screen and banking functions, start with default 80x25 text mode
 	vdc_init(VDC_TEXT_80x25_PAL, 1);
+	krill_init();
 
 	// Loading assets
 	vdc_prints(0, 0, "Starting Oscar64 VDC demo.");
@@ -510,13 +522,13 @@ int main(void)
 	vdc_prints(0, 2, linebuffer);
 	vdc_prints(0, 4, "Loading assets:");
 	vdc_prints(0, 5, "- screen: Logo and test screen");
-	if (!bnk_load(bootdevice, 1, (char *)MEM_SCREEN, "screen2"))
+	if (krill_load(BNK_1_IO, MEM_SCREEN, "screen2"))
 	{
 		menu_fileerrormessage();
 		exit(1);
 	}
 	vdc_prints(0, 6, "- music: Ultimate Axel F from Nordischsound");
-	if (!bnk_load(bootdevice, 1, (char *)MEM_SID, "music1"))
+	if (krill_load(BNK_1_IO, MEM_SID, "music1"))
 	{
 		menu_fileerrormessage();
 		exit(1);
@@ -612,6 +624,7 @@ int main(void)
 
 	sid_stopmusic();
 	vdc_exit();
+	krill_done();
 
 	return 0;
 }

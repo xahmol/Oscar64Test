@@ -1,0 +1,209 @@
+= cc1541(1)
+Björn Esser
+:doctype:       manpage
+:Author:        JackAsser, Krill, Claus, Björn Esser
+:Email:         besser82@fedoraproject.org
+:manvolnum:     1
+:manversion:    v@@VERSION@@
+:manmanual:     cc1541 manual
+:mansource:     cc1541
+:man-linkstyle: pass:[blue R < >]
+
+== Name
+
+cc1541 - A tool for creating Commodore 1541 Floppy disk images
+in D64, D71 or D81 format with custom sector interleaving etc.
+Also supports extended tracks 35-40 using either SPEED DOS or
+DOLPHIN DOS BAM-formatting.
+
+== Synopsis
+
+*cc1541* [_options_] image.[_d64|d71|d81_]
+
+== Options
+
+*-n diskname*::
+  Disk name, default='cc1541'.
+
+*-i id*::
+  Disk ID, default='00 2a'.
+
+*-H message*::
+  Hidden BAM message. Only for D64 (up to 85 chars) or SPEED DOS
+(up to 20 chars).
+
+*-w localname*::
+  Write local file to disk, if filename is not set then the local
+name is used.  After file written, the filename is unset.
+
+*-W localname*::
+  Like -w, but encode file in Transwarp format.
+
+*-K key*::
+  Set an encryption key for Transwarp files, a string of up to 29
+  characters.
+
+*-f filename*::
+  Use filename as name when writing next file, use prefix _#_ to
+include arbitrary PETSCII characters (e.g. -f "START#a0,8,1").
+
+*-o*::
+  Do not overwrite if file with same name exists already.
+
+*-V*::
+  Do not modify image unless it is in valid CBM DOS format.
+
+*-T filetype*::
+  Filetype for next file, allowed parameters are PRG, SEQ, USR, REL
+and DEL, or a decimal number between 0 and 255. Default is PRG.
+
+*-P*::
+  Set write protect flag for next file.
+
+*-O*::
+  Set open flag for next file.
+
+*-N*::
+  Force creation of a new directory entry, even if a file with the
+  same name exists already.
+
+*-l filename*::
+  Write loop file (an additional dir entry) to existing file to disk,
+set filename with -f.
+
+*-L*::
+  Add dir entry without writing file (track and sector will be 0),
+requires a filename given with -f.
+
+*-B numblocks*::
+  Write the given value as file size in blocks to the directory for
+the next file.
+
+*-M numchars*::
+  Hash computation maximum filename length, this must match loader
+option FILENAME_MAXLENGTH in Krill's loader.  Default is 16.
+
+*-m*::
+  Ignore filename hash collisions, without this switch a collision
+results in an error.
+
+*-d track*::
+  Maintain a shadow directory (copy of the actual directory without a
+valid BAM).
+
+*-t*::
+  Use directory track to also store files (makes -x useless) (default no).
+
+*-u numblocks*::
+  When using -t, amount of dir blocks to leave free (default=2).
+
+*-x*::
+  Don't split files over directory track hole (default split files).
+
+*-F*::
+  Next file first sector on a new track (default=0).  Any negative
+value assumes aligned tracks and uses current sector + interleave - value.
+After each file, the value falls back to the default.  Not applicable
+for D81.
+
+*-S value*::
+  Default sector interleave, default=10. Not applicable for D81.
+
+*-s value*::
+  Next file sector interleave, valid after each file. The interleave value
+falls back to the default value set by -S after the first sector of the
+next file. Not applicable for D81.
+
+*-e*::
+  Start next file on an empty track (default start sector is current
+sector plus interleave).
+
+*-E*::
+  Try to fit file on a single track.
+
+*-r track*::
+  Restrict next file blocks to the specified track or higher.
+
+*-b sector*::
+  Set next file beginning sector to the specified value.  Not
+applicable for D81.
+
+*-c*::
+  Save next file cluster-optimized (d71 only).
+
+*-4*::
+  Use tracks 35-40 with SPEED DOS BAM formatting.
+
+*-5*::
+  Use tracks 35-40 with DOLPHIN DOS BAM formatting.
+
+*-R level*::
+  Try to restore deleted and formatted files.
+level 0: Only restore all dir entries without touching any t/s links.
+level 1: Fix dir entries for files with valid t/s chains.
+level 2: Also add wild sector chains with valid t/s chains.
+level 3: Also fix dir entries with invalid t/s chains.
+level 4: Also add and fix wild invalid t/s chains.
+level 5: Also add reasonable wild single blocks.
+
+*-g filename*::
+  Write additional g64 output file with given name.
+
+*-a*::
+Print command line options that would create the same directory as the
+one in the given image (for directory art import).
+
+*-U mapping*::
+  Print PETSCII as Unicode (requires Unicode 13.0 font, e.g. UNSCII).
+Use mapping 0 for ASCII output, 1 for upper case, 2 for lower case,
+default is 0.
+
+*-q*::
+  Be quiet.
+
+*-v*::
+  Be verbose.
+
+*-h*::
+  Print command line help.
+
+== Exit status
+
+*0*::
+  Success.
+
+*-1*::
+  Failure.
+
+== Resources
+
+Project web site: https://bitbucket.org/PTV_Claus/cc1541/src
+
+== Bug Reports
+
+Please report bugs to:
+https://bitbucket.org/PTV_Claus/cc1541/issues/new
+
+== License
+
+Copyright (C) 2008-2021 {author}. +
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

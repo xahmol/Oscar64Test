@@ -1,0 +1,6 @@
+all: pucrunch
+
+pucrunch: pucrunch.c pucrunch.h
+	sc link ansi warn=all ignore=61 pucrunch.c nostkchk data=far parms=register lib lib:scm.lib opt opttime optsched optpeep optinlocal
+	#debug=line
+	# disasm=pucrunch.asm

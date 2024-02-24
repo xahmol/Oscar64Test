@@ -1,0 +1,35 @@
+
+MEMORY
+{
+    LOADERZP:         start =   $4c, size =   $44, type = rw; # must not overlap STATUS ($90)
+    ZPRAM:            start =   $fa, size =   $06, type = rw;
+    RAM:              start = $1300, size = $bd00, type = rw; # C-128 has BASIC variables up to $12ff, Plus/4 has screen and colours at $0800-$1000
+    RAM2:             start = $2000, size = $d000, type = rw;
+}
+
+SEGMENTS
+{
+    ZEROPAGE:         load = ZPRAM, type = zp;
+
+    CODE:             load = RAM,   type = ro;
+    RODATA:           load = RAM,   type = ro, optional = yes;
+    DATA:             load = RAM,   type = rw, optional = yes;
+    BSS:              load = RAM,   type = rw, optional = yes;
+
+    COLRAM:           load = RAM2,  type = bss, start = $5000, optional = yes, define = yes; # $1000 bytes on Plus/4 (SPRITES segment not used)
+    SPRITES:          load = RAM2,  type = bss, start = $5c00, optional = yes, define = yes; # no SPRITESHI segment: the sprites are always in this bank
+    BITMAP:           load = RAM2,  type = bss, start = $6000, optional = yes, define = yes; # overlay with DISKIO_INSTALL
+
+    SWAPBUFFER:       load = RAM2,  type = bss, start = $8000, optional = yes, define = yes;
+
+    BITMAPHI:         load = RAM2,  type = bss, start = $c000, optional = yes, define = yes; # also location of original IEEE-488 interface code
+    COLRAMHI:         load = RAM2,  type = bss, start = $f000, optional = yes, define = yes; # not used on Plus/4
+
+    DISKIO_ZP:        load = LOADERZP, type  = zp,    define = yes;
+    DISKIO_PLUGIN_ZP: load = LOADERZP, type  = zp,    define = yes, optional = yes;
+    DISKIO:           load = RAM,      start = $3000, define = yes;
+    DISKIO_PLUGIN:    load = RAM,                     define = yes, optional = yes;
+    DISKIO_INSTALL:   load = RAM,      start = $4000, define = yes; # fire and forget
+
+    END:              load = RAM,      align = $0100;
+}

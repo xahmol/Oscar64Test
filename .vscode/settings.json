@@ -9,6 +9,8 @@
         "mmu.h": "c",
         "conio.h": "c",
         "petscii.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "vdc_core.h": "c",
+        "peekpoke.h": "c"
     }
 }

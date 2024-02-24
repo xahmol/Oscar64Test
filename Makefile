@@ -48,7 +48,7 @@ ZIPLIST = build/$(MAIN).d64 build/$(MAIN).d71 build/$(MAIN).d81 $(README)
 
 .SUFFIXES:
 .PHONY: all clean deploy vice
-all: $(MAIN).prg bootsect.bin $(MAIN).d64 $(MAIN).d71 $(MAIN).d81 $(ZIP)
+all: $(MAIN).prg bootsect.bin loader-c128.prg $(MAIN).d64 $(MAIN).d71 $(MAIN).d81 $(ZIP)
 
 $(MAIN).prg: $(MAINSRC)
 	$(CC) $(CFLAGS) -n -o=build/$(MAIN).prg $<
@@ -59,13 +59,22 @@ bootsect.bin: $(MAIN).prg
 	cp assets/music*.prg build/
 	cp assets/chars*.prg build/
 
-$(MAIN).d64:	bootsect.bin
+loader-c128.prg:
+	cd krill/loader/; $(DEL) build/*.* 2>$(NULLDEV)
+	cd krill/loader/; make PLATFORM=c128 prg INSTALL=A000 RESIDENT=0b00 ZP=f8 PROJECT=
+	cd krill/loader/; $(RMDIR) build/intermediate 2>$(NULLDEV)
+	cd krill/loader/; $(DEL) build/transient*.* 2>$(NULLDEV)
+	cp krill/loader/build/*.prg build/
+
+$(MAIN).d64:	bootsect.bin loader-c128.prg
 	c1541 -cd build/ -format "$(MAIN),xm" d64 $(MAIN).d64
 	c1541 -cd build/ -attach $(MAIN).d64 -bwrite bootsect.bin 1 0
 	c1541 -cd build/ -attach $(MAIN).d64 -bpoke 18 0 4 $14 %11111110
 	c1541 -cd build/ -attach $(MAIN).d64 -bam 1 1
 	c1541 -cd build/ -attach $(MAIN).d64 -write vdctest.prg vdctest
 	c1541 -cd build/ -attach $(MAIN).d64 -write vdctestlmc.prg vdctestlmc
+	c1541 -cd build/ -attach $(MAIN).d64 -write install-c128.prg install-c128
+	c1541 -cd build/ -attach $(MAIN).d64 -write loader-c128.prg loader-c128
 	c1541 -cd build/ -attach $(MAIN).d64 -write screen1.prg screen1
 	c1541 -cd build/ -attach $(MAIN).d64 -write screen2.prg screen2
 	c1541 -cd build/ -attach $(MAIN).d64 -write screen3.prg screen3
@@ -81,6 +90,8 @@ $(MAIN).d71:	bootsect.bin
 	c1541 -cd build/ -attach $(MAIN).d71 -bam 1 1
 	c1541 -cd build/ -attach $(MAIN).d71 -write vdctest.prg vdctest
 	c1541 -cd build/ -attach $(MAIN).d71 -write vdctestlmc.prg vdctestlmc
+	c1541 -cd build/ -attach $(MAIN).d71 -write install-c128.prg install-c128
+	c1541 -cd build/ -attach $(MAIN).d71 -write loader-c128.prg loader-c128
 	c1541 -cd build/ -attach $(MAIN).d71 -write screen1.prg screen1
 	c1541 -cd build/ -attach $(MAIN).d71 -write screen2.prg screen2
 	c1541 -cd build/ -attach $(MAIN).d71 -write screen3.prg screen3
@@ -96,6 +107,8 @@ $(MAIN).d81:	bootsect.bin
 	c1541 -cd build/ -attach $(MAIN).d81 -bam 1 1
 	c1541 -cd build/ -attach $(MAIN).d81 -write vdctest.prg vdctest
 	c1541 -cd build/ -attach $(MAIN).d81 -write vdctestlmc.prg vdctestlmc
+	c1541 -cd build/ -attach $(MAIN).d81 -write install-c128.prg install-c128
+	c1541 -cd build/ -attach $(MAIN).d81 -write loader-c128.prg loader-c128
 	c1541 -cd build/ -attach $(MAIN).d81 -write screen1.prg screen1
 	c1541 -cd build/ -attach $(MAIN).d81 -write screen2.prg screen2
 	c1541 -cd build/ -attach $(MAIN).d81 -write screen3.prg screen3

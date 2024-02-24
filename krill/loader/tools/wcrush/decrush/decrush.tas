@@ -1,0 +1,321 @@
+;Level-crusher depacker
+;v1.0 (c)1998 Taboo Productions!
+;All rights reserved
+
+;v1.1 by CS, slightly modified to fit into stack, max outputsize ca. $0200-$fffc
+
+
+speed   = 6	;speed with which the file was crushed (=compression rate),
+	;always use 6 for max compression unless you still use an 8088
+sysline = 1	;1=add Basic SYS line, 0=plain binary file
+linenum = 2001	;place Basic line number here (ignored if sysline=0)
+exeaddr = 2070	;of the payload, of course
+debug   = 0	;1=indicate progress via bordercolors
+	;0=no progress indication (=faster depacking & shorter depacker)
+
+
+;no longer used, all that stuff has to be handled by the payload now:
+
+val01 = $37	;value of $01 system register after depack
+	;C64 power-on default = $37, but other values might be needed,
+	;depending on what the payload expects.
+cliflag = 0	;1=reenable, 0=keep disabled interrupts after depack
+	;(IRQ is most of the time reenabled by the payload,
+	;but sometimes you have to do that manually)
+blank = 0	;1= leave screen blank, 0=enable after depack (dito)
+
+
+*=$801
+
+.if sysline
+	.word eolptr	;start address of next(=last) basic line
+	.word linenum   ;line number of sysline (as set above)
+	.byte $9e	;basic token for SYS
+sysnum	.byte 0,0,0,0   ;placeholders for SYS address (see below)
+	.text ""	;put your crazy SYSline talk here if required
+	.byte 0	;end of basic line
+eolptr	.byte 0,0	;next basic line, 2x0 = end of basic text
+.fi
+
+start	sei
+
+.if sysline
+temp=*
+*=sysnum
+	.byte ^start	;replace placeholders with correct petscii-digits (see above)
+*=temp
+.fi
+
+	ldx #0	;black border
+	stx $d020
+	stx $d011	;screen off
+	lda #$1	;set c128 to 2MHz mode
+	sta $d030
+	lda #$34	;all ram memconfig.
+	sta $1
+
+movecode	lda depacker,x	;copy depacker+some crap to $100 - $1ff
+	txs	;init stack ptr while we're at it, clever, eh?
+	pha
+	inx
+	bne movecode
+
+;move input stream to memtop, .Y=# of pages to copy:
+
+	ldy #>(endofprog-crushed+$ff)
+movedata	lda endofprog-$100,x
+	sta $ff00,x	;starting at the last page
+	inx
+	bne movedata
+	dec movedata+2	;previous page src
+	dec movedata+5	;previous page tgt
+	dey
+	bne movedata	;repeat until all pages copied
+
+;set source = start of moved input stream:
+
+	lda #<$10000-endofprog+crushed
+	sta @b src
+	lda #>$10000-endofprog+crushed
+	sta @b srch
+
+;set destination = load address of packed file:
+
+	lda depackaddr
+	sta @b dest
+	lda depackaddr+1
+	sta @b desth
+	jmp godepack   ;start unpacking
+
+;-------------------------------------------
+;zeropage registers used by decompressor:
+
+src	= $ae	;current input-file address ptr.
+srch	= src+1
+
+dest	= $2d	;depack-to address pointer
+desth	= dest+1
+
+byte	= $fb	;control bit dispense byte
+lng	= $fc	;sequence length
+lo	= $fd	;for copy address
+hi	= lo+1	;and various 16 bit stuff
+;--------------------------------------------------------
+;the depack algorythm, living in the stack up to ca. $1d7
+
+depacker
+.logical $100
+
+godepack        ldx #$00	;empty the control bit dispenser
+	stx byte	;to force reading it from input-file right away
+
+nextaction      stx hi	;DEPACK MAINLOOP: hi always = 0 here
+	lda #$01	;length of upcoming run is at least 1 byte
+	jsr getbit	;get sequence flag:
+	bcs repeat	;if set then repeat a previous byte sequence
+
+;else copy a run of uncompressed bytes.
+;the length of that run is stored as stopbit,bit,... sequence:
+
+getcopylen	jsr getbit	;get length of uncompressed run:
+	bcs gotcopylen	;if stopbit set then end of run
+
+	jsr getbit	;else shift length bit(s)
+
+	rol	;into accu, hi
+	rol hi
+	bpl getcopylen	;max length is $ffff
+
+gotcopylen	tax	;got length,
+	beq copypage    ;if it is a multiple of 256 then...
+
+copybytes	ldy #$00	;(else) copy .X src-bytes
+	lda (src),y
+	inc src
+	bne cb1
+	inc srch
+cb1	sta (dest),y	;to output stream
+	inc dest
+	bne cb2
+	inc desth
+cb2	dex
+	bne copybytes
+
+copypage	cpx hi	;...check pages left to copy
+	dec hi
+	bcc copybytes	;if pages left then copy 256 more src-bytes
+	stx hi	;else hi=0, done.
+
+;having just copied an uncompressed sequence we can safely assume the next sequence
+;matches something already in the output data and thus don't need any
+;control bits to tell the next step:
+
+;repeat an earlier byte sequence at the current output position.
+;first, get sequence length which is encoded as a stopbit, bit, ... sequence again,
+;but is preceeded by a special length-flag:
+
+repeat	lda #$01	;repeat a sequence: dft length=1
+	jsr getbit	;get length-flag:
+	bcc rep2bytes	;if = 0 then the sequence length 2-bytes
+
+getreplen	jsr getbit	;else 3+ bytes, get next stop bit
+	bcs gotreplen	;if set then end of length bits
+
+	jsr getbit	;else get next length bit
+	rol
+	bcc getreplen	;repeat if length still < 256
+
+;else a length of 256+ bytes signals that we have reached end of input file:
+
+	jmp exeaddr	;we're done with depacking
+
+rep2bytes	inx	;X=1 to use special 2-byte address-chunks
+
+;C=0 only for 2 byte sequences here, for all other sequences, C=1:
+
+gotreplen	adc #$01	;true length = length+C+1
+	sta lng
+
+;now the offset to the sequence to copy is computed. this is quite complicated :-)
+;the number of "bit-chunks" forming the offset is retrieved from 2 more control bits.
+;up to 4 chunks can be chained together, containing 2-4 bits each, depending on pack speed
+;and sequence length, where 2-byte sequences use a seperate chunk table with an overall
+;shorter search range to ensure that less than 16 bits are needed to encode the entire
+;sequence specs:
+
+	txa	;A=1 for 2byters here, else 0
+	jsr getbit	;get number of bit-chunks needed for offset
+	rol
+	jsr getbit
+	rol
+	tay	;Y now = 0-3 for 3+byters or 4-7 for 2byters
+	lda #$00
+
+;after that, look up how many bits are in the current chunk and read in as many offset bits.
+;if one more chunks follow, add 1 to the current offset and repeat with next chunk:
+;the maximum offset range that can be achieved by this method is
+;2^[bits of all used chunks]+2^[bits of all but last chunk]+...+2^[bits of last chunk]-1
+
+getnumbits	ldx tab,y	;get number of bits used in current chunk
+
+getoffset	jsr getbit	;MSB comes first
+	rol	;shift offset bits to A, hi
+	rol hi
+	dex	;next bit of current chunk
+	bne getoffset
+
+	dey	;next chunk or copy done?:
+	bmi gotoffset+1	;if last 3+ byte chunk already processed then...
+	cpy #$03
+	beq gotoffset	;or if last 2 byte chunk already processed then...
+
+	clc	;else another chunk will follow,
+	adc #$01	;extend offset range by 2^(bits still to follow)
+	bcc getnumbits	;to save some more bits
+	inc hi
+	bcs getnumbits
+
+;after all required offset bits have been retrieved, calculate the start address of the
+;sequence to repeat and append the specified amount of bytes from there at the current
+;output position. The offset stored in the control bits points at the end of that
+;sequence, so sequence length is added to find out the start address. This saves some
+;bits but also makes it impossible to have repetitions overlap the current output
+;position what could improve the pack rate in some situations.
+
+gotoffset	clc	;...(required for 2 byte sequences only)
+	adc lng	;...offset = offset + sequence length
+	bcc calcaddr
+	inc hi
+
+calcaddr	clc	;offset *-1 + current output address
+	sbc dest
+	eor #$ff
+	sta lo	;= source address of sequence to copy
+	lda hi
+	sbc desth
+	eor #$ff
+	sta hi
+	ldy #$00
+
+repeatbytes	lda (lo),y	;append <lng> bytes from <src> at output pos
+	sta (dest),y
+	iny
+	cpy lng
+	bne repeatbytes
+
+	tya	;new output pos = old pos. + <lng>
+	clc
+	adc dest
+	sta dest
+	bcc rb2
+	inc desth
+
+rb2	ldx #$00	;back to depack loop start
+	jmp nextaction
+
+;control bit dispenser readout. In the original depacker the bit readout was
+;inlined whereever bits were needed. Now included in this subroutine to make the
+;depacker a few bytes shorter (but also several cycles slower, unfortunately):
+
+getbit	asl byte	;get a control bit: next bit -> C
+	bne gotbit	;if still bits left then done
+
+	pha	;else get next control byte: save .A, .Y
+	sty byte
+	ldy #$00
+	lda (src),y	;read from current input stream position
+	inc src
+	bne gb2
+	inc srch
+
+gb2	ldy byte	;restore .Y
+
+.if debug
+	inc $01	;some color effects to show progress
+	sta $d020	;useful to see if/where depacking stalls
+	dec $01
+.fi
+	sec	;"out of bits" marker
+	rol	;1st control bit to C, marker to dispenser-byte
+	sta byte
+	pla
+
+gotbit	rts
+
+
+;crush-speed dependant offset chunk width tables:
+;lower speed settings shorten the search range for duplicate sequences, thereby
+;worsening the compression rate but also speeding up depacking a little and packing
+;even more so (not that you'd notice that anymore on a half decent PC, though).
+;it might also speed up depacking because there might be more uncompressed bytes
+;which are very straightforward to depack.
+;the last 4 values are used for 2 byte sequences, the first 4 for any other size.
+
+.if speed=6
+tab	.byte 4,3,3,3, 4,2,2,2
+.fi
+.if speed=5
+tab	.byte 4,2,3,3, 4,2,2,2
+.fi
+.if speed=4
+tab	.byte 4,2,2,3, 4,2,2,2
+.fi
+.if speed=3
+tab	.byte 4,2,2,2, 4,2,2,2
+.fi
+.if speed=2
+tab	.byte 3,2,2,2, 3,2,2,2
+.fi
+.if speed=1
+tab	.byte 3,1,2,2, 3,1,2,2
+.fi
+.if speed=0
+tab	.byte 2,2,1,1, 2,2,1,1
+.fi
+
+.here
+
+depackaddr	;the first two bytes of the crushed file are the load address
+crushed =*+2	;crunched data starts right behind
+.binary crushed.bin
+endofprog =*

@@ -1,0 +1,20 @@
+MEMORY
+{
+    LOADERZP:      start =   $d8, size =   $07, type = rw;
+    LOWMEM:        start = $0334, size =   $cc, type = rw;
+    RAM:           start = $1c01, size = $63ff, type = rw;
+    RESIDENT:      start = $f700, size = $0600, type = rw;
+}
+
+SEGMENTS
+{
+    CODE:           load = RAM,      type = ro;
+    DISKIO_INSTALL: load = RAM;
+
+    ROM_THUNKS:     load = RAM,      run = LOWMEM, define = yes;
+
+    DISKIO_ZP:      load = LOADERZP, type = zp;
+    DISKIO:         load = RAM,      run = RESIDENT, define = yes;
+
+    RESIDENT_CODE:  load = RAM,      run = RESIDENT, define = yes;
+}

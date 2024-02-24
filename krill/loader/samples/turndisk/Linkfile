@@ -1,0 +1,14 @@
+MEMORY
+{
+    LOADERZP:      start =   $02, size =   $fe, type = rw;
+    RAM:           start = $1c00, size = $c000, type = rw;
+}
+
+SEGMENTS
+{
+    CODE:           load = RAM,      type = ro;
+
+    DISKIO_ZP:      load = LOADERZP, type  = zp,  define = yes;
+    DISKIO:         load = RAM,      align = 256, define = yes;
+    DISKIO_INSTALL: load = RAM,                   define = yes;
+}
