@@ -107,14 +107,26 @@ void krill_loadcode()
     load_overlay("loader-c128");
 }
 
+char krill_load(char cr, const unsigned start, const char *fname)
+// Load a raw file with Krill's loader
+{
+    char old_cr = mmu.cr;
+    char error = 0;
+    krill_filelo = (unsigned)krill_filename;
+    krill_filehi = ((unsigned)krill_filename) >> 8;
+    krill_startlo = start;
+    krill_starthi = start>>8;
+    strcpy(krill_filename,fname);
+    error = krill_load_core(cr);
+}
+
 // Now switch code generation to low region
 #pragma code(bcode1)
 #pragma data(bdata1)
 #pragma bss(bbss1)
 
 char krill_filename[16];
-unsigned krill_start;
-char krill_filelo, krill_filehi, krill_startlo, krill_starthi;
+char krill_filelo, krill_filehi, krill_startlo, krill_starthi, oldcr;
 
 __asm krill_interrupt
 // Krill IRQ handler
@@ -165,18 +177,11 @@ void krill_done()
     }
 }
 
-char krill_load(char cr, const unsigned start, const char *fname)
+char krill_load_core(char cr)
 // Load a raw file with Krill's loader
 {
-    char old_cr = mmu.cr;
-    char error = 0;
-    krill_filelo = (unsigned)krill_filename;
-    krill_filehi = ((unsigned)krill_filename) >> 8;
-    krill_startlo = start;
-    krill_starthi = start>>8;
-    strcpy(krill_filename,fname);
+    oldcr = mmu.cr;
     mmu.cr = cr;
-
     __asm
         {
         lda krill_startlo
@@ -185,15 +190,14 @@ char krill_load(char cr, const unsigned start, const char *fname)
         sta KRILL_LOAD_HI
         ldx krill_filelo
         ldy krill_filehi
-        //sec
+        sec
         jsr KRILL_LOADRAW
         bcs krill_load_error
         lda #$00
 krill_load_error:
         sta accu
          }
-
-    mmu.cr = old_cr;
+    mmu.cr = oldcr;
 }
 
 #pragma code(code)

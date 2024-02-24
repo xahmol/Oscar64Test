@@ -124,6 +124,7 @@ $(ZIP): $(ZIPLIST)
 # Cleaning repo of build files
 clean:
 	$(DEL) build/*.* 2>$(NULLDEV)
+	$(DEL) krill/loader/build/*.* 2>$(NULLDEV)
 
 # To deploy software to UII+ enter make deploy. Obviously C128 needs to powered on with UII+ and USB drive connected.
 deploy: $(MAIN).d64 $(MAIN).d71 $(MAIN).d81

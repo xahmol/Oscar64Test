@@ -1,2 +1,0 @@
-watch store d7fe
-command 1 "log on;m fd ff;log off;x"

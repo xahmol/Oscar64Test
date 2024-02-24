@@ -270,13 +270,10 @@ char screen_switch(char screen, char end, char fullscreen)
 
 	if (screen == 0 || screen == 2)
 	{
-		// Pauses music to not disturb loading routine
-		sid_pausemusic();
-
 		// Loads back logo screen
 		if (end)
 		{
-			if (!bnk_load(bootdevice, 1, (char *)MEM_SCREEN, "screen2"))
+			if (krill_load(BNK_1_IO, MEM_SCREEN, "screen2"))
 			{
 				menu_fileerrormessage();
 				succes = 0;
@@ -288,7 +285,7 @@ char screen_switch(char screen, char end, char fullscreen)
 		{
 			if (screen == 0)
 			{
-				if (!bnk_load(bootdevice, 1, (char *)MEM_SCREEN, "screen1"))
+				if (krill_load(BNK_1_IO, MEM_SCREEN, "screen1"))
 				{
 					menu_fileerrormessage();
 					succes = 0;
@@ -300,22 +297,19 @@ char screen_switch(char screen, char end, char fullscreen)
 			}
 			else
 			{
-				if (!bnk_load(bootdevice, 1, (char *)MEM_SCREEN, "screen3"))
+				if (krill_load(BNK_1_IO, MEM_SCREEN, "screen3"))
 				{
 					menu_fileerrormessage();
 					succes = 0;
 				}
 				vdc_prints(0, 4, "Loading charset.");
-				if (!bnk_load(bootdevice, 1, (char *)MEM_CHARSET, "chars1"))
+				if (krill_load(BNK_1_IO, MEM_CHARSET, "chars1"))
 				{
 					menu_fileerrormessage();
 					succes = 0;
 				}
 			}
 		}
-
-		// Resume music
-		sid_pausemusic();
 	}
 
 	// Clear loading message
@@ -432,7 +426,7 @@ void scroll_bigfont()
 	vdc_prints(0, 3, "Loading data.");
 
 	vdc_prints(0, 4, "Loading scroll PETSCII font: 'Small Round Font' by Cupid.");
-	if (!bnk_load(bootdevice, 1, (char *)MEM_CHARSET, "chars2"))
+	if (krill_load(BNK_1_IO, MEM_CHARSET, "chars2"))
 	{
 		menu_fileerrormessage();
 		return;
@@ -601,7 +595,7 @@ int main(void)
 				sid_stopmusic();
 				musicchoice = menuchoice - 60;
 				sprintf(linebuffer, "music%u", musicchoice);
-				if (!bnk_load(bootdevice, 1, (char *)MEM_SID, linebuffer))
+				if (krill_load(BNK_1_IO, MEM_SID, linebuffer))
 				{
 					menu_fileerrormessage();
 				}

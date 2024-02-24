@@ -77,11 +77,16 @@ THE PROGRAMS ARE DISTRIBUTED IN THE HOPE THAT THEY WILL BE USEFUL, BUT WITHOUT A
 
 // Function prototypes
 void krill_loadcode();
+char krill_load(char cr, const unsigned start, const char *fname);
 
 // In low memory
 __noinline void krill_init();
 __noinline void krill_done();
-__noinline char krill_load(char cr, const unsigned start, const char *fname);
+__noinline char krill_load_core(char cr);
+
+// Globals
+extern char krill_filename[16];
+extern char krill_filelo, krill_filehi, krill_startlo, krill_starthi;
 
 #pragma compile("krill.c")
 
