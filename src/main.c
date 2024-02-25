@@ -33,6 +33,10 @@ Code and resources from others used:
 
 	Many thanks also to https://github.com/drmortalwombat to provide extrordinary support and tips for making this and adapting Oscar64 to my needs faster than I could ask it.
 
+-   Krill's Loader, Repository Version 194, by Krill / Plush.
+
+    https://csdb.dk/release/?id=226124
+
 -   Screens used in the demo made with my own VDC Screen Editor.
 
 	https://github.com/xahmol/VDCScreenEdit
@@ -100,13 +104,16 @@ THE PROGRAMS ARE DISTRIBUTED IN THE HOPE THAT THEY WILL BE USEFUL, BUT WITHOUT A
 #include "vdc_win.h"
 #include "vdc_menu.h"
 #include "vdc_textscroller.h"
+
+#if defined(KRILL)
 #include "krill.h"
+#endif
 
 // Memory region for code, data etc. from 0x1c80 to 0xbfff
 #pragma region( vdctest, 0x1c80, 0xc000, , , {code, data, bss, heap, stack} )
 
 // Set zeropage range to use for C compiler
-// Krill loader uses f8-fc
+// Krill loader uses eb-fc
 // SID file uses fd-fe
 #pragma region( zeropage, 0x80, 0xea, , , {} )
 
@@ -270,10 +277,19 @@ char screen_switch(char screen, char end, char fullscreen)
 
 	if (screen == 0 || screen == 2)
 	{
+#ifndef KRILL
+		// Pause music
+		sid_pausemusic();
+#endif
+
 		// Loads back logo screen
 		if (end)
 		{
+#if defined(KRILL)
 			if (krill_load(BNK_1_IO, MEM_SCREEN, "screen2"))
+#else
+			if (!bnk_load(bootdevice, 1, (char *)MEM_SCREEN, "screen2"))
+#endif
 			{
 				menu_fileerrormessage();
 				succes = 0;
@@ -285,7 +301,11 @@ char screen_switch(char screen, char end, char fullscreen)
 		{
 			if (screen == 0)
 			{
+#if defined(KRILL)
 				if (krill_load(BNK_1_IO, MEM_SCREEN, "screen1"))
+#else
+				if (!bnk_load(bootdevice, 1, (char *)MEM_SCREEN, "screen1"))
+#endif
 				{
 					menu_fileerrormessage();
 					succes = 0;
@@ -297,19 +317,32 @@ char screen_switch(char screen, char end, char fullscreen)
 			}
 			else
 			{
+#if defined(KRILL)
 				if (krill_load(BNK_1_IO, MEM_SCREEN, "screen3"))
+#else
+				if (!bnk_load(bootdevice, 1, (char *)MEM_SCREEN, "screen3"))
+#endif
 				{
 					menu_fileerrormessage();
 					succes = 0;
 				}
 				vdc_prints(0, 4, "Loading charset.");
+#if defined(KRILL)
 				if (krill_load(BNK_1_IO, MEM_CHARSET, "chars1"))
+#else
+				if (!bnk_load(bootdevice, 1, (char *)MEM_CHARSET, "chars1"))
+#endif
 				{
 					menu_fileerrormessage();
 					succes = 0;
 				}
 			}
 		}
+
+#ifndef KRILL
+		// Resume music
+		sid_pausemusic();
+#endif
 	}
 
 	// Clear loading message
@@ -426,7 +459,12 @@ void scroll_bigfont()
 	vdc_prints(0, 3, "Loading data.");
 
 	vdc_prints(0, 4, "Loading scroll PETSCII font: 'Small Round Font' by Cupid.");
+
+#if defined(KRILL)
 	if (krill_load(BNK_1_IO, MEM_CHARSET, "chars2"))
+#else
+	if (!bnk_load(bootdevice, 1, (char *)MEM_CHARSET, "chars2"))
+#endif
 	{
 		menu_fileerrormessage();
 		return;
@@ -503,12 +541,16 @@ int main(void)
 	// Init low memory
 	bnk_init();
 
+#if defined(KRILL)
 	// Install Krill's loader
 	krill_loadcode();
+#endif
 
 	// Init screen and banking functions, start with default 80x25 text mode
 	vdc_init(VDC_TEXT_80x25_PAL, 1);
+#if defined(KRILL)
 	krill_init();
+#endif
 
 	// Loading assets
 	vdc_prints(0, 0, "Starting Oscar64 VDC demo.");
@@ -516,13 +558,21 @@ int main(void)
 	vdc_prints(0, 2, linebuffer);
 	vdc_prints(0, 4, "Loading assets:");
 	vdc_prints(0, 5, "- screen: Logo and test screen");
+#if defined(KRILL)
 	if (krill_load(BNK_1_IO, MEM_SCREEN, "screen2"))
+#else
+	if (!bnk_load(bootdevice, 1, (char *)MEM_SCREEN, "screen2"))
+#endif
 	{
 		menu_fileerrormessage();
 		exit(1);
 	}
 	vdc_prints(0, 6, "- music: Ultimate Axel F from Nordischsound");
+#if defined(KRILL)
 	if (krill_load(BNK_1_IO, MEM_SID, "music1"))
+#else
+	if (!bnk_load(bootdevice, 1, (char *)MEM_SID, "music1"))
+#endif
 	{
 		menu_fileerrormessage();
 		exit(1);
@@ -595,7 +645,11 @@ int main(void)
 				sid_stopmusic();
 				musicchoice = menuchoice - 60;
 				sprintf(linebuffer, "music%u", musicchoice);
+#if defined(KRILL)
 				if (krill_load(BNK_1_IO, MEM_SID, linebuffer))
+#else
+				if (!bnk_load(bootdevice, 1, (char *)MEM_SID, linebuffer))
+#endif
 				{
 					menu_fileerrormessage();
 				}
@@ -618,7 +672,9 @@ int main(void)
 
 	sid_stopmusic();
 	vdc_exit();
+#if defined(KRILL)
 	krill_done();
+#endif
 
 	return 0;
 }

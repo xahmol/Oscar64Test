@@ -46,6 +46,10 @@ Code and resources from others used:
 
     Many thanks also to https://github.com/drmortalwombat to provide extrordinary support and tips for making this and adapting Oscar64 to my needs faster than I could ask it.
 
+-   Krill's Loader, Repository Version 194, by Krill / Plush.
+
+    https://csdb.dk/release/?id=226124
+
 -   Screens used in the demo made with my own VDC Screen Editor.
 
     https://github.com/xahmol/VDCScreenEdit
