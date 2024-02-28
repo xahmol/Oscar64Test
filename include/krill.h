@@ -32,8 +32,8 @@ THE PROGRAMS ARE DISTRIBUTED IN THE HOPE THAT THEY WILL BE USEFUL, BUT WITHOUT A
 // Defines
 #define KRILL_INSTALL 0xa000
 #define KRILL_LOADRAW 0x0b00
-#define KRILL_LOAD_LO 0xf8
-#define KRILL_LOAD_HI 0xf9
+#define KRILL_UNINSTA 0x0e91
+#define KRILL_ZPSTART 0xf5
 
 // Function prototypes
 void krill_loadcode();
@@ -42,11 +42,25 @@ char krill_load(char cr, const unsigned start, const char *fname);
 // In low memory
 __noinline void krill_init();
 __noinline void krill_done();
-__noinline char krill_load_core(char cr);
+__noinline void krill_load_core();
 
 // Globals
-extern char krill_filename[16];
-extern char krill_filelo, krill_filehi, krill_startlo, krill_starthi;
+struct KRILLZP
+{
+    volatile word loadaddr;             // Load address $f5-$f6
+    volatile word endaddr;              // Returnd end address of load $f7-$f8
+};
+#define krillzp (*((struct KRILLZP *)KRILL_ZPSTART))
+
+struct KRILLVARS
+{
+    char filename[16];
+    unsigned loadaddr;
+    char cr;
+    char oldcr;
+    char error;
+};
+extern volatile struct KRILLVARS krillvar;
 
 #pragma compile("krill.c")
 

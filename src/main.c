@@ -115,7 +115,7 @@ THE PROGRAMS ARE DISTRIBUTED IN THE HOPE THAT THEY WILL BE USEFUL, BUT WITHOUT A
 // Set zeropage range to use for C compiler
 // Krill loader uses eb-fc
 // SID file uses fd-fe
-#pragma region( zeropage, 0x80, 0xea, , , {} )
+#pragma region( zeropage, 0x80, 0xf4, , , {} )
 
 struct SCREENSettings
 {
