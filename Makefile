@@ -18,6 +18,7 @@ else
   RMDIR = $(RM) -r
 endif
 
+# Tooling paths
 CC = /home/xahmol/oscar64/bin/oscar64
 
 # Application names
@@ -66,7 +67,7 @@ bootsect.bin: $(MAIN).prg
 
 loader-c128.prg:
 	cd krill/loader/; $(DEL) build/*.* 2>$(NULLDEV)
-	cd krill/loader/; make PLATFORM=c128 prg INSTALL=A000 RESIDENT=0b00 ZP=f8 PROJECT=
+	cd krill/loader/; make PLATFORM=c128 prg INSTALL=A000 RESIDENT=0b00 ZP=f5 PROJECT=
 	cd krill/loader/; $(RMDIR) build/intermediate 2>$(NULLDEV)
 	cd krill/loader/; $(DEL) build/transient*.* 2>$(NULLDEV)
 	cp krill/loader/build/*.prg build/krill

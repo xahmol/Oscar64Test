@@ -35,7 +35,7 @@ DECOMPRESSOR                    = DECOMPRESSORS::NONE; available are NONE, BITNA
 
 .define PREFER_SPEED_OVER_SIZE    0 ; For TSCrunch or ZX0, use a bigger but potentially faster decompression routine
 
-.define UNINSTALL_API             0 ; include an uninstallation routine
+.define UNINSTALL_API             1 ; include an uninstallation routine
 
 
 ; extended features, different settings can be run with the same installed drive code, increase host-side code size
@@ -74,7 +74,7 @@ DECOMPRESSOR                    = DECOMPRESSORS::NONE; available are NONE, BITNA
                                     ; the file's loading address can be found in loadaddrlo/loadaddrhi during and after loading, so polling the current
                                     ; difference of endaddrlo/hi and loadaddrlo/hi can be used to implement progress displays (take care for update race conditions).
 
-.define LOAD_VIA_KERNAL_FALLBACK  0 ; loads via the KERNAL API if drive code installation was not successful
+.define LOAD_VIA_KERNAL_FALLBACK  1 ; loads via the KERNAL API if drive code installation was not successful
                                     ; (i.e., if it cannot installed due to an incompatible drive - possible if it is not
                                     ; a 1541, 1541-C, 1541-II, 1541U, 1570, 1571, 1571CR, 1581, or FD2000/4000),
                                     ; or true drive emulation being disabled.

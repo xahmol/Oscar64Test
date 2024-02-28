@@ -68,17 +68,15 @@ void krill_loadcode()
 }
 
 char krill_load(char cr, const unsigned start, const char *fname)
-// Load a raw file with Krill's loader
+// Load a file with Krill's loader, decompress if needed
 {
-    char old_cr = mmu.cr;
-    char error = 0;
-    krill_filelo = (unsigned)krill_filename;
-    krill_filehi = ((unsigned)krill_filename) >> 8;
-    krill_startlo = start;
-    krill_starthi = start>>8;
-    strcpy(krill_filename,fname);
-    error = krill_load_core(cr);
-    return error;
+    krillvar.oldcr = mmu.cr;
+    krillvar.cr = cr;
+    krillvar.error = 0;
+    krillzp.loadaddr = start;
+    strcpy(krillvar.filename,fname);
+    krill_load_core();
+    return krillvar.error;
 }
 
 // Now switch code generation to low region
@@ -86,8 +84,7 @@ char krill_load(char cr, const unsigned start, const char *fname)
 #pragma data(bdata1)
 #pragma bss(bbss1)
 
-char krill_filename[16];
-char krill_filelo, krill_filehi, krill_startlo, krill_starthi, oldcr;
+volatile struct KRILLVARS krillvar;
 
 __asm krill_interrupt
 // Krill IRQ handler
@@ -101,14 +98,13 @@ __asm krill_interrupt
 void krill_init()
 // Initialise Krill's loader
 {
-    char error = 0;
     cia1.icr =0x7f;
     cia2.pra = 2;
 
-    error = krill_install();
-    if (error)
+    krillvar.error = krill_install();
+    if (krillvar.error)
     {
-        printf("error in installing. error code: %u.\n");
+        printf("error in installing. error code: %u.\n",krillvar.error);
         exit(1);
     }
 
@@ -135,30 +131,30 @@ void krill_done()
         lda #$fa
 		sta $315
 		cli
+        jsr KRILL_UNINSTA
     }
 }
 
-char krill_load_core(char cr)
-// Load a raw file with Krill's loader
+void krill_load_core()
+// Load a file with Krill's loader
 {
-    oldcr = mmu.cr;
-    mmu.cr = cr;
+    char filelo = (unsigned)krillvar.filename;
+    char filehi = ((unsigned)krillvar.filename) >> 8;
+    char error = 0;
+    mmu.cr = krillvar.cr;
     __asm
         {
-        lda krill_startlo
-        sta KRILL_LOAD_LO
-        lda krill_starthi
-        sta KRILL_LOAD_HI
-        ldx krill_filelo
-        ldy krill_filehi
+        ldx filelo
+        ldy filehi
         sec
         jsr KRILL_LOADRAW
         bcs krill_load_error
         lda #$00
 krill_load_error:
-        sta accu
+        sta error
          }
-    mmu.cr = oldcr;
+    krillvar.error = error;
+    mmu.cr = krillvar.oldcr;
 }
 
 #pragma code(code)

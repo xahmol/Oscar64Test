@@ -196,7 +196,7 @@ void bnk_writew(char cr, volatile unsigned *p, unsigned w)
 	mmu.cr = old;
 }
 
-void bnk_memcpy(char dcr, char *dp, char scr, volatile char *sp, unsigned size)
+void bnk_memcpy(char dcr, volatile char *dp, char scr, volatile char *sp, unsigned size)
 // Menory copy of size bytes from source bank/address to destination source/address
 {
 	char old = mmu.cr;
@@ -211,7 +211,7 @@ void bnk_memcpy(char dcr, char *dp, char scr, volatile char *sp, unsigned size)
 	mmu.cr = old;
 }
 
-void bnk_memset(char cr, char *p, char val, unsigned size)
+void bnk_memset(char cr, volatile char *p, char val, unsigned size)
 // Fill memory from bank/address with value, size is bytes to fill
 {
 	char old = mmu.cr;
