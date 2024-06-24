@@ -58,7 +58,7 @@ Code and resources from others used:
 -   Bart van Leeuwen: For inspiration and advice while coding. Also for providing the excellent Device Manager ROM to make testing on real hardware very easy
 
 -   Original windowing system code on Commodore 128 by unknown author.
-   
+
 -   Tested using real hardware (C128D and C128DCR) plus VICE.
 
 The code can be used freely as long as you retain a notice describing original source and author.
@@ -68,6 +68,13 @@ THE PROGRAMS ARE DISTRIBUTED IN THE HOPE THAT THEY WILL BE USEFUL, BUT WITHOUT A
 
 #ifndef BANKING_H
 #define BANKING_H
+
+// Defines for using Oscar64 fast load functions
+#define FLOSSIEC_BORDER = 1    // Enable border flashing while loading
+#define FLOSSIEC_NODISPLAY = 1 // Disable the display while loading
+#define FLOSSIEC_NOIRQ = 0     // Enable IRQ during load
+#define FLOSSIEC_CODE = bcode1 // Code segment to be used, when defined
+#define FLOSSIEC_BSS = bbss1  // BSS segment to be used, when defined
 
 // Defines for MMU modes, MMU $FF00 configuration values
 #define BNK_DEFAULT 0x0e

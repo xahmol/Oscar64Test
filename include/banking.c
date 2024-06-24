@@ -71,6 +71,9 @@ THE PROGRAMS ARE DISTRIBUTED IN THE HOPE THAT THEY WILL BE USEFUL, BUT WITHOUT A
 #include <conio.h>
 #include <petscii.h>
 #include <c64/kernalio.h>
+#if defined(FLOSSIEC)
+#include <c64/flossiec.h>
+#endif
 #include <c128/vdc.h>
 #include <c128/mmu.h>
 #include "c128/vdc.h"
@@ -136,6 +139,13 @@ void bnk_init()
 	// Load overlay in low memory
 	printf("loading low memory code.\n");
 	load_overlay("vdctestlmc");
+
+#if defined(FLOSSIEC)
+	// Initialize fast load drive code
+	printf("initialize fast load drive code.\n");
+	flosskio_init(bootdevice);
+#endif
+
 }
 
 void bnk_exit()
@@ -147,6 +157,10 @@ void bnk_exit()
 	// - bit 2-3:   %01 for bootom of RAM bank 0 is common
 	// - bit 7:     $0 for VIC RAM in bank 0
 	xmmu.rcr = 0x04;
+
+#if defined(FLOSSIEC)
+	flosskio_shutdown();
+#endif
 }
 
 // Now switch code generation to low region
