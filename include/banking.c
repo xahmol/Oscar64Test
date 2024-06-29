@@ -11,54 +11,54 @@ Code and resources from others used:
 
 -   Oscar64 cross compiler
 
-    https://github.com/drmortalwombat/oscar64
+	https://github.com/drmortalwombat/oscar64
 
-    Many thanks also to https://github.com/drmortalwombat to provide extrordinary support and tips for making this and adapting Oscar64 to my needs faster than I could ask it.
+	Many thanks also to https://github.com/drmortalwombat to provide extrordinary support and tips for making this and adapting Oscar64 to my needs faster than I could ask it.
 
 -   Screens used in the demo made with my own VDC Screen Editor.
 
-    https://github.com/xahmol/VDCScreenEdit
+	https://github.com/xahmol/VDCScreenEdit
 
 -   Commodore logo charset created using CharPad Pro.
 
-    https://subchristsoftware.itch.io/c64-pro-editions
+	https://subchristsoftware.itch.io/c64-pro-editions
 
 -   C128 Programmers Reference Guide: For the basic VDC register routines and VDC code inspiration
 
-    http://www.zimmers.net/anonftp/pub/cbm/manuals/c128/C128_Programmers_Reference_Guide.pdf
+	http://www.zimmers.net/anonftp/pub/cbm/manuals/c128/C128_Programmers_Reference_Guide.pdf
 
 -   Tokra: For the optimal VDC registry settings for 80x50 and 80x70 textmodes
 
 -   Scott Hutter - VDC Core functions inspiration:
 
-    https://github.com/Commodore64128/vdc_gui/blob/master/src/vdc_core.c
+	https://github.com/Commodore64128/vdc_gui/blob/master/src/vdc_core.c
 
-    (used as starting point)
+	(used as starting point)
 
 -   Scott Robison for teaching me how o create a C128 disk boot sector
 
 -   Francesco Sblendorio - Screen Utility: used for inspiration:
 
-    https://github.com/xlar54/ultimateii-dos-lib/blob/master/src/samples/screen_utility.c
+	https://github.com/xlar54/ultimateii-dos-lib/blob/master/src/samples/screen_utility.c
 
 -   DevDef: Commodore 128 Assembly - Part 3: The 80-column (8563) chip
 
-    https://devdef.blogspot.com/2018/03/commodore-128-assembly-part-3-80-column.html
+	https://devdef.blogspot.com/2018/03/commodore-128-assembly-part-3-80-column.html
 
 -   Tips and Tricks for C128: VDC
 
-    http://commodore128.mirkosoft.sk/vdc.html
+	http://commodore128.mirkosoft.sk/vdc.html
 
 -   Steve Goldsmith - C3L Commodore 128 CP/M C Library
 
-    https://github.com/sgjava/c3l
+	https://github.com/sgjava/c3l
 
-    (Used for inspiration and for the text wrap and random sentence generator functions)
+	(Used for inspiration and for the text wrap and random sentence generator functions)
 
 -   Bart van Leeuwen: For inspiration and advice while coding. Also for providing the excellent Device Manager ROM to make testing on real hardware very easy
 
 -   Original windowing system code on Commodore 128 by unknown author.
-   
+
 -   Tested using real hardware (C128D and C128DCR) plus VICE.
 
 The code can be used freely as long as you retain a notice describing original source and author.
@@ -143,9 +143,8 @@ void bnk_init()
 #if defined(FLOSSIEC)
 	// Initialize fast load drive code
 	printf("initialize fast load drive code.\n");
-	flosskio_init(bootdevice);
+	flossiec_init(bootdevice);
 #endif
-
 }
 
 void bnk_exit()
@@ -159,7 +158,7 @@ void bnk_exit()
 	xmmu.rcr = 0x04;
 
 #if defined(FLOSSIEC)
-	flosskio_shutdown();
+	flossiec_shutdown();
 #endif
 }
 
@@ -171,6 +170,9 @@ void bnk_exit()
 char sid_irq[2];
 char sid_oldcr;
 char sid_pause;
+#if defined(FLOSSIEC)
+struct floss_blk blks[FLOSSIEC_MAXFILES];
+#endif
 
 char bnk_readb(char cr, volatile char *p)
 // Function to read a byte from given address with specified banking config register value
@@ -316,19 +318,19 @@ __asm sid_interrupt
 	sta sid_oldcr
 	lda #BNK_1_IO
 	sta $ff00
-	
+
 	// Play frame
 	jsr $2003
-	
+
 	// Restore memory configuration
 	lda sid_oldcr
 	sta $ff00
 
 	// jump to old irq
 	lda sid_irq
-	sta sid_oldirq+1
-	lda sid_irq+1
-	sta sid_oldirq+2
+	sta sid_oldirq + 1
+	lda sid_irq + 1
+	sta sid_oldirq + 2
 sid_oldirq:
 	jmp $fa65
 }
@@ -372,7 +374,7 @@ void sid_resetsid()
 // Resets SID and silences presently played notes
 {
 	// Reset SID
-	__asm 
+	__asm
 	{
 		ldx #$18
         lda #$00
@@ -407,15 +409,15 @@ void sid_stopmusic()
 // Stops music and restores original IRQ vector
 {
 	// Restore IRQ vector
-	__asm 
-	{
+	__asm
+		{
 		sei 
 		ldx sid_irq
 		ldy sid_irq+1
 		stx $314
 		sty $315
 		cli
-	}
+		}
 	sid_resetsid();
 }
 
@@ -456,6 +458,39 @@ bool bnk_save(char device, char bank, const char *start, const char *end, const 
 	krnio_setnam(fname);
 	return krnio_save(device, start, end);
 }
+
+// Fast load helper routines
+#if defined(FLOSSIEC)
+bool fastload_mapdir(const char *fnames)
+// Map assets to fastload via a comma separated list of filenames.
+// File must be on the disk present at the same IEC devide ID as the bootdevice
+{
+	return flossiec_mapdir(fnames, blks);
+}
+
+bool fastload_load(char bank, const char *start, char fnumber)
+// Fastload a file
+{
+	char* dp = (char*)start;
+	char old = mmu.cr;
+	mmu.cr = bank;
+
+	if (!flossiec_open(blks[fnumber].track, blks[fnumber].sector))
+	{
+		return 0;
+	}
+
+	while (!flossiec_eof())
+	{
+		*dp++ = flossiec_get();
+	}
+
+	flossiec_close();
+
+	mmu.cr = old;
+	return (dp > start);
+}
+#endif
 
 #pragma code(code)
 #pragma data(data)

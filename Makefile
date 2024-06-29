@@ -33,6 +33,9 @@ VERSION = v$(VERSION_MAJOR)$(VERSION_MINOR)-$(VERSION_TIMESTAMP)
 # Common compile flags
 CFLAGS  = -i=include -tm=$(SYS) -O2 -dNOFLOAT -dVERSION="\"$(VERSION)\""
 
+# Fastload compile flag definitoons
+FLOSSIECFLAGS = -dFLOSSIEC -dFLOSSIEC_BORDER=1 -dFLOSSIEC_NODISPLAY=1 -dFLOSSIEC_NOIRQ=0 -dFLOSSIEC_CODE=bcode1 -dFLOSSIEC_BSS=bbss1
+
 # Sources
 MAINSRC = src/main.c
 
@@ -55,13 +58,14 @@ ASSETS = -write screen1.prg screen1 -write screen2.prg screen2 -write screen3.pr
 all: $(MAIN).prg bootsect.bin loader-c128.prg d64 d71 d81 $(ZIP)
 
 $(MAIN).prg: $(MAINSRC)
-	$(CC) $(CFLAGS) -dFLOSSIEC -n -o=build/flossiec/$(MAIN).prg $<
+	$(CC) $(CFLAGS) $(FLOSSIECFLAGS) -n -o=build/flossiec/$(MAIN).prg $<
 	$(CC) $(CFLAGS) -dKRILL -n -o=build/krill/$(MAIN).prg $<
 	$(CC) $(CFLAGS) -n -o=build/standard/$(MAIN).prg $<
 
 bootsect.bin: $(MAIN).prg
 	$(CC) -tf=bin -rt=src/bootsect.c -o=build/standard/bootsect.bin
 	cp build/standard/bootsect.bin build/krill
+	cp build/standard/bootsect.bin build/flossiec
 	cp assets/screen*.prg build/standard
 	cp assets/music*.prg build/standard
 	cp assets/chars*.prg build/standard
@@ -90,11 +94,11 @@ d64:	bootsect.bin loader-c128.prg
 	c1541 -cd build/standard -attach $(MAIN)-stnd.d64 -bpoke 18 0 4 $14 %11111110
 	c1541 -cd build/standard -attach $(MAIN)-stnd.d64 -bam 1 1
 	c1541 -cd build/standard -attach $(MAIN)-stnd.d64 $(PRGLIST) $(ASSETS)
-	c1541 -cd build/flossiec -format "$(MAIN),xm" d64 $(MAIN)-fload.d64
-	c1541 -cd build/flossiec -attach $(MAIN)-fload.d64 -bwrite bootsect.bin 1 0
-	c1541 -cd build/flossiec -attach $(MAIN)-fload.d64 -bpoke 18 0 4 $14 %11111110
-	c1541 -cd build/flossiec -attach $(MAIN)-fload.d64 -bam 1 1
-	c1541 -cd build/flossiec -attach $(MAIN)-fload.d64 $(PRGLIST) $(ASSETS)
+	c1541 -cd build/flossiec -format "$(MAIN),xm" d64 $(MAIN)-fl.d64
+	c1541 -cd build/flossiec -attach $(MAIN)-fl.d64 -bwrite bootsect.bin 1 0
+	c1541 -cd build/flossiec -attach $(MAIN)-fl.d64 -bpoke 18 0 4 $14 %11111110
+	c1541 -cd build/flossiec -attach $(MAIN)-fl.d64 -bam 1 1
+	c1541 -cd build/flossiec -attach $(MAIN)-fl.d64 $(PRGLIST) $(ASSETS)
 
 
 d71:	bootsect.bin
@@ -108,11 +112,11 @@ d71:	bootsect.bin
 	c1541 -cd build/standard -attach $(MAIN)-stnd.d71 -bpoke 18 0 4 $14 %11111110
 	c1541 -cd build/standard -attach $(MAIN)-stnd.d71 -bam 1 1
 	c1541 -cd build/standard -attach $(MAIN)-stnd.d71 $(PRGLIST) $(ASSETS)
-	c1541 -cd build/flossiec -format "$(MAIN),xm" d71 $(MAIN)-fload.d71
-	c1541 -cd build/flossiec -attach $(MAIN)-fload.d71 -bwrite bootsect.bin 1 0
-	c1541 -cd build/flossiec -attach $(MAIN)-fload.d71 -bpoke 18 0 4 $14 %11111110
-	c1541 -cd build/flossiec -attach $(MAIN)-fload.d71 -bam 1 1
-	c1541 -cd build/flossiec -attach $(MAIN)-fload.d71 $(PRGLIST) $(ASSETS)
+	c1541 -cd build/flossiec -format "$(MAIN),xm" d71 $(MAIN)-fl.d71
+	c1541 -cd build/flossiec -attach $(MAIN)-fl.d71 -bwrite bootsect.bin 1 0
+	c1541 -cd build/flossiec -attach $(MAIN)-fl.d71 -bpoke 18 0 4 $14 %11111110
+	c1541 -cd build/flossiec -attach $(MAIN)-fl.d71 -bam 1 1
+	c1541 -cd build/flossiec -attach $(MAIN)-fl.d71 $(PRGLIST) $(ASSETS)
 
 d81:	bootsect.bin
 	c1541 -cd build/krill -format "$(MAIN),xm" d81 $(MAIN)-krill.d81
@@ -125,11 +129,11 @@ d81:	bootsect.bin
 	c1541 -cd build/standard -attach $(MAIN)-stnd.d81 -bpoke 40 1 16 $27 %11111110
 	c1541 -cd build/standard -attach $(MAIN)-stnd.d81 -bam 1 1
 	c1541 -cd build/standard -attach $(MAIN)-stnd.d81 $(PRGLIST) $(ASSETS)
-	c1541 -cd build/flossiec -format "$(MAIN),xm" d81 $(MAIN)-fload.d81
-	c1541 -cd build/flossiec -attach $(MAIN)-fload.d81 -bwrite bootsect.bin 1 0
-	c1541 -cd build/flossiec -attach $(MAIN)-fload.d81 -bpoke 40 1 16 $27 %11111110
-	c1541 -cd build/flossiec -attach $(MAIN)-fload.d81 -bam 1 1
-	c1541 -cd build/flossiec -attach $(MAIN)-fload.d81 $(PRGLIST) $(ASSETS)
+	c1541 -cd build/flossiec -format "$(MAIN),xm" d81 $(MAIN)-fl.d81
+	c1541 -cd build/flossiec -attach $(MAIN)-fl.d81 -bwrite bootsect.bin 1 0
+	c1541 -cd build/flossiec -attach $(MAIN)-fl.d81 -bpoke 40 1 16 $27 %11111110
+	c1541 -cd build/flossiec -attach $(MAIN)-fl.d81 -bam 1 1
+	c1541 -cd build/flossiec -attach $(MAIN)-fl.d81 $(PRGLIST) $(ASSETS)
 
 # Creating ZIP file for distribution
 $(ZIP):

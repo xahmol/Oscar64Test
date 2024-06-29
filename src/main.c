@@ -35,7 +35,7 @@ Code and resources from others used:
 
 -   Krill's Loader, Repository Version 194, by Krill / Plush.
 
-    https://csdb.dk/release/?id=226124
+	https://csdb.dk/release/?id=226124
 
 -   Screens used in the demo made with my own VDC Screen Editor.
 
@@ -546,6 +546,11 @@ int main(void)
 	krill_loadcode();
 #endif
 
+#if defined(FLOSSIEC)
+	// Map asset filenames
+	fastload_mapdir("screem1,screen2,screen3,chars1,chars2,music1,music2");
+#endif
+
 	// Init screen and banking functions, start with default 80x25 text mode
 	vdc_init(VDC_TEXT_80x25_PAL, 1);
 #if defined(KRILL)
@@ -561,7 +566,11 @@ int main(void)
 #if defined(KRILL)
 	if (krill_load(BNK_1_IO, MEM_SCREEN, "screen2"))
 #else
+#if defined(FLOSSIEC)
+	if (fastload_load(BNK_1_IO, (char *)MEM_SCREEN, 1))
+#else
 	if (!bnk_load(bootdevice, 1, (char *)MEM_SCREEN, "screen2"))
+#endif
 #endif
 	{
 		menu_fileerrormessage();
@@ -571,7 +580,11 @@ int main(void)
 #if defined(KRILL)
 	if (krill_load(BNK_1_IO, MEM_SID, "music1"))
 #else
+#if defined(FLOSSIEC)
+	if (fastload_load(BNK_1_IO, (char *)MEM_SID, 5))
+#else
 	if (!bnk_load(bootdevice, 1, (char *)MEM_SID, "music1"))
+#endif
 #endif
 	{
 		menu_fileerrormessage();

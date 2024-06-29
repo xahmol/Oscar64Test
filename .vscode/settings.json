@@ -13,6 +13,7 @@
         "vdc_core.h": "c",
         "peekpoke.h": "c",
         "defines.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "system_error": "c"
     }
 }

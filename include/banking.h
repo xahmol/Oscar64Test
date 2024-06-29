@@ -70,11 +70,7 @@ THE PROGRAMS ARE DISTRIBUTED IN THE HOPE THAT THEY WILL BE USEFUL, BUT WITHOUT A
 #define BANKING_H
 
 // Defines for using Oscar64 fast load functions
-#define FLOSSIEC_BORDER = 1    // Enable border flashing while loading
-#define FLOSSIEC_NODISPLAY = 1 // Disable the display while loading
-#define FLOSSIEC_NOIRQ = 0     // Enable IRQ during load
-#define FLOSSIEC_CODE = bcode1 // Code segment to be used, when defined
-#define FLOSSIEC_BSS = bbss1  // BSS segment to be used, when defined
+#define FLOSSIEC_MAXFILES 10 // Maximum files of assets to map for fast loading
 
 // Defines for MMU modes, MMU $FF00 configuration values
 #define BNK_DEFAULT 0x0e
@@ -116,6 +112,10 @@ __noinline void sid_startmusic();
 __noinline void sid_stopmusic();
 __noinline void sid_resetsid();
 __noinline void sid_pausemusic();
+
+// Fastload
+__noinline bool fastload_mapdir(const char * fnames);
+__noinline bool fastload_load(char bank, const char *start, char fnumber);
 
 // Global variables
 extern char bootdevice;
