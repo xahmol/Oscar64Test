@@ -90,8 +90,9 @@ __asm krill_interrupt
 // Krill IRQ handler
 {
 	jsr $c024
-    bcc $ff33
+    bcc krillirq
     jsr $f5f8
+krillirq:
     jmp $ff33
 }
 
