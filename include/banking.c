@@ -473,21 +473,21 @@ bool fastload_load(char bank, const char *start, char fnumber)
 {
 	char* dp = (char*)start;
 	char old = mmu.cr;
-	mmu.cr = bank;
 
 	if (!flossiec_open(blks[fnumber].track, blks[fnumber].sector))
 	{
 		return 0;
 	}
 
+	mmu.cr = bank;
 	while (!flossiec_eof())
 	{
 		*dp++ = flossiec_get();
 	}
+	mmu.cr = old;
 
 	flossiec_close();
 
-	mmu.cr = old;
 	return (dp > start);
 }
 #endif
