@@ -278,8 +278,10 @@ char screen_switch(char screen, char end, char fullscreen)
 	if (screen == 0 || screen == 2)
 	{
 #ifndef KRILL
+#ifndef FLOSSIEC
 		// Pause music
 		sid_pausemusic();
+#endif
 #endif
 
 		// Loads back logo screen
@@ -288,7 +290,11 @@ char screen_switch(char screen, char end, char fullscreen)
 #if defined(KRILL)
 			if (krill_load(BNK_1_IO, MEM_SCREEN, "screen2"))
 #else
+#if defined(FLOSSIEC)
+			if (fastload_load(BNK_1_IO, (char *)MEM_SCREEN, 1))
+#else
 			if (!bnk_load(bootdevice, 1, (char *)MEM_SCREEN, "screen2"))
+#endif
 #endif
 			{
 				menu_fileerrormessage();
@@ -304,7 +310,11 @@ char screen_switch(char screen, char end, char fullscreen)
 #if defined(KRILL)
 				if (krill_load(BNK_1_IO, MEM_SCREEN, "screen1"))
 #else
+#if defined(FLOSSIEC)
+				if (fastload_load(BNK_1_IO, (char *)MEM_SCREEN, 0))
+#else
 				if (!bnk_load(bootdevice, 1, (char *)MEM_SCREEN, "screen1"))
+#endif
 #endif
 				{
 					menu_fileerrormessage();
@@ -320,7 +330,11 @@ char screen_switch(char screen, char end, char fullscreen)
 #if defined(KRILL)
 				if (krill_load(BNK_1_IO, MEM_SCREEN, "screen3"))
 #else
+#if defined(FLOSSIEC)
+				if (fastload_load(BNK_1_IO, (char *)MEM_SCREEN, 2))
+#else
 				if (!bnk_load(bootdevice, 1, (char *)MEM_SCREEN, "screen3"))
+#endif
 #endif
 				{
 					menu_fileerrormessage();
@@ -330,7 +344,11 @@ char screen_switch(char screen, char end, char fullscreen)
 #if defined(KRILL)
 				if (krill_load(BNK_1_IO, MEM_CHARSET, "chars1"))
 #else
+#if defined(FLOSSIEC)
+				if (fastload_load(BNK_1_IO, (char *)MEM_CHARSET, 3))
+#else
 				if (!bnk_load(bootdevice, 1, (char *)MEM_CHARSET, "chars1"))
+#endif
 #endif
 				{
 					menu_fileerrormessage();
@@ -340,8 +358,10 @@ char screen_switch(char screen, char end, char fullscreen)
 		}
 
 #ifndef KRILL
+#ifndef FLOSSIEC
 		// Resume music
 		sid_pausemusic();
+#endif
 #endif
 	}
 
@@ -463,7 +483,11 @@ void scroll_bigfont()
 #if defined(KRILL)
 	if (krill_load(BNK_1_IO, MEM_CHARSET, "chars2"))
 #else
+#if defined(FLOSSIEC)
+	if (fastload_load(BNK_1_IO, (char *)MEM_CHARSET, 4))
+#else
 	if (!bnk_load(bootdevice, 1, (char *)MEM_CHARSET, "chars2"))
+#endif
 #endif
 	{
 		menu_fileerrormessage();
@@ -548,7 +572,7 @@ int main(void)
 
 #if defined(FLOSSIEC)
 	// Map asset filenames
-	fastload_mapdir("screem1,screen2,screen3,chars1,chars2,music1,music2");
+	fastload_mapdir("screen1,screen2,screen3,chars1,chars2,music1,music2");
 #endif
 
 	// Init screen and banking functions, start with default 80x25 text mode
@@ -661,7 +685,11 @@ int main(void)
 #if defined(KRILL)
 				if (krill_load(BNK_1_IO, MEM_SID, linebuffer))
 #else
+#if defined(FLOSSIEC)
+				if (fastload_load(BNK_1_IO, (char *)MEM_SID, 4+musicchoice))
+#else
 				if (!bnk_load(bootdevice, 1, (char *)MEM_SID, linebuffer))
+#endif
 #endif
 				{
 					menu_fileerrormessage();

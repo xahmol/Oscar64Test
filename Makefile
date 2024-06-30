@@ -112,11 +112,6 @@ d71:	bootsect.bin
 	c1541 -cd build/standard -attach $(MAIN)-stnd.d71 -bpoke 18 0 4 $14 %11111110
 	c1541 -cd build/standard -attach $(MAIN)-stnd.d71 -bam 1 1
 	c1541 -cd build/standard -attach $(MAIN)-stnd.d71 $(PRGLIST) $(ASSETS)
-	c1541 -cd build/flossiec -format "$(MAIN),xm" d71 $(MAIN)-fl.d71
-	c1541 -cd build/flossiec -attach $(MAIN)-fl.d71 -bwrite bootsect.bin 1 0
-	c1541 -cd build/flossiec -attach $(MAIN)-fl.d71 -bpoke 18 0 4 $14 %11111110
-	c1541 -cd build/flossiec -attach $(MAIN)-fl.d71 -bam 1 1
-	c1541 -cd build/flossiec -attach $(MAIN)-fl.d71 $(PRGLIST) $(ASSETS)
 
 d81:	bootsect.bin
 	c1541 -cd build/krill -format "$(MAIN),xm" d81 $(MAIN)-krill.d81
@@ -129,11 +124,6 @@ d81:	bootsect.bin
 	c1541 -cd build/standard -attach $(MAIN)-stnd.d81 -bpoke 40 1 16 $27 %11111110
 	c1541 -cd build/standard -attach $(MAIN)-stnd.d81 -bam 1 1
 	c1541 -cd build/standard -attach $(MAIN)-stnd.d81 $(PRGLIST) $(ASSETS)
-	c1541 -cd build/flossiec -format "$(MAIN),xm" d81 $(MAIN)-fl.d81
-	c1541 -cd build/flossiec -attach $(MAIN)-fl.d81 -bwrite bootsect.bin 1 0
-	c1541 -cd build/flossiec -attach $(MAIN)-fl.d81 -bpoke 40 1 16 $27 %11111110
-	c1541 -cd build/flossiec -attach $(MAIN)-fl.d81 -bam 1 1
-	c1541 -cd build/flossiec -attach $(MAIN)-fl.d81 $(PRGLIST) $(ASSETS)
 
 # Creating ZIP file for distribution
 $(ZIP):
@@ -147,8 +137,8 @@ clean:
 	$(DEL) krill/loader/build/*.* 2>$(NULLDEV)
 
 # To deploy software to UII+ enter make deploy. Obviously C128 needs to powered on with UII+ and USB drive connected.
-deploy: $(MAIN).d64 $(MAIN).d71 $(MAIN).d81
-	wput -u build/standard/*.prg build/standard/$(MAIN).d* build/flossiec/$(MAIN).d* build/krill/$(MAIN).d* $(ULTHOST)
+deploy:
+	wput -u build/standard/*.prg build/standard/$(MAIN)-stnd.d* build/flossiec/$(MAIN)-fl.d* build/krill/$(MAIN)-krill.d* $(ULTHOST)
 #	wput -u build/standard/*.prg build/standard/$(MAIN).d* build/flossiec/$(MAIN).d* build/krill/$(MAIN).d*  $(ULTHOST2)
 
 # To run software using VICE x128

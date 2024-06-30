@@ -94,6 +94,10 @@ THE PROGRAMS ARE DISTRIBUTED IN THE HOPE THAT THEY WILL BE USEFUL, BUT WITHOUT A
 
 char bootdevice;
 
+#if defined(FLOSSIEC)
+struct floss_blk blks[FLOSSIEC_MAXFILES];
+#endif
+
 char getcurrentdevice()
 // Return last used device number for IO operations. Default on 8 if still zero.
 {
@@ -162,6 +166,25 @@ void bnk_exit()
 #endif
 }
 
+#if defined(FLOSSIEC)
+bool fastload_mapdir(const char *fnames)
+// Map assets to fastload via a comma separated list of filenames.
+// File must be on the disk present at the same IEC devide ID as the bootdevice
+{
+	if(!flossiec_mapdir(fnames, blks))
+	{
+		printf("Mapping assets for fastloading failed!\n");
+		exit(1);
+	}
+
+	// Debug
+	//for(char i=0;i<7;i++)
+	//{
+	//	printf("file number %u: track %3u sector %3u\n",i,blks[i].track,blks[i].sector);
+	//}
+}
+#endif
+
 // Now switch code generation to low region
 #pragma code(bcode1)
 #pragma data(bdata1)
@@ -170,9 +193,6 @@ void bnk_exit()
 char sid_irq[2];
 char sid_oldcr;
 char sid_pause;
-#if defined(FLOSSIEC)
-struct floss_blk blks[FLOSSIEC_MAXFILES];
-#endif
 
 char bnk_readb(char cr, volatile char *p)
 // Function to read a byte from given address with specified banking config register value
@@ -461,23 +481,22 @@ bool bnk_save(char device, char bank, const char *start, const char *end, const 
 
 // Fast load helper routines
 #if defined(FLOSSIEC)
-bool fastload_mapdir(const char *fnames)
-// Map assets to fastload via a comma separated list of filenames.
-// File must be on the disk present at the same IEC devide ID as the bootdevice
-{
-	return flossiec_mapdir(fnames, blks);
-}
-
 bool fastload_load(char bank, const char *start, char fnumber)
 // Fastload a file
 {
 	char* dp = (char*)start;
 	char old = mmu.cr;
 
+	fastmode(0);
+
 	if (!flossiec_open(blks[fnumber].track, blks[fnumber].sector))
 	{
 		return 0;
 	}
+
+	// Skip first two bytes that are the load address
+	flossiec_get();
+	flossiec_get();
 
 	mmu.cr = bank;
 	while (!flossiec_eof())
@@ -488,7 +507,9 @@ bool fastload_load(char bank, const char *start, char fnumber)
 
 	flossiec_close();
 
-	return (dp > start);
+	fastmode(1);
+
+	return (dp == start);
 }
 #endif
 
