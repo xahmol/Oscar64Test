@@ -58,7 +58,7 @@ Code and resources from others used:
 -   Bart van Leeuwen: For inspiration and advice while coding. Also for providing the excellent Device Manager ROM to make testing on real hardware very easy
 
 -   Original windowing system code on Commodore 128 by unknown author.
-   
+
 -   Tested using real hardware (C128D and C128DCR) plus VICE.
 
 The code can be used freely as long as you retain a notice describing original source and author.
@@ -68,6 +68,9 @@ THE PROGRAMS ARE DISTRIBUTED IN THE HOPE THAT THEY WILL BE USEFUL, BUT WITHOUT A
 
 #ifndef BANKING_H
 #define BANKING_H
+
+// Defines for using Oscar64 fast load functions
+#define FLOSSIEC_MAXFILES 10 // Maximum files of assets to map for fast loading
 
 // Defines for MMU modes, MMU $FF00 configuration values
 #define BNK_DEFAULT 0x0e
@@ -109,6 +112,10 @@ __noinline void sid_startmusic();
 __noinline void sid_stopmusic();
 __noinline void sid_resetsid();
 __noinline void sid_pausemusic();
+
+// Fastload
+__noinline bool fastload_mapdir(const char * fnames);
+__noinline bool fastload_load(char bank, const char *start, char fnumber);
 
 // Global variables
 extern char bootdevice;
